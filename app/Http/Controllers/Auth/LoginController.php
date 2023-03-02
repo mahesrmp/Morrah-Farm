@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -36,5 +38,22 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function authenticated(Request $request, $user)
+    {
+        if ($user->role == 'manager') {
+            return redirect()->route('manager.beranda');
+        } elseif ($user->role == 'produksi') {
+            return redirect()->route('produksi.beranda');
+        } elseif ($user->role == 'peternak'){
+            return redirect()->route('peternak.beranda');
+        } elseif ($user->role == 'pembeli') {
+            return redirect()->route('pembeli.beranda');
+        } else {
+            Auth::user()->logout();
+            flash('Anda tidak memiliki hak akses')->error();
+            return redirect()->route('login');
+        }
     }
 }

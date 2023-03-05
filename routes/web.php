@@ -18,44 +18,49 @@ use Illuminate\Support\Facades\Auth;
 |
  */
 
-
- Route::prefix('manager')->middleware(['auth', 'auth.manager'])->group(function () {
-    //ini route khusus untuk Manager
-
-    Route::get('beranda', [BerandaManagerController::class, 'index'])->name('manager.beranda');
-    Route::resource('user', UserController::class);
-});
-
-
-Route::prefix('produksi')->middleware(['auth', 'auth.produksi'])->group(function () {
-    //ini route khusus untuk produksi
-
-    Route::get('beranda', [BerandaProduksiController::class, 'index'])->name('produksi.beranda');
-});
-
-
-Route::prefix('peternak')->middleware(['auth', 'auth.peternak'])->group(function () {
-    //ini route khusus untuk peternak
-    Route::get('beranda', [BerandaPeternakController::class, 'index'])->name('peternak.beranda');
-});
-
-Route::prefix('pembeli')->middleware(['auth', 'auth.pembeli'])->group(function () {
-    //ini route khusus untuk pembeli
-    Route::get('beranda', [BerandaPembeliController::class, 'index'])->name('pembeli.beranda');
-});
-
-
-Route::get('logout', function () {
-    Auth::logout();
-});
+Route::group(['middleware' => 'prevent-back-history'], function () {
 
 
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+    Route::prefix('manager')->middleware(['auth', 'auth.manager'])->group(function () {
+        //ini route khusus untuk Manager
 
-Auth::routes();
+        Route::get('beranda', [BerandaManagerController::class, 'index'])->name('manager.beranda');
+        Route::resource('user', UserController::class);
+    });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+    Route::prefix('produksi')->middleware(['auth', 'auth.produksi'])->group(function () {
+        //ini route khusus untuk produksi
+
+        Route::get('beranda', [BerandaProduksiController::class, 'index'])->name('produksi.beranda');
+    });
+
+
+    Route::prefix('peternak')->middleware(['auth', 'auth.peternak'])->group(function () {
+        //ini route khusus untuk peternak
+        Route::get('beranda', [BerandaPeternakController::class, 'index'])->name('peternak.beranda');
+    });
+
+    Route::prefix('pembeli')->middleware(['auth', 'auth.pembeli'])->group(function () {
+        //ini route khusus untuk pembeli
+        Route::get('beranda', [BerandaPembeliController::class, 'index'])->name('pembeli.beranda');
+    });
+
+
+    Route::get('logout', function () {
+        Auth::logout();
+    });
+
+
+
+
+    Route::get('/', function () {
+        return view('welcome');
+    });
+
+    Auth::routes();
+
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+}); //prevent-back-history

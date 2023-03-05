@@ -68,5 +68,6 @@ class Kernel extends HttpKernel
         'auth.produksi' => \App\Http\Middleware\Produksi::class,
         'auth.peternak' => \App\Http\Middleware\Peternak::class,
         'auth.pembeli' => \App\Http\Middleware\Pembeli::class,
+        'prevent-back-history' => \App\Http\Middleware\PreventBackHistory::class,
     ];
 }

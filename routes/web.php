@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Auth;
     //ini route khusus untuk Manager
 
     Route::get('beranda', [BerandaManagerController::class, 'index'])->name('manager.beranda');
+    Route::resource('user', UserController::class);
 });
 
 

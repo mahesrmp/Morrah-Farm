@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BerandaManagerController;
 use App\Http\Controllers\BerandaPembeliController;
 use App\Http\Controllers\BerandaPeternakController;
@@ -49,10 +50,10 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     });
 
 
-    Route::get('logout', function () {
-        Auth::logout();
-    });
-
+    // Route::get('logout', function () {
+    //     Auth::logout();
+    // });
+Route::get('logout', [LoginController::class, 'logout']);
 
 
 

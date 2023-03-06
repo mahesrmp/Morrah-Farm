@@ -46,7 +46,7 @@ class LoginController extends Controller
             return redirect()->route('manager.beranda');
         } elseif ($user->role == 'produksi') {
             return redirect()->route('produksi.beranda');
-        } elseif ($user->role == 'peternak'){
+        } elseif ($user->role == 'peternak') {
             return redirect()->route('peternak.beranda');
         } elseif ($user->role == 'pembeli') {
             return redirect()->route('pembeli.beranda');
@@ -55,5 +55,16 @@ class LoginController extends Controller
             flash('Anda tidak memiliki hak akses')->error();
             return redirect()->route('login');
         }
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/');
     }
 }

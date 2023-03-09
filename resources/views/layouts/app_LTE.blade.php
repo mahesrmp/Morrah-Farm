@@ -226,6 +226,16 @@
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('produk.index') }}"
+                                class="nav-link {{ \Route::is('user.index') ? 'active' : '' }}">
+                                <i class="fa-solid fa-users"></i>
+                                <p>
+                                    Produk
+
+                                </p>
+                            </a>
+                        </li>
 
                         <li class="nav-item">
                             <a href="{{ route('user.index') }}"

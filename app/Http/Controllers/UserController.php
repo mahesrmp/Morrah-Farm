@@ -12,7 +12,7 @@ class UserController extends Controller
     private $viewIndex = 'user_index';
     private $viewCreate = 'user_form';
     private $viewEdit = 'user_form';
-    private $viewShow = 'user_form';
+    private $viewShow = 'user_show';
     private $routePrefix = 'user';
 
     /**
@@ -22,7 +22,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('manager.user_index', [
+        return view('manager.' . $this->viewIndex, [
             'models' => Model::where('role', '<>', 'pembeli')
             ->latest()
             ->paginate(30)
@@ -89,14 +89,14 @@ class UserController extends Controller
     public function edit($id)
     {
         $data = [
-            'model'     => \App\Models\User::findOrFail($id),
+            'model'     => Model::findOrFail($id),
             'method'    => 'PUT',
-            'route'     => ['user.update', $id],
+            'route'     => [$this->routePrefix . '.update', $id],
             'button'    => 'UPDATE',
             'title'     => 'Update Data Pegawai'
         ];
 
-        return view('manager.user_form', $data);
+        return view('manager.' . $this->viewEdit, $data);
     }
 
     /**
@@ -135,7 +135,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         $model = Model::findOrFail($id);
-        if($model->email == 'saragihyudi03@gmail.com'){
+        if($model->email == 'manager@gmail.com'){
             Alert::error('Tidak Boleh Menghapus Akun ini!');
             return back();  
         }

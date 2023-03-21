@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use \App\Models\Produk as Model;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -20,10 +21,13 @@ class ProdukController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $produks = Model::paginate(20);
         return view('manager.' . $this->viewIndex, [
-            'title' => 'Produk'
+            'produks' => $produks,
+            'routePrefix'   => $this->routePrefix,
+            'title'         => 'Produk Morrah Farm'
         ]);
     }
 
@@ -47,6 +51,7 @@ class ProdukController extends Controller
     {
         //
     }
+    
 
     /**
      * Display the specified resource.

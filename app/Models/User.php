@@ -9,9 +9,11 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+
+class User extends Authenticatable 
 {
     use HasApiTokens, HasFactory, Notifiable;
+    protected $date = ['created_at'];
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +23,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'email_verified_at',
         'role',
         'nohp',
         'nohp_verified_at',
@@ -48,5 +51,9 @@ class User extends Authenticatable
 
     public function logout(){
         return redirect('/login');
+    }
+
+    public function pesanan(){
+        return $this->hasMany('App\Pesanan','user_id', 'id');
     }
 }

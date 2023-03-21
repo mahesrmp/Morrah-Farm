@@ -124,10 +124,7 @@
                             </div>
 
                             <div class="size-209 p-r-18 p-r-0-sm w-full-ssm">
-                                <p class="stext-111 cl6 p-t-2">
-                                    There are no shipping methods available. Please double check your address, or contact us
-                                    if you need any help.
-                                </p>
+                                
 
                                 <div class="p-t-15">
                                     <span class="stext-112 cl8">

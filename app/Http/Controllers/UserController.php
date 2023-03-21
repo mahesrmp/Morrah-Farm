@@ -25,7 +25,8 @@ class UserController extends Controller
         return view('manager.' . $this->viewIndex, [
             'models' => Model::where('role', '<>', 'pembeli')
             ->latest()
-            ->paginate(30)
+            ->paginate(30),
+            'title' => 'Data Karyawan'
         ]);
     }
 

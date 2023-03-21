@@ -6,7 +6,9 @@ use App\Http\Controllers\BerandaPembeliController;
 use App\Http\Controllers\BerandaPeternakController;
 use App\Http\Controllers\BerandaProduksiController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PesananPembeliController;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,6 +31,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         //ini route khusus untuk Manager
 
         Route::get('beranda', [BerandaManagerController::class, 'index'])->name('manager.beranda');
+        Route::get('customer', [BerandaManagerController::class, 'customer'])->name('manager.customer');
         Route::resource('user', UserController::class);
         Route::resource('produk', ProdukController::class);
     });
@@ -55,6 +58,8 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::get('produk', [BerandaPembeliController::class, 'product'])->name('pembeli.produk');
     Route::get('keranjang', [BerandaPembeliController::class, 'cart'])->name('pembeli.keranjang');
     Route::get('blog', [BerandaPembeliController::class, 'blog'])->name('pembeli.blog');
+    Route::get('about', [BerandaPembeliController::class, 'about'])->name('pembeli.about');
+    Route::get('contact', [BerandaPembeliController::class, 'contact'])->name('pembeli.contact');
     
 
 
@@ -68,8 +73,8 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
 
 
     Route::get('/', function () {
-        return view('welcome', [
-            'title' => 'Selamat Datang'
+        return view('pembeli.beranda_index', [
+            'title' => 'Selamat Datang Ssayang'
         ]);
     });
 

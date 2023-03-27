@@ -17,7 +17,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->integer('user_id');
             $table->date('tanggal');
-            $table->integer('jlh_harga');
+            $table->integer('jumlah_harga');
             $table->timestamps();
         });
     }

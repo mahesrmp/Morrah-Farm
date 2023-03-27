@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreProdukRequest;
 use \App\Models\Produk as Model;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -38,7 +39,15 @@ class ProdukController extends Controller
      */
     public function create()
     {
-        //
+        $data = [
+            'model'     => new Model(),
+            'method'    => 'POST',
+            'route'     => $this->routePrefix .'.store',
+            'button'    => 'SIMPAN',
+            'title'     => 'Form tambah data pegawai',
+        ];
+
+        return view('manager.' . $this->viewCreate, $data);
     }
 
     /**
@@ -47,11 +56,26 @@ class ProdukController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProdukRequest $request)
     {
-        //
+        
+        $imageName = time() . '.' . $request->gambar->extension();
+
+        $request->gambar->move(public_path('images'), $imageName);
+
+        $produk = new Model([
+            'nama_produk' => $request->get('nama_produk'),
+            'gambar' => $imageName,
+            'harga' => $request->get('harga'),
+            'stok' => $request->get('stok'),
+            'keterangan' => $request->get('keterangan')
+        ]);
+
+        $produk->save();
+
+        return redirect()->route('produk.index')->with('success', 'Produk berhasil ditambahkan');
     }
-    
+
 
     /**
      * Display the specified resource.
@@ -61,7 +85,10 @@ class ProdukController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('manager.' . $this->viewShow, [
+            'model' => Model::findOrFail($id),
+            'title' => 'Detail Data Produk'
+        ]);
     }
 
     /**

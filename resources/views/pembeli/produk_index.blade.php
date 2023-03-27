@@ -14,10 +14,10 @@
                         <div class="block2">
                             <div class="block2-pic hov-img0">
                                 <img src="{{ url('productimage') }}/{{ $produk->gambar }}" alt="IMG-PRODUCT">
-                                <a href="#"
-								class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-								Quick View
-							</a>
+                                <a href="{{ url('detailproduk') }}/{{ $produk->id }}"
+                                    class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 ">
+                                    Detail
+                                </a>
                             </div>
                             <div class="block2-txt flex-w flex-t p-t-14">
                                 <div class="block2-txt-child1 flex-col-l ">
@@ -28,21 +28,13 @@
                                         Rp.{{ number_format($produk->harga) }}
                                     </span>
                                 </div>
-                                @if (Auth::user())
-                                    <div class="block2-txt-child2 flex-r p-t-3">
-                                        <a href="{{ route('pembeli.keranjang') }}"
-                                            class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-                                            <i class="zmdi zmdi-shopping-cart"></i>
-                                        </a>
-                                    </div>
-                                @else
-                                    <div class="block2-txt-child2 flex-r p-t-3">
-                                        <a href="{{ route('login') }}"
-                                            class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-                                            <i class="zmdi zmdi-shopping-cart"></i>
-                                        </a>
-                                    </div>
-                                @endif
+
+                                <div class="block2-txt-child2 flex-r p-t-3">
+                                    <a href="{{ url('detailproduk') }}/{{ $produk->id }}"
+                                        class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+                                        <i class="zmdi zmdi-shopping-cart"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -67,8 +59,7 @@
                                 <div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
 
                                 <div class="slick3 gallery-lb">
-                                    <div class="item-slick3" 
-                                    data-thumb="{{ url('productimage') }}/{{ $produk->gambar }}">
+                                    <div class="item-slick3" data-thumb="{{ url('productimage') }}/{{ $produk->gambar }}">
                                         <div class="wrap-pic-w pos-relative">
                                             <img src="assetuser/images/original.jpg" alt="IMG-PRODUCT">
 

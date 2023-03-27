@@ -35,12 +35,7 @@
                         </div>
 
 
-                        {{-- <div class="form-group">
-                        <label for="gambar">Gambar Produk</label>
-                        {!! Form::number('gambar', null, ['class' => 'form-control']) !!}
-                        <span class="text-danger">{{ $errors->first('gambar') }}</span>
-                    </div> --}}
-
+                
 
                         <label for="gambar">File input</label>
                         <div class="input-group">

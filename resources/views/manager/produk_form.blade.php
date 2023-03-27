@@ -6,14 +6,14 @@
             <div class="col-md-12">
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">{{ $title }}</h3>
+                        <h3 class="card-title">Form tambah data Produk</h3>
                     </div>
                     {!! Form::model($model, ['route' => $route, 'method' => $method, 'files' => true], ) !!}
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="nama_barang">Nama Barang</label>
-                            {!! Form::text('nama_barang', null, ['class' => 'form-control', 'autofocus']) !!}
-                            <span class="text-danger">{{ $errors->first('nama_barang') }}</span>
+                            <label for="nama_produk">Nama Barang</label>
+                            {!! Form::text('nama_produk', null, ['class' => 'form-control', 'autofocus']) !!}
+                            <span class="text-danger">{{ $errors->first('nama_produk') }}</span>
                         </div>
 
                         <div class="form-group">
@@ -38,7 +38,7 @@
                 
 
                         <label for="gambar">File input</label>
-                        <div class="input-group">
+                        <div >
                             <div class="custom-file">
                                 <input type="file" name="gambar" class="custom-file-input" id="exampleInputFile">
                                 <label class="custom-file-label" for="exampleInputFile">Choose file</label>

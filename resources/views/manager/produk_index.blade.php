@@ -26,7 +26,7 @@
                             <div class="card-body pt-0">
                                 <div class="row">
                                     <div class="col-7">
-                                        <h2 class="lead"><b>{{ $produk->nama_barang }}</b></h2>
+                                        <h2 class="lead"><b>{{ $produk->nama_produk }}</b></h2>
                                         <p class="text-muted text-sm"><b>Deskripsi: </b>{{ $produk->keterangan }}</p>
                                         <p class="text-muted text-sm"><b>Stok: </b>{{ $produk->stok }}</p>
                                         <p class="text-muted text-sm"><b>Harga: </b>{{ $produk->harga }}</p>

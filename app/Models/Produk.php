@@ -10,6 +10,17 @@ class Produk extends Model
 {
     use HasFactory; 
 
+    protected $fillable = [
+        'nama_produk',
+        'gambar',
+        'harga',
+        'stok',
+        'keterangan',
+        'updated_at',
+        'created_at'
+
+    ];
+
     public function pesanan_details(){
         return $this->hasMany('App\PesananDetails','produk_id', 'id');
     }

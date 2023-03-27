@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreProdukRequest;
 use \App\Models\Produk as Model;
+use App\Models\Produk;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class ProdukController extends Controller
@@ -57,22 +58,29 @@ class ProdukController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreProdukRequest $request)
-    {
-        
-        $imageName = time() . '.' . $request->gambar->extension();
-
-        $request->gambar->move(public_path('images'), $imageName);
-
-        $produk = new Model([
-            'nama_produk' => $request->get('nama_produk'),
-            'gambar' => $imageName,
-            'harga' => $request->get('harga'),
-            'stok' => $request->get('stok'),
-            'keterangan' => $request->get('keterangan')
+    public function store(Request $request)
+    {   
+        $request->validate([
+            'nama_produk' => 'required',
+            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'harga' => 'required|numeric',
+            'stok' => 'required|numeric',
+            'keterangan' => 'required'
         ]);
 
-        $produk->save();
+        $produks = Produk::create([
+            'nama_produk' => $request->nama_produk,
+            'gambar' => $request->gambar,
+            'harga' => $request->harga,
+            'stok' => $request->stok,
+            'keterangan' => $request->keterangan
+        ]);
+        
+        if($request->hasFile('gambar')) {
+            $request->file('gambar')->move('productimage',$request->file('gambar')->getClientOriginalName());
+            $produks->gambar = $request->file('gambar')->getClientOriginalName();
+            $produks->save();
+        }
 
         return redirect()->route('produk.index')->with('success', 'Produk berhasil ditambahkan');
     }

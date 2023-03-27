@@ -62,7 +62,7 @@
                 <div class="icon">
                     <i class="fas fa-user-plus" style="color:white"></i>
                 </div>
-                <a href="#" class="small-box-footer">
+                <a href="{{ route('manager.customer') }}" class="small-box-footer">
                     Lihat
                     <i class="fas fa-arrow-circle-right"></i>
                 </a>

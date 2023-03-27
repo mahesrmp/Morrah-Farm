@@ -41,9 +41,13 @@
                                     <a href="#" class="btn btn-sm bg-danger">
                                         <i class="fas fa-trash"></i>
                                     </a>
-                                    <a href="#" class="btn btn-sm btn-primary">
+                                    {{-- <a href="#" class="btn btn-sm btn-primary">
                                         <i class="fas fa-eye"></i>
-                                    </a>
+                                    </a> --}}
+
+                                    <a class="btn btn-primary btn-sm"
+                                                href="{{ route($routePrefix . '.show', $produk->id) }}">
+                                                <i class="fa-solid fa-eye"></i></a>
                                 </div>
                             </div>
                         </div>

@@ -7,6 +7,7 @@
     <title>Morrah Farm | {{ $title }}</title>
     <base href="/public">
     <!-- Google Font: Source Sans Pro -->
+    <link rel="icon" type="image/png" href="assetuser/images/logo2.png" />
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
@@ -226,7 +227,7 @@
                         <li class="nav-item">
                             <a href="{{ route('produk.index') }}"
                                 class="nav-link {{ \Route::is('produk.index') ? 'active' : '' }}">
-                                <i class="far fa-burger-soda"></i>
+                                <i class="fa fa-palette"></i>
                                 <p>
                                     Produk
 

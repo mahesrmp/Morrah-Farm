@@ -15,9 +15,15 @@
                             <div class="block2-pic hov-img0">
                                 <img src="{{ url('productimage') }}/{{ $produk->gambar }}" alt="IMG-PRODUCT">
                                 <a href="{{ url('detailproduk') }}/{{ $produk->id }}"
+<<<<<<< HEAD
 								class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
 								Detail
 							</a>
+=======
+                                    class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 ">
+                                    Detail
+                                </a>
+>>>>>>> 2fab68e812bd5ca54475b277786da22ebb438e48
                             </div>
                             <div class="block2-txt flex-w flex-t p-t-14">
                                 <div class="block2-txt-child1 flex-col-l ">
@@ -28,6 +34,7 @@
                                         Rp.{{ number_format($produk->harga) }}
                                     </span>
                                 </div>
+<<<<<<< HEAD
                                 
                                 @if (Auth::user())
                                     <div class="block2-txt-child2 flex-r p-t-3">
@@ -44,6 +51,15 @@
                                         </a>
                                     </div>
                                 @endif
+=======
+
+                                <div class="block2-txt-child2 flex-r p-t-3">
+                                    <a href="{{ url('detailproduk') }}/{{ $produk->id }}"
+                                        class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+                                        <i class="zmdi zmdi-shopping-cart"></i>
+                                    </a>
+                                </div>
+>>>>>>> 2fab68e812bd5ca54475b277786da22ebb438e48
                             </div>
                         </div>
                     </div>
@@ -68,8 +84,12 @@
                                 <div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
 
                                 <div class="slick3 gallery-lb">
+<<<<<<< HEAD
                                     <div class="item-slick3" 
                                     data-thumb="{{ url('productimage') }}/{ $produk->gambar }}">
+=======
+                                    <div class="item-slick3" data-thumb="{{ url('productimage') }}/{{ $produk->gambar }}">
+>>>>>>> 2fab68e812bd5ca54475b277786da22ebb438e48
                                         <div class="wrap-pic-w pos-relative">
                                             <img src="assetuser/images/original.jpg" alt="IMG-PRODUCT">
 

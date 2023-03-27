@@ -14,9 +14,9 @@
                         <div class="block2">
                             <div class="block2-pic hov-img0">
                                 <img src="{{ url('productimage') }}/{{ $produk->gambar }}" alt="IMG-PRODUCT">
-                                <a href="#"
+                                <a href="{{ url('detailproduk') }}/{{ $produk->id }}"
 								class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-								Quick View
+								Detail
 							</a>
                             </div>
                             <div class="block2-txt flex-w flex-t p-t-14">
@@ -28,6 +28,7 @@
                                         Rp.{{ number_format($produk->harga) }}
                                     </span>
                                 </div>
+                                
                                 @if (Auth::user())
                                     <div class="block2-txt-child2 flex-r p-t-3">
                                         <a href="{{ route('pembeli.keranjang') }}"
@@ -68,7 +69,7 @@
 
                                 <div class="slick3 gallery-lb">
                                     <div class="item-slick3" 
-                                    data-thumb="{{ url('productimage') }}/{{ $produk->gambar }}">
+                                    data-thumb="{{ url('productimage') }}/{ $produk->gambar }}">
                                         <div class="wrap-pic-w pos-relative">
                                             <img src="assetuser/images/original.jpg" alt="IMG-PRODUCT">
 

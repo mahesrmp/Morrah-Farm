@@ -29,6 +29,7 @@ class ProdukController extends Controller
             'routePrefix'   => $this->routePrefix,
             'title'         => 'Produk Morrah Farm'
         ]);
+        
     }
 
     /**

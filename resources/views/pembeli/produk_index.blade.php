@@ -77,12 +77,7 @@
                                 <div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
 
                                 <div class="slick3 gallery-lb">
-<<<<<<< HEAD
-                                    <div class="item-slick3" 
-                                    data-thumb="{{ url('productimage') }}/{ $produk->gambar }}">
-=======
                                     <div class="item-slick3" data-thumb="{{ url('productimage') }}/{{ $produk->gambar }}">
->>>>>>> 2fab68e812bd5ca54475b277786da22ebb438e48
                                         <div class="wrap-pic-w pos-relative">
                                             <img src="assetuser/images/original.jpg" alt="IMG-PRODUCT">
 

@@ -55,7 +55,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     //     Route::get('beranda', [BerandaPembeliController::class, 'index'])->name('pembeli.beranda');
     // });
 
-    Route::get('beranda', [BerandaPembeliController::class, 'index'])->name('pembeli.beranda');
+    Route::get('/beranda', [BerandaPembeliController::class, 'index'])->name('pembeli.beranda');
     Route::get('produk', [BerandaPembeliController::class, 'product'])->name('pembeli.produk');
     Route::get('detailproduk/{id}', [PesananPembeliController::class, 'index'])->name('pembeli.detailproduk');
     Route::post('pesan/{id}', [PesananPembeliController::class, 'pesan']);
@@ -66,7 +66,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
 
     Route::get('/email', [EmailController::class, 'kirim']);
     Route::get('/attach', [EmailController::class, 'attach']);
-    
+
 
 
 
@@ -84,7 +84,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         ]);
     });
 
-    Auth::routes(['verify' => true]);
+    Auth::routes();
 
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    // Route::get('/beranda', [BerandaPembeliController::class, 'index'])->name('pembeli.beranda');
 }); //prevent-back-history

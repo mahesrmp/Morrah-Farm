@@ -12,10 +12,71 @@
 
 namespace App\Models{
 /**
+ * App\Models\Peanan
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|Peanan newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Peanan newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Peanan query()
+ */
+	class Peanan extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\Pesanan
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property string $status
+ * @property string $tanggal
+ * @property int $jumlah_harga
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Pesanan newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Pesanan newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Pesanan query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Pesanan whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Pesanan whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Pesanan whereJumlahHarga($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Pesanan whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Pesanan whereTanggal($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Pesanan whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Pesanan whereUserId($value)
+ */
+	class Pesanan extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\PesananDetail
+ *
+ * @property int $id
+ * @property int $produk_id
+ * @property int $pesanan_id
+ * @property int $jumlah
+ * @property int $jumlah_harga
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|PesananDetail newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|PesananDetail newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|PesananDetail query()
+ * @method static \Illuminate\Database\Eloquent\Builder|PesananDetail whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PesananDetail whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PesananDetail whereJumlah($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PesananDetail whereJumlahHarga($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PesananDetail wherePesananId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PesananDetail whereProdukId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PesananDetail whereUpdatedAt($value)
+ */
+	class PesananDetail extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\Produk
  *
  * @property int $id
- * @property string $nama_barang
+ * @property string $nama_produk
  * @property string $gambar
  * @property int $harga
  * @property int $stok
@@ -30,7 +91,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Produk whereHarga($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Produk whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Produk whereKeterangan($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Produk whereNamaBarang($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Produk whereNamaProduk($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Produk whereStok($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Produk whereUpdatedAt($value)
  */

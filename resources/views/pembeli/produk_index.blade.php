@@ -1,15 +1,6 @@
 @extends('layouts.app_Coza')
 
 @section('content')
-<<<<<<< HEAD
-<div class="bg0 m-t-23 p-b-140">
-    <div class="container">
-        <div class="flex-w flex-sb-m p-b-52">
-            <div class="flex-w flex-l-m filter-tope-group m-tb-10"></div>
-            <div class="flex-w flex-c-m m-tb-10"></div>
-            <div class="dis-none panel-search w-full p-t-10 p-b-15"></div>
-            <div class="dis-none panel-filter w-full p-t-10"></div>
-=======
     <div class="bg0 m-t-25 p-b-140">
         <div class="container">
             <div class="flex-w flex-sb-m p-b-52">
@@ -67,7 +58,6 @@
                     </div>
                 @endforeach
             </div>
->>>>>>> 87c14890e675ca99b71d27e123f666a9e5d50699
         </div>
 
         <div class="row isotope-grid">

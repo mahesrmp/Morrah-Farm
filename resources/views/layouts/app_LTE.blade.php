@@ -345,7 +345,7 @@
             $('.select2').select2();
         });
     </script>
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
         $(function() {
             $(document).on('click', '#delete',
                 function(e) {
@@ -371,7 +371,7 @@
                     })
                 })
         })
-    </script>
+    </script> -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2/dist/sweetalert2.all.min.js"></script>

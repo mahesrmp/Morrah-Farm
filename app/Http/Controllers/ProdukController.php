@@ -130,6 +130,8 @@ class ProdukController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $produk = Produk::findOrFail($id);
+        $produk->delete();
+        return back();
     }
 }

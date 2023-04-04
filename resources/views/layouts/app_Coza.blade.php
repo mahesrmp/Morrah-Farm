@@ -197,7 +197,6 @@
                             <a href="#" class="flex-c-m trans-04 p-lr-25">
                                 My Account
                             </a>
-
                             <a href="{{ route('logout') }}" class="flex-c-m trans-04 p-lr-25">
                                 Log Out
                             </a>
@@ -209,7 +208,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="wrap-menu-desktop">
                 <nav class="limiter-menu-desktop container">
 
@@ -244,6 +242,9 @@
                         <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
                             <i class="zmdi zmdi-search"></i>
                         </div>
+
+                        @if (Auth::user())
+                        @endif
 
                         @if (Auth::user())
                             <a href="{{ route('pembeli.keranjang') }}"
@@ -286,8 +287,7 @@
         <div class="wrap-header-mobile">
             <!-- Logo moblie -->
             <div class="logo-mobile">
-                <a href="{{ route('pembeli.beranda') }}"><img src="assetuser/images/logo.png"
-                        alt="IMG-LOGO"></a>
+                <a href="{{ route('pembeli.beranda') }}"><img src="assetuser/images/logo.png" alt="IMG-LOGO"></a>
             </div>
 
             <!-- Icon header -->

@@ -38,9 +38,11 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         Route::resource('user', UserController::class);
         Route::resource('produk', ProdukController::class);
 
-        Route::get('/account', [AdminAkunSettingController::class, 'index'])->name('manager.account');
-        Route::get('/users/{id}/edit', [AdminAkunSettingController::class, 'edit'])->name('manager.edit');
-        Route::put('/users/{id}', [AdminAkunSettingController::class, 'update'])->name('manager.update');
+        // Route::get('/account', [AdminAkunSettingController::class, 'index'])->name('manager.account');
+        // Route::get('/users/{id}/edit', [AdminAkunSettingController::class, 'edit'])->name('manager.edit');
+        // Route::put('/users/{id}', [AdminAkunSettingController::class, 'update'])->name('manager.update');
+        Route::get('/akun-manager/{id}/edit', [AdminAkunSettingController::class, 'edit'])->name('akun-manager.edit');
+        Route::put('/akun-manager/{id}', [AdminAkunSettingController::class, 'update'])->name('akun-manager.update');
     });
 
 

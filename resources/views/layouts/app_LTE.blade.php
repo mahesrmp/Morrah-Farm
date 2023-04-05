@@ -152,7 +152,7 @@
                     
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right"> 
                         <div class="dropdown-divider"></div>
-                        <a href="{{ route('manager.account') }}" class="dropdown-item text-center">
+                        <a href="{{ route('akun-manager.edit', ['id' => Auth::user()->id]) }}" class="dropdown-item text-center">
                             <i class="fas fa-gear text-center"></i>Account Setting
                         </a>
                         <div class="dropdown-divider"></div>
@@ -300,6 +300,7 @@
 
     <!-- jQuery -->
     @include('sweetalert::alert')
+
 
     <script src="assets/plugins/jquery/jquery.min.js"></script>
     <!-- jQuery UI 1.11.4 -->

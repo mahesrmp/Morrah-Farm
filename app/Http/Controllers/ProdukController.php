@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use \App\Models\Produk as Model;
 use App\Models\Produk;
 use RealRashid\SweetAlert\Facades\Alert;
+use Redirect;
 
 class ProdukController extends Controller
 {
@@ -107,7 +108,15 @@ class ProdukController extends Controller
      */
     public function edit($id)
     {
-        //
+        $produks = [
+            'model'     => Model::findOrFail($id),
+            'method'    => 'PUT',
+            'route'     => [$this->routePrefix .'.update', $id,],
+            'button'    => 'UPDATE',
+            'title'     => 'Form Update data Produk',
+        ];
+
+        return view('manager.' . $this->viewEdit, $produks);
     }
 
     /**
@@ -119,7 +128,26 @@ class ProdukController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // dd($request->all());
+        $request->validate([
+            'nama_produk' => 'required',
+            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'harga' => 'required|numeric',
+            'stok' => 'required|numeric',
+            'keterangan' => 'required'
+        ]);
+
+        $product = Produk::where('id', $id)->first();
+        $product->nama_produk = $request->nama_produk;
+        $product->harga = $request->harga;
+        $product->stok = $request->stok;
+        $product->keterangan = $request->keterangan;
+        if($request->hasFile('gambar')) {
+            $request->file('gambar')->move('productimage',$request->file('gambar')->getClientOriginalName());
+            $product->gambar = $request->file('gambar')->getClientOriginalName();
+            $product->update();
+        }
+        return redirect()->route('produk.index')->with('success','Data Produk Berhasil di Ubah');
     }
 
     /**

@@ -149,10 +149,11 @@
                     <a class="nav-link" data-toggle="dropdown" href="#">
                         <i class="fas fa-gear"></i>
                     </a>
+                    
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right"> 
                         <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item text-center">
-                            <i class="fas fa-gear text-center"></i>Account Seting
+                        <a href="{{ route('manager.account') }}" class="dropdown-item text-center">
+                            <i class="fas fa-gear text-center"></i>Account Setting
                         </a>
                         <div class="dropdown-divider"></div>
                         <a href="{{ route('logout') }}" class="dropdown-item text-center">

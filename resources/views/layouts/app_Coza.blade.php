@@ -174,6 +174,79 @@
     <link rel="stylesheet" type="text/css" href="assetuser/css/util.css">
     <link rel="stylesheet" type="text/css" href="assetuser/css/main.css">
     <!--===============================================================================================-->
+    <style>
+        .account {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            position: absolute;
+            z-index: 1101;
+        }
+
+        .account li {
+            display: inline-block;
+            position: relative;
+        }
+
+        .account li a {
+            display: inline-block;
+            padding: 10px;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .account li a:hover {
+            background: #f5f5f5;
+        }
+
+        .account li a img {
+            vertical-align: middle;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .account li a span {
+            vertical-align: middle;
+        }
+
+        .account li ul {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
+            display: none;
+        }
+
+        .account li:hover ul {
+            display: block;
+        }
+
+        .account li ul li {
+            display: block;
+            margin: 5px 0;
+        }
+
+        .account li ul li a {
+            display: block;
+            padding: 5px;
+        }
+
+        .xMDeox {
+            position: relative;
+            flex-grow: 1;
+            width: 980px;
+            box-sizing: border-box;
+            margin-left: 1.6875rem;
+            min-width: 0;
+            background: #fff;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .13);
+            border-radius: 0.125rem;
+        }
+    </style>
 </head>
 
 <body class="animsition">
@@ -190,16 +263,29 @@
                     </div>
 
                     <div class="right-top-bar flex-w h-full">
-                        <a href="#" class="flex-c-m trans-04 p-lr-25">
-                            Help & FAQs
-                        </a>
                         @if (Auth::user())
-                            <a href="#" class="flex-c-m trans-04 p-lr-25">
-                                My Account
-                            </a>
-                            <a href="{{ route('logout') }}" class="flex-c-m trans-04 p-lr-25">
-                                Log Out
-                            </a>
+                            <div class="flex-c-m trans-04 p-lr-25">
+                                <ul class="account">
+                                    <li>
+                                        <div>
+                                            <img src="{{ Auth::user()->foto }}" alt="">
+                                            <span>{{ Auth::user()->name }}</span>
+                                            <i class="fa fa-angle-down"></i>
+                                        </div>
+                                        <ul>
+                                            <li><a href="{{ route('akun-pembeli.edit', ['id' => Auth::user()->id]) }}">Profile</a></li>
+                                            <li><a href="#">Settings</a></li>
+                                            <li><a href="{{ route('logout') }}" class="flex-c-m trans-04 p-lr-25">
+                                                    Log Out
+                                                </a></li>
+                                            <li><a href="#" class="flex-c-m trans-04 p-lr-25">
+                                                    Help & FAQs
+                                                </a></li>
+                                        </ul>
+                                    </li>
+
+                                </ul>
+                            </div>
                         @else
                             <a href="{{ route('login') }}" class="flex-c-m trans-04 p-lr-25">
                                 My Account
@@ -343,35 +429,37 @@
                 </li>
 
                 <li>
-                    <div class="right-top-bar flex-w h-full">
-                        <a href="#" class="flex-c-m p-lr-10 trans-04">
-                            Help & FAQs
-                        </a>
 
+                    @if (Auth::user())
+                        <div class="dropdown flex-c-m p-lr-10 trans-04">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="{{ Auth::user()->foto }}" alt="user foto">
+                                <span>{{ Auth::user()->name }}</span>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
-
-                        @if (Auth::user())
-                            <a href="#" class="flex-c-m p-lr-10 trans-04">
-                                My Account
-                            </a>
-                            <a href="{{ route('logout') }}"
+                                <a class="dropdown-item" href="#">Profile</a>
+                                <a class="dropdown-item" href="#">Settings</a>
+                                <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
+                                <a href="#" class="dropdown-item">Help & FAQs</a>
+                            </div>
+                        </div>
+                        {{-- <a href="{{ route('logout') }}"
                                 class="flex-c-m p-lr-10 trans-04 btn mr-1 btn-success btn-sm">
                                 Keluar
-                            </a>
-                        @else
-                            <a href="{{ route('login') }}"
-                                class="flex-c-m p-lr-10 trans-04 btn mr-1 btn-success btn-sm">
-                                Masuk
-                            </a>
+                            </a> --}}
+                    @else
+                        <a href="{{ route('login') }}" class="flex-c-m p-lr-10 trans-04 btn mr-1 btn-success btn-sm">
+                            Masuk
+                        </a>
 
-                            <a href="{{ route('register') }}"
-                                class="flex-c-m p-lr-10 trans-04 btn mr-1 btn btn-outline-success btn-sm">
-                                Daftar
-                            </a>
-                        @endif
+                        <a href="{{ route('register') }}"
+                            class="flex-c-m p-lr-10 trans-04 btn mr-1 btn btn-outline-success btn-sm">
+                            Daftar
+                        </a>
+                    @endif
 
-
-                    </div>
                 </li>
             </ul>
 

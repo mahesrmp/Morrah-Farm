@@ -160,6 +160,6 @@ class ProdukController extends Controller
     {
         $produk = Produk::findOrFail($id);
         $produk->delete();
-        return back();
+        return back()->with('success','Data Produk Berhasil dihapus');
     }
 }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 // use App\Models\AdminAkunSetting;
 
 class AdminAkunSettingController extends Controller
@@ -15,13 +17,6 @@ class AdminAkunSettingController extends Controller
      */
     public function index()
     {
-        // $users = User::whereHas('roles', function ($query) {
-        //     $query->where('name', 'admin');
-        // })->get();
-            $data = User::all();
-        return view('manager.account_setting', [
-            'title' => 'Edit Account'
-        ], compact(['data']));
     }
 
     /**
@@ -53,10 +48,6 @@ class AdminAkunSettingController extends Controller
      */
     public function show($id)
     {
-        // $data = User::find($role);
-        // return view('manager.account_setting', [
-        //     'title' => 'Edit Account'
-        // ], compact(['data']));
     }
 
     /**
@@ -67,7 +58,10 @@ class AdminAkunSettingController extends Controller
      */
     public function edit($id)
     {
-        return $id;
+        $manager = User::findOrFail(Auth::id());
+        return view('manager.account_setting', compact('manager'), [
+            'title' => 'Akun Manager'
+        ]);
     }
 
     /**
@@ -79,14 +73,39 @@ class AdminAkunSettingController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::find($id);
+        $request->validate([
+            'name' => 'required',
+            'alamat' => 'required',
+            'nohp' => 'required',
+            'email' => 'required',
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
 
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
+        $manager = User::findOrFail($id);
+        $manager->name = $request->input('name');
+        $manager->alamat = $request->input('alamat');
+        $manager->nohp = $request->input('nohp');
+        $manager->email = $request->input('email');
+        // $user->password = Hash::make($request->input('password'));
 
-        $user->save();
+        // Upload gambar
+        if ($request->hasFile('foto')) {
+            $request->file('foto')->move('profileFoto', $request->file('foto')->getClientOriginalName());
+            $manager->foto = $request->file('foto')->getClientOriginalName();
+            $manager->update();
+        }
 
-        return redirect()->route('users.edit', $user->id);
+        // cek apakah password dan password_confirmation sama
+        if ($request->filled('password')) {
+            if ($request->input('password') === $request->input('password_confirmation')) {
+                $manager->password = Hash::make($request->input('password'));
+            } else {
+                return redirect()->route('akun-manager.edit', $manager->id)->with('error', 'Password confirmation does not match');
+            }
+        }
+
+
+        return redirect()->route('akun-manager.edit', $manager->id)->with('success', 'Profile Manager Update successfully');
     }
 
     /**

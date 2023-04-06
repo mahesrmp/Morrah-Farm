@@ -268,7 +268,7 @@
                                 <ul class="account">
                                     <li>
                                         <div>
-                                            <img src="{{ Auth::user()->foto }}" alt="">
+                                            <img src="{{ asset('profileFoto/' . Auth::user()->foto) }}" class="img-circle elevation-2" width="20" alt="">
                                             <span>{{ Auth::user()->name }}</span>
                                             <i class="fa fa-angle-down"></i>
                                         </div>

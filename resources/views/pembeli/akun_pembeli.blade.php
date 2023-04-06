@@ -15,7 +15,7 @@
     </section>
 
     <div class="container mt-5">
-        <form action="{{ route('akun-pembeli.update', $user->id) }}" method="POST">
+        <form action="{{ route('akun-pembeli.update', $user->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
@@ -47,12 +47,7 @@
                 <tr>
                     <td>Foto Profil</td>
                     <td>
-                        @if ($user->photo)
-                            <img src="{{ route('user.photo', ['id' => $user->id]) }}" alt="Foto Profil" width="100">
-                        @else
-                            <span>Belum ada foto profil</span>
-                        @endif
-                        <input type="file" name="photo">
+                        <input type="file" name="foto">
                     </td>
                 </tr>
             </table>

@@ -17,7 +17,6 @@ class AdminAkunSettingController extends Controller
      */
     public function index()
     {
-
     }
 
     /**
@@ -49,7 +48,6 @@ class AdminAkunSettingController extends Controller
      */
     public function show($id)
     {
-
     }
 
     /**
@@ -75,12 +73,27 @@ class AdminAkunSettingController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'required',
+            'alamat' => 'required',
+            'nohp' => 'required',
+            'email' => 'required',
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
         $manager = User::findOrFail($id);
         $manager->name = $request->input('name');
         $manager->alamat = $request->input('alamat');
         $manager->nohp = $request->input('nohp');
         $manager->email = $request->input('email');
         // $user->password = Hash::make($request->input('password'));
+
+        // Upload gambar
+        if ($request->hasFile('foto')) {
+            $request->file('foto')->move('profileFoto', $request->file('foto')->getClientOriginalName());
+            $manager->foto = $request->file('foto')->getClientOriginalName();
+            $manager->update();
+        }
 
         // cek apakah password dan password_confirmation sama
         if ($request->filled('password')) {
@@ -91,15 +104,6 @@ class AdminAkunSettingController extends Controller
             }
         }
 
-        // mengunggah foto profil jika ada
-        if ($request->hasFile('foto')) {
-            $photo = $request->file('foto');
-            $filename = $photo->getClientOriginalName();
-            $image = file_get_contents($photo);
-            $manager->photo = $image;
-        }
-
-        $manager->save();
 
         return redirect()->route('akun-manager.edit', $manager->id)->with('success', 'Profile Manager Update successfully');
     }

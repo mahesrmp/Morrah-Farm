@@ -1,7 +1,6 @@
 @extends('layouts.app_Coza')
 
 @section('content')
-<<<<<<< HEAD
     <div class="container">
         <div class="flex-w flex-sb-m p-b-52">
             <div class="flex-w flex-l-m filter-tope-group m-tb-10"></div>
@@ -15,8 +14,6 @@
             Produk
         </h2>
     </section>
-=======
->>>>>>> 800baf57a34ebe5d7b8087d23d8109557657c798
     <div class="bg0 m-t-25 p-b-140">
         <div class="container">
             <div class="flex-w flex-sb-m p-b-52">

@@ -149,10 +149,11 @@
                     <a class="nav-link" data-toggle="dropdown" href="#">
                         <i class="fas fa-gear"></i>
                     </a>
-                    
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right"> 
+
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                         <div class="dropdown-divider"></div>
-                        <a href="{{ route('akun-manager.edit', ['id' => Auth::user()->id]) }}" class="dropdown-item text-center">
+                        <a href="{{ route('akun-manager.edit', ['id' => Auth::user()->id]) }}"
+                            class="dropdown-item text-center">
                             <i class="fas fa-gear text-center"></i>Account Setting
                         </a>
                         <div class="dropdown-divider"></div>
@@ -179,7 +180,8 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                        <img src="{{ asset('profileFoto/' . Auth::user()->foto) }}" class="img-circle elevation-2"
+                            alt="">
                     </div>
                     <div class="info">
                         <a class="d-block">{{ Auth::user()->name }}</a>
@@ -194,7 +196,7 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
+                with font-awesome or any other icon font library -->
 
                         <li class="nav-item">
                             <a href="{{ route('manager.beranda') }}"

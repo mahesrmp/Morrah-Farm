@@ -55,7 +55,7 @@ class AkunPembeliController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit($id)
     {
         $user = User::findOrFail(Auth::id());
         return view('pembeli.akun_pembeli', compact('user'), [
@@ -72,12 +72,28 @@ class AkunPembeliController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $request->validate([
+            'name' => 'required',
+            'alamat' => 'required',
+            'nohp' => 'required',
+            'email' => 'required',
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
         $user = User::findOrFail($id);
         $user->name = $request->input('name');
         $user->alamat = $request->input('alamat');
         $user->nohp = $request->input('nohp');
         $user->email = $request->input('email');
         // $user->password = Hash::make($request->input('password'));
+
+        // Upload gambar
+        if ($request->hasFile('foto')) {
+            $request->file('foto')->move('profileFoto', $request->file('foto')->getClientOriginalName());
+            $user->foto = $request->file('foto')->getClientOriginalName();
+            $user->update();
+        }
 
         // cek apakah password dan password_confirmation sama
         if ($request->filled('password')) {
@@ -88,17 +104,8 @@ class AkunPembeliController extends Controller
             }
         }
 
-        // mengunggah foto profil jika ada
-        if ($request->hasFile('foto')) {
-            $photo = $request->file('foto');
-            $filename = $photo->getClientOriginalName();
-            $image = file_get_contents($photo);
-            $user->photo = $image;
-        }
 
-        $user->save();
-
-        return redirect()->route('akun-pembeli.edit', $user->id)->with('success', 'User updated successfully');
+        return redirect()->route('akun-pembeli.edit', $user->id)->with('success', 'Profile Pembeli Update successfully');
     }
 
     /**

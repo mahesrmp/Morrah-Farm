@@ -35,15 +35,7 @@
                     <td>Foto Profil</td>
                     <td>
                         <div class="mb-3">
-                            <label for="image" class="form-label">Masukkan Foto</label>
-                            @if ($manager->photo)
-                            <img src="{{ route('user.photo', ['id' => $manager->id]) }}" class="img-preview img-fluid mb-3 col-sm-5">
-                            @else
-                            <img class="img-preview img-fluid mb-3 col-sm-5"> 
-                            @endif
-                            
-                            <input class="form-control" type="file" id="image" name="image"
-                                onchange="previewImage()">
+                            <input type="file" name="foto">
                         </div>
                         {{-- @if ($manager->photo)
                         <img src="{{ route('user.photo', ['id' => $manager->id]) }}" alt="Foto Profil" width="100">
@@ -61,20 +53,5 @@
         </form>
     </div>
 
-    <script>
-        //menampilkan preview foto 
-        function previewImage {
-            const image = document.querySelector('#image');
-            const imgPreview = document.querySelector('.img-preview');
 
-            imgPreview.style.display = 'block';
-
-            const oFReader = new FileReader();
-            oFReader.readAsDataURL(image.files[0]);
-
-            oFReader.onload = function(oFReader){
-                imgPreview.src = oFReader.target.result;
-            }
-        }
-    </script>
 @endsection

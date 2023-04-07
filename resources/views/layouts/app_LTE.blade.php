@@ -238,6 +238,16 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{ route('blog.manager') }}"
+                                class="nav-link {{ \Route::is('blog.manager') ? 'active' : '' }}">
+                                <i class="fa-brands fa-blogger"></i>
+                                <p>
+                                    Blog
+
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('logout') }}" class="nav-link">
 
                                 <i class=" nav-icon fa-solid fa-right-from-bracket"></i>

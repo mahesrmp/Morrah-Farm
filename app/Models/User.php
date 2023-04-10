@@ -60,4 +60,9 @@ class User extends Authenticatable
         return $this->hasMany('App\Pesanan','user_id', 'id');
     }
 
+    public function blogs()
+    {
+        return $this->hasMany(Blog::class);
+    }
+
 }

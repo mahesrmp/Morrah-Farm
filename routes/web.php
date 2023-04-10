@@ -14,6 +14,7 @@ use App\Http\Controllers\PesananPembeliController;
 use App\Http\Controllers\BerandaPeternakController;
 use App\Http\Controllers\BerandaProduksiController;
 use App\Http\Controllers\AdminAkunSettingController;
+use App\Http\Controllers\BlogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,12 +38,21 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         Route::get('customer', [BerandaManagerController::class, 'customer'])->name('manager.customer');
         Route::resource('user', UserController::class);
         Route::resource('produk', ProdukController::class);
-
-        // Route::get('/account', [AdminAkunSettingController::class, 'index'])->name('manager.account');
-        // Route::get('/users/{id}/edit', [AdminAkunSettingController::class, 'edit'])->name('manager.edit');
-        // Route::put('/users/{id}', [AdminAkunSettingController::class, 'update'])->name('manager.update');
         Route::get('/akun-manager/{id}/edit', [AdminAkunSettingController::class, 'edit'])->name('akun-manager.edit');
         Route::put('/akun-manager/{id}', [AdminAkunSettingController::class, 'update'])->name('akun-manager.update');
+
+        //BLOGS
+        Route::get('/blog', [BlogController::class, 'index'])->name('blog.manager');
+        Route::get('/blog/create', [BlogController::class, 'create'])->name('blog.create');
+        Route::post('/blog/post', [BlogController::class, 'store'])->name('blog.store');
+        // Route untuk menampilkan halaman edit blog
+        Route::get('/blog/edit/{id}', [BlogController::class, 'edit'])->name('blog.edit');
+
+        // Route untuk menghandle aksi update blog
+        Route::put('/blog/update/{id}', [BlogController::class, 'update'])->name('blog.update');
+
+        // Route untuk menghandle aksi hapus blog
+        Route::delete('/blog/delete/{id}', [BlogController::class, 'destroy'])->name('blog.delete');
     });
 
 

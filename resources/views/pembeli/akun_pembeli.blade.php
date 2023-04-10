@@ -8,94 +8,53 @@
             <div class="flex-w flex-c-m m-tb-10"></div>
         </div>
     </div>
-    <section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('assetuser/images/bg-01.jpg');">
-        <h2 class="ltext-105 cl0 txt-center">
-            Akun Pembeli
-        </h2>
-    </section>
 
-    <div class="container mt-5">
-        <form action="{{ route('akun-pembeli.update', $user->id) }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            @method('PUT')
-
-            <table border="1">
-                <tr>
-                    <td>Nama</td>
-                    <td><input type="text" name="name" value="{{ $user->name }}" /></td>
-                </tr>
-                <tr>
-                    <td>Alamat</td>
-                    <td><input type="text" name="alamat" value="{{ $user->alamat }}" /></td>
-                </tr>
-                <tr>
-                    <td>No Telepon</td>
-                    <td><input type="number" name="nohp" value="{{ $user->nohp }}" /></td>
-                </tr>
-                <tr>
-                    <td>Email</td>
-                    <td><input type="email" name="email" value="{{ $user->email }}" /></td>
-                </tr>
-                <tr>
-                    <td>Password</td>
-                    <td><input type="password" name="password" /></td>
-                </tr>
-                <tr>
-                    <td>Confirmasi Password</td>
-                    <td><input type="password" name="password_confirmation" /></td>
-                </tr>
-                <tr>
-                    <td>Foto Profil</td>
-                    <td>
+    <div class="container rounded bg-white mt-5 mb-5">
+    <form action="{{ route('akun-pembeli.update', $user->id) }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        @method('PUT')
+    <div class="row">
+        <div class="col-md-3 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                <img src="{{ asset('profileFoto/') }}/{{ $user->foto }}" alt="Profile-img" style="border-radius: 110%; width: 250px; height: 250px;">
+                    
+            </div>
+        </div>
+        <div class="col-md-5 border-right">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="text-right">Profile Settings</h4>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-12"><label class="labels">Nama</label>
+                        <input type="text" class="form-control" name="name" value="{{ $user->name }}" />
+                    </div>
+                    <div class="col-md-12"><label class="labels">Alamat</label>
+                        <input type="text" class="form-control" name="alamat" value="{{ $user->alamat }}">
+                    </div>
+                    <div class="col-md-12"><label class="labels">No Telepon</label>
+                        <input type="text" class="form-control"  name="nohp" value="{{ $user->nohp }}">
+                    </div>
+                    <div class="col-md-12"><label class="labels">Email</label>
+                        <input type="text" class="form-control" name="email" value="{{ $user->email }}">
+                    </div>
+                    <div class="col-md-12"><label class="labels">Password</label>
+                        <input type="password" class="form-control"  name="password" value="{{ $user->password }}">
+                    </div>
+                    <div class="col-md-12"><label class="labels">Konfirmasi Password</label>
+                        <input type="password" class="form-control" name="password_confirmation" value="{{ $user->password_confirmation }}" />
+                    </div>
+                    <div class="col-md-12"><label class="labels">Upload Foto </label>
                         <input type="file" name="foto">
-                    </td>
-                </tr>
-            </table>
-
-
-            <!-- Tombol submit untuk mengirim form -->
-            <button type="submit" class="btn-primary mt-3 mb-3">Update</button>
-        </form>
+                    </div>
+                </div>
+                <div class="mt-5 text-center"><button type="submit"  class="btn btn-primary profile-button" >Save Profile</button></div>
+            </div>
+        </div>
+        
     </div>
-    {{-- <form class="container">
-        <div class="form-group">
-            <label for="exampleInputEmail1">Nama</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                placeholder="Enter email">
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-        <div class="form-group">
-            <label for="exampleInputEmail1">Alamat</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                placeholder="Enter email">
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-        <div class="form-group">
-            <label for="exampleInputEmail1">No Telepon</label>
-            <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                placeholder="Enter email">
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-        <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                placeholder="Enter email">
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-        <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-        </div>
-        <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Check me out</label>
-        </div>
-        <div class="form-group">
-            <label for="exampleInputEmail1">Foto</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                placeholder="Enter email">
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form> --}}
-@endsection
+</div>
+</div>
+</form>
+</div>
+  

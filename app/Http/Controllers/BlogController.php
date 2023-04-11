@@ -49,11 +49,16 @@ class BlogController extends Controller
             // Anda bisa menambahkan validasi lain sesuai kebutuhan
         ]);
 
+        // Simpan file gambar ke dalam folder public
+        $gambar = $request->file('gambar');
+        $gambarName = time() . '.' . $gambar->getClientOriginalExtension(); // Nama file unik dengan timestamp
+        $gambar->move('blogFotos', $gambarName); // Menyimpan file gambar ke dalam folder public
+
         // Simpan data blog ke dalam database
-        Blog::create([
+        $blogs = Blog::create([
             'judul' => $request->judul,
             'isi' => $request->isi,
-            'gambar' => $request->gambar,
+            'gambar' => $gambarName,
             // Menyimpan foreign key (user_id) sesuai dengan pengguna yang sedang login
             'user_id' => auth()->user()->id
         ]);
@@ -97,25 +102,25 @@ class BlogController extends Controller
     public function update(Request $request, $id)
     {
         // Validasi inputan pengguna
-    $request->validate([
-        'judul' => 'required',
-        'isi' => 'required',
-        // Anda bisa menambahkan validasi lain sesuai kebutuhan
-    ]);
+        $request->validate([
+            'judul' => 'required',
+            'isi' => 'required',
+            // Anda bisa menambahkan validasi lain sesuai kebutuhan
+        ]);
 
-    // Cari blog berdasarkan ID
-    $blog = Blog::findOrFail($id);
+        // Cari blog berdasarkan ID
+        $blogs = Blog::findOrFail($id);
 
-    // Update data blog
-    $blog->update([
-        'judul' => $request->judul,
-        'isi' => $request->isi,
-        // Jika ada gambar yang diinputkan, update juga field gambar
-        'gambar' => $request->hasFile('gambar') ? $request->file('gambar')->store('public/blogFotos') : $blog->gambar,
-    ]);
+        // Update data blog
+        $blogs->update([
+            'judul' => $request->judul,
+            'isi' => $request->isi,
+            // Jika ada gambar yang diinputkan, update juga field gambar
+            'gambar' => $request->hasFile('gambar') ? $request->file('gambar')->store('blogFotos') : $blogs->gambar,
+        ]);
 
-    // Redirect ke halaman blog manager atau halaman lain yang diinginkan
-    return redirect()->route('blog.manager')->with('success', 'Data blog berhasil diperbarui!');
+        // Redirect ke halaman blog manager atau halaman lain yang diinginkan
+        return redirect()->route('blog.manager')->with('success', 'Data blog berhasil diperbarui!');
     }
 
     /**
@@ -128,14 +133,14 @@ class BlogController extends Controller
     {
         try {
             // Cari data yang ingin dihapus berdasarkan ID
-            $blog = Blog::find($id);
+            $blogs = Blog::find($id);
 
-            if (!$blog) {
+            if (!$blogs) {
                 throw new \Exception('Data not found');
             }
 
             // Hapus data
-            $blog->delete();
+            $blogs->delete();
 
             return redirect()->route('blog.manager')->with('success', 'Data blog berhasil didelete!');
         } catch (\Exception $e) {

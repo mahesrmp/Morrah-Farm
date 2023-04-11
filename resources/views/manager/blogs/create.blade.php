@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <h1>Tambah Data Blog</h1>
-        <form action="{{ route('blog.store') }}" method="post">
+        <form action="{{ route('blog.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="judul">Judul</label>

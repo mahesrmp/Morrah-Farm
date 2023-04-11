@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
 use App\Models\Produk;
 use Illuminate\Http\Request;
 
@@ -34,9 +35,10 @@ class BerandaPembeliController extends Controller
 
     /* ============== Khusus Blog ============== */
     public function blog(){
+        $blog = Blog::all();
         return view('pembeli.blog_index', [
-            'title' => 'Blog Morrah Farm'
-        ]);
+            'title' => "Blog Pembeli"
+        ], compact('blog'));
     }
 
 

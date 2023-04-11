@@ -30,7 +30,7 @@
                                 <div class="block2-pic hov-img0">
                                     <img src="{{ url('productimage') }}/{{ $produk->gambar }}" alt="IMG-PRODUCT">
                                     <a href="{{ url('detailproduk') }}/{{ $produk->id }}"
-                                        class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+                                        class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
                                         Detail
                                     </a>
                                     </a>
@@ -49,14 +49,14 @@
                                     @if (Auth::user())
                                         <div class="block2-txt-child2 flex-r p-t-3">
                                             <a href="{{ route('pembeli.keranjang') }}"
-                                                class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+                                                class="btn-addwish-b2 dis-block pos-relative">
                                                 <i class="zmdi zmdi-shopping-cart"></i>
                                             </a>
                                         </div>
                                     @else
                                         <div class="block2-txt-child2 flex-r p-t-3">
                                             <a href="{{ route('login') }}"
-                                                class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+                                                class="btn-addwish-b2 dis-block pos-relative">
                                                 <i class="zmdi zmdi-shopping-cart"></i>
                                             </a>
                                         </div>

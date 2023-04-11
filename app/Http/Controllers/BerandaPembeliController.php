@@ -35,10 +35,10 @@ class BerandaPembeliController extends Controller
 
     /* ============== Khusus Blog ============== */
     public function blog(){
-        $blog = Blog::all();
+        $blogs = Blog::all();
         return view('pembeli.blog_index', [
             'title' => "Blog Pembeli"
-        ], compact('blog'));
+        ], compact('blogs'));
     }
 
 

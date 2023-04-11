@@ -22,9 +22,8 @@
                             <div class="row">
                                 <div class="col-7">
                                     <h2 class="lead"><b>{{ $blog->judul }}</b></h2>
-                                    <h3>{{ $blog->isi }}</h3>
-                                    <p class="text-muted text-sm">{{ $blog->created_at }}</p>
-                                    <p class="text-muted text-sm">{{ $blog->user->name}}</p>
+                                    <p>{{ $blog->isi }}</p>
+                                    <p class="text-muted text-sm">{{ $blog->created_at }} <br> {{ $blog->user->name}}</p>
                                 </div>
                                 <div class="col-5 text-center">
                                     <img src="{{ url('blogFotos') }}/{{ $blog->gambar }}" alt="Blog-img" class="img img-fluid">

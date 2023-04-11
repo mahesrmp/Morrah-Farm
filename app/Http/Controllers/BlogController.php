@@ -55,7 +55,7 @@ class BlogController extends Controller
         $gambar->move('blogFotos', $gambarName); // Menyimpan file gambar ke dalam folder public
 
         // Simpan data blog ke dalam database
-        $blogs = Blog::create([
+        Blog::create([
             'judul' => $request->judul,
             'isi' => $request->isi,
             'gambar' => $gambarName,
@@ -110,14 +110,19 @@ class BlogController extends Controller
 
         // Cari blog berdasarkan ID
         $blogs = Blog::findOrFail($id);
+        $gambar = $request->file('gambar');
+        $gambarName = time() . '.' . $gambar->getClientOriginalExtension(); // Nama file unik dengan timestamp
+        $gambar->move('blogFotos', $gambarName); // Menyimpan file gambar ke dalam folder public
 
         // Update data blog
         $blogs->update([
             'judul' => $request->judul,
             'isi' => $request->isi,
             // Jika ada gambar yang diinputkan, update juga field gambar
-            'gambar' => $request->hasFile('gambar') ? $request->file('gambar')->store('blogFotos') : $blogs->gambar,
+            'gambar' => $gambarName,
         ]);
+
+
 
         // Redirect ke halaman blog manager atau halaman lain yang diinginkan
         return redirect()->route('blog.manager')->with('success', 'Data blog berhasil diperbarui!');

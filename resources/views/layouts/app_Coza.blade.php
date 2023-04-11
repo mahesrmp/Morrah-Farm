@@ -246,6 +246,11 @@
             box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .13);
             border-radius: 0.125rem;
         }
+
+        .modalCard{
+            position: absolute;
+            z-index: 1101;
+        }
     </style>
 </head>
 

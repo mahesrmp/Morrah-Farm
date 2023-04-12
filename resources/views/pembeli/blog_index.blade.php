@@ -1,5 +1,11 @@
 @extends('layouts.app_Coza')
 @section('content')
+<style>
+    .grid-container{
+        display: grid;
+        justify-content: center;
+    }
+</style>
     <div class="container">
         <div class="flex-w flex-sb-m p-b-52">
             <div class="flex-w flex-l-m filter-tope-group m-tb-10"></div>
@@ -7,26 +13,26 @@
             <div class="flex-w flex-c-m m-tb-10"></div>
         </div>
     </div>
-
-    <section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('assetuser/images/bg-02.jpg');">
+    
+    <section class="bg-img1 txt-center p-lr-56 p-tb-92" style="background-image: url('assetuser/images/bg-02.jpg');">
         <h2 class="ltext-105 cl0 txt-center">
             Blog
         </h2>
     </section>
 
     <!-- Content page -->
-    <section class="bg0 p-t-62 p-b-60">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 col-lg-6 p-b-80">
-                    <div class="p-r-45 p-r-0-lg">
+    <section class="bg0 p-t-85 p-b-50">
+        <div class="grid-container">
+            <div class="row" >
+            @foreach ($blogs as $blog)
+                <div class="col-md-6 " >
                         <!-- item blog -->
-                        @foreach ($blogs as $blog)
-                <div class="grid-container">
+    
                     <div class="card card-solid" style="box-shadow: 0 5px 9px 0 rgba(0,0,0,0.2);">
-                        <div class="card-body pb-0">
-                        <div class="p-b-53">
-                            <img src="{{ url('blogFotos') }}/{{ $blog->gambar }}" alt="Blog-img" class="img img-fluid">
+                        <div class="card-body pb-5">
+                            <center>
+                            <img src="{{ url('blogFotos') }}/{{ $blog->gambar }}" alt="Blog-img"  width="300px" height="300px">
+                            </center>
 
                             <div class="p-t-32">
                                 <h4 class="p-b-15">
@@ -49,14 +55,18 @@
                                     </span>
                                 </div>
                             </div>
-                        </div> 
+                        
                         </div>
                     </div>
                     <br>
+                </div>
+                    <br>
 
                     @endforeach
-                        <!-- Pagination -->
-                        <div class="flex-l-m flex-w w-full p-t-10 m-lr--7">
+            </div>
+
+                 <!-- Pagination -->
+                 <div class="flex-l-m flex-w w-full p-t-10 m-lr--7">
                             <a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1">
                                 1
                             </a>
@@ -65,11 +75,8 @@
                                 2
                             </a>
                         </div>
-                    </div>
-                </div>
-
-
-            </div>
+                    
+                
         </div>
     </section>
 @endsection

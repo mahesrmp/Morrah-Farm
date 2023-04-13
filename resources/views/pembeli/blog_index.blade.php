@@ -28,7 +28,7 @@
                 <div class="col-md-6 " >
                         <!-- item blog -->
     
-                    <div class="card card-solid" style="box-shadow: 0 5px 9px 0 rgba(0,0,0,0.2);">
+                    <div class="card card-solid" style="box-shadow: 0 5px 9px 0 rgba(0,0,0,0.2); border-radius:20px">
                         <div class="card-body pb-5">
                             <center>
                             <img src="{{ url('blogFotos') }}/{{ $blog->gambar }}" alt="Blog-img"  width="300px" height="300px">

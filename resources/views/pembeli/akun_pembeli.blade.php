@@ -21,9 +21,11 @@
             @method('PUT')
             <div class="row">
                 <div class="col-md-3 border-right">
+                <div style="margin-top: 115px;">
+                    </div>
                     <div class="d-flex flex-column align-items-center text-center p-3 py-5">
                         <img src="{{ asset('profileFoto/') }}/{{ $user->foto }}" alt="Profile-img"
-                            style="border-radius: 110%; width: 250px; height: 250px;">
+                            style="border-radius: 140px; width: 250px; height: 270px;">
 
                     </div>
                 </div>

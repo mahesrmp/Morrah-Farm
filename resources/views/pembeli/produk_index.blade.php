@@ -22,13 +22,15 @@
                     <div class="flex-w flex-l-m filter-tope-group m-tb-10"></div>
                     <div class="flex-w flex-c-m m-tb-10"></div>
                 </div>
-                <div class="row isotope-grid">
+                <div class="row">
+                 
                     @foreach ($produks as $produk)
-                        <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
+                        <div class="col-sm-11 col-md-3 " style="box-shadow: 3px 5px 9px 2px rgba(0,0,0,0.2); column-gap: 50px; margin-bottom:70px; margin-right:100px; justify-content:center; border-radius:11px;">
                             <!-- Block2 -->
                             <div class="block2">
                                 <div class="block2-pic hov-img0">
-                                    <img src="{{ url('productimage') }}/{{ $produk->gambar }}" alt="IMG-PRODUCT">
+                                    <br>
+                                    <img src="{{ url('productimage') }}/{{ $produk->gambar }}" alt="IMG-PRODUCT" width="150px" height="250px">
                                     <a href="#"
                                         class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04"
                                         data-toggle="modal" data-target="#myModal{{ $produk->id }}">
@@ -68,12 +70,17 @@
                                     @endif
                                 </div>
                             </div>
+                            <br>
                         </div>
                     @endforeach
+                    <br>
                 </div>
             </div>
         </div>
     </div>
+
+
+
     <!-- Modal -->
     @foreach ($produks as $produk)
         <div class="modal modalCard fade" id="myModal{{ $produk->id }}" tabindex="-1" role="dialog"

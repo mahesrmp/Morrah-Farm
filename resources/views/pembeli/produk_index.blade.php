@@ -18,14 +18,21 @@
 
         <div class="bg0 m-t-25 p-b-140">
             <div class="container">
-                <div class="row ">
-                    @foreach ($produks as $produk)
-                        <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women card col-sm-4">
+                <div class="flex-w flex-sb-m p-b-52">
+                    <div class="flex-w flex-l-m filter-tope-group m-tb-10"></div>
+                    <div class="flex-w flex-c-m m-tb-10"></div>
+                </div>
+                <div class="row">
 
+                    @foreach ($produks as $produk)
+                        <div class="col-sm-11 col-md-3 "
+                            style="box-shadow: 3px 5px 9px 2px rgba(0,0,0,0.2); column-gap: 50px; margin-bottom:70px; margin-right:100px; justify-content:center; border-radius:11px;">
+                            <!-- Block2 -->
                             <div class="block2">
                                 <div class="block2-pic hov-img0">
+                                    <br>
                                     <img src="{{ url('productimage') }}/{{ $produk->gambar }}" alt="IMG-PRODUCT"
-                                        style="width:300px; height:200px;" class="card-img-top mt-4">
+                                        width="150px" height="250px">
                                     <a href="#"
                                         class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04"
                                         data-toggle="modal" data-target="#myModal{{ $produk->id }}">
@@ -45,11 +52,12 @@
                                     @if (Auth::user())
                                         @if ($produk->stok <= 0)
                                             <p class="text-danger">*Maaf, stok sudah habis.</p>
-                                            <a href="{{ url('pembeli/keranjang') }}/{{ $produk->id }}" class="btn btn-primary disabled"><i
-                                                    class="zmdi zmdi-shopping-cart"></i> Pesan</a>
+                                            <a href="{{ url('pembeli/keranjang') }}/{{ $produk->id }}"
+                                                class="btn btn-primary disabled"><i class="zmdi zmdi-shopping-cart"></i>
+                                                Pesan</a>
                                         @else
-                                            <a href="{{ url('pembeli/keranjang') }}/{{ $produk->id }}" class="btn btn-primary"><i
-                                                    class="zmdi zmdi-shopping-cart"></i> Pesan</a>
+                                            <a href="{{ url('pembeli/keranjang') }}/{{ $produk->id }}"
+                                                class="btn btn-primary"><i class="zmdi zmdi-shopping-cart"></i> Pesan</a>
                                         @endif
                                     @else
                                         <div class="block2-txt-child2 flex-r p-t-3">
@@ -60,12 +68,17 @@
                                     @endif
                                 </div>
                             </div>
+                            <br>
                         </div>
                     @endforeach
+                    <br>
                 </div>
             </div>
         </div>
     </div>
+
+
+
     <!-- Modal -->
     @foreach ($produks as $produk)
         <div class="modal modalCard fade" id="myModal{{ $produk->id }}" tabindex="-1" role="dialog"

@@ -78,9 +78,9 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     //USER
     Route::get('/beranda', [BerandaPembeliController::class, 'index'])->name('pembeli.beranda');
     Route::get('produk', [BerandaPembeliController::class, 'product'])->name('pembeli.produk');
-    Route::get('detailproduk/{id}', [PesananPembeliController::class, 'index'])->name('pembeli.detailproduk');
-    Route::post('pesan/{id}', [PesananPembeliController::class, 'pesan']);
-    Route::get('keranjang', [BerandaPembeliController::class, 'cart'])->name('pembeli.keranjang');
+    // Route::get('detailproduk/{id}', [PesananPembeliController::class, 'index'])->name('pembeli.detailproduk');
+    // Route::post('pesan/{id}', [PesananPembeliController::class, 'pesan']);
+
     Route::get('blog', [BerandaPembeliController::class, 'blog'])->name('pembeli.blog');
     Route::get('about', [BerandaPembeliController::class, 'about'])->name('pembeli.about');
     Route::get('contact', [BerandaPembeliController::class, 'contact'])->name('pembeli.contact');
@@ -95,7 +95,10 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     // Route::get('/attach', [EmailController::class, 'attach']);
 
 
-
+    Route::get('/pembeli/keranjang/{id}', [PesananPembeliController::class, 'index'])->name('pembeli.pesan.produk');
+    Route::post('pesan-process/{id}', [PesananPembeliController::class, 'pesan']);
+    Route::get('keranjang', [PesananPembeliController::class, 'cart'])->name('pembeli.keranjang');
+    Route::delete('check-out/{id}', [PesananPembeliController::class, 'delete']);
 
 
     // Route::get('logout', function () {

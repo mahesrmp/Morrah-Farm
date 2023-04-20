@@ -9,6 +9,11 @@ class Pesanan extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'gambars',
+        'review',
+    ];
+
     public function user(){
         return $this->belongsTo('App\User','user_id', 'id');
     }

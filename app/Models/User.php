@@ -65,4 +65,10 @@ class User extends Authenticatable
         return $this->hasMany(Blog::class);
     }
 
+    // Relasi One-to-Many dengan model Cart
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
+
 }

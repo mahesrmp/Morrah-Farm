@@ -338,10 +338,21 @@
                         @endif
 
                         @if (Auth::user())
+                        <?php
+                            $pesanan_utama = App\Models\Pesanan::where('user_id', Auth::user()->id)
+                                ->where('status', 0)
+                                ->first();
+                            if (!empty($pesanan_utama)) {
+                                $notif = App\Models\PesananDetail::where('pesanan_id', $pesanan_utama->id)->count();
+                            }
+                            ?>  
                             <a href="{{ route('pembeli.keranjang') }}"
-                                class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-10 p-r-11 icon-header-noti"
-                                data-notify="3">
+                                class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-10 p-r-11 icon-header-noti text-reset me-4">
                                 <i class="zmdi zmdi-shopping-cart"></i>
+                                @if (!empty($notif))
+                                    <span
+                                        class="badge rounded-pill badge-notification bg-danger">{{ $notif }}</span>
+                                @endif
                             </a>
                             <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-10 p-r-11 icon-header-noti js-show-cart"
                                 data-notify="2">

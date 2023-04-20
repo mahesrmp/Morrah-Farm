@@ -18,47 +18,39 @@
 
         <div class="bg0 m-t-25 p-b-140">
             <div class="container">
-                <div class="flex-w flex-sb-m p-b-52">
-                    <div class="flex-w flex-l-m filter-tope-group m-tb-10"></div>
-                    <div class="flex-w flex-c-m m-tb-10"></div>
-                </div>
-                <div class="row isotope-grid">
+                <div class="row ">
                     @foreach ($produks as $produk)
-                        <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
-                            <!-- Block2 -->
+                        <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women card col-sm-4">
+
                             <div class="block2">
                                 <div class="block2-pic hov-img0">
-                                    <img src="{{ url('productimage') }}/{{ $produk->gambar }}" alt="IMG-PRODUCT">
+                                    <img src="{{ url('productimage') }}/{{ $produk->gambar }}" alt="IMG-PRODUCT"
+                                        style="width:300px; height:200px;" class="card-img-top mt-4">
                                     <a href="#"
                                         class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04"
                                         data-toggle="modal" data-target="#myModal{{ $produk->id }}">
                                         Detail
                                     </a>
 
-                                    {{-- <a href="{{ url('detailproduk') }}/{{ $produk->id }}"
-                                        class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 show-modal1">
-                                        Detail
-                                    </a> --}}
                                     </a>
                                 </div>
-                                <div class="block2-txt flex-w flex-t p-t-14">
-                                    <div class="block2-txt-child1 flex-col-l ">
-                                        <span class="stext-105 cl3">
-                                            {{ $produk->nama_produk }}
-                                        </span>
-                                        <span class="stext-105 cl3">
-                                            Rp.{{ number_format($produk->harga) }}
-                                        </span>
-                                    </div>
-
-
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $produk->nama_produk }}</h5>
+                                    <p class="card-text">
+                                        <strong>Harga :</strong> Rp.{{ number_format($produk->harga) }} <br>
+                                        <strong>Stok :</strong> {{ $produk->stok }} <br>
+                                        <hr>
+                                        <strong>Keterangan : {{ $produk->keterangan }}</strong> <br>
+                                    </p>
                                     @if (Auth::user())
-                                        <div class="block2-txt-child2 flex-r p-t-3">
-                                            <a href="{{ route('pembeli.keranjang') }}"
-                                                class="btn-addwish-b2 dis-block pos-relative">
-                                                <i class="zmdi zmdi-shopping-cart"></i>
-                                            </a>
-                                        </div>
+                                        @if ($produk->stok <= 0)
+                                            <p class="text-danger">*Maaf, stok sudah habis.</p>
+                                            <a href="{{ url('pembeli/keranjang') }}/{{ $produk->id }}" class="btn btn-primary disabled"><i
+                                                    class="zmdi zmdi-shopping-cart"></i> Pesan</a>
+                                        @else
+                                            <a href="{{ url('pembeli/keranjang') }}/{{ $produk->id }}" class="btn btn-primary"><i
+                                                    class="zmdi zmdi-shopping-cart"></i> Pesan</a>
+                                        @endif
                                     @else
                                         <div class="block2-txt-child2 flex-r p-t-3">
                                             <a href="{{ route('login') }}" class="btn-addwish-b2 dis-block pos-relative">
@@ -85,7 +77,7 @@
                         <div class="container">
                             <div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
                                 <div class="row">
-                                    <div >
+                                    <div>
                                         <div class="p-l-25 p-r-30 p-lr-0-lg">
                                             <div class="wrap-slick3 flex-sb flex-w">
                                                 <div class="wrap-slick3-dots"></div>

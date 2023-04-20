@@ -9,11 +9,13 @@ class PesananDetail extends Model
 {
     use HasFactory;
 
-    public function produk(){
-        return $this->belongsTo('App\Produk', 'produk_id', 'id');
+    public function produk()
+    {
+        return $this->belongsTo('App\Models\Produk', 'produk_id', 'id');
     }
 
-    public function pesanan(){
-        return $this->belongsTo('App\Pesanan','pesanan_id', 'id');
+    public function pesanan()
+    {
+        return $this->belongsTo('App\Models\Pesanan', 'pesanan_id', 'id');
     }
 }

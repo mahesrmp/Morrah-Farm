@@ -15,10 +15,14 @@ class Pesanan extends Model
     ];
 
     public function user(){
-        return $this->belongsTo('App\User','user_id', 'id');
+        return $this->belongsTo('App\Models\User','user_id', 'id');
     }
 
     public function pesanan_detail(){
-        return $this->hasMany('App\PesananDetail','pesanan_id','id');
+        return $this->hasMany('App\Models\PesananDetail','pesanan_id','id');
+    }
+
+    public function produk() {
+        return $this->hasOne(Produk::class, 'id', 'produk_id');
     }
 }

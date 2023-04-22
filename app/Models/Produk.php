@@ -22,12 +22,16 @@ class Produk extends Model
     ];
 
     public function pesanan_detail(){
-        return $this->hasMany('App\PesananDetail','produk_id', 'id');
+        return $this->hasMany('App\Models\PesananDetail','produk_id', 'id');
     }
 
     public function carts()
     {
         return $this->hasMany(Cart::class);
+    }
+
+    public function pesanan() {
+        return $this->belongTo(Pesanan::class);
     }
 }
 

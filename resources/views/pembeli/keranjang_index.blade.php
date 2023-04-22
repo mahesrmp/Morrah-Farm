@@ -82,7 +82,7 @@
                                     <td>
                                         <a href="{{ url('konfirmasi-check-out') }}" class="btn btn-success"
                                             onclick="return confirm('Yakin Mau CheckOut?');">
-                                            <i class="fa fa-shopping-cart"></i>Check Out</a>
+                                            <i class="fa fa-shopping-cart"></i> Check Out</a>
                                     </td>
                                 @endif
                             </table>

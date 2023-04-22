@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Auth;
+use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Produk;
 use App\Models\Pesanan;
+use Illuminate\Http\Request;
 use App\Models\PesananDetail;
-use Carbon\Carbon;
-use Auth;
 
 class PesananPembeliController extends Controller
 {
@@ -121,5 +122,35 @@ class PesananPembeliController extends Controller
 
         // Alert::error('Pesanan Sukses Dihapus', 'Hapus');
         return redirect('keranjang')->with('toast_error', 'Berhasil Menghapus dari keranjang');;
+    }
+
+    public function konfirmasi()
+    {
+        $user = User::where('id', Auth::user()->id)->first();
+
+        if(empty($user->alamat))
+        {
+            return redirect()->route('akun-pembeli.edit', $user)->with('toast_error', 'Lengkapi Alamat Anda');
+        }
+
+        if(empty($user->nohp))
+        {
+            return redirect()->route('akun-pembeli.edit', $user)->with('toast_error', 'Lengkapi No Hp Anda');
+        }
+
+        $pesanan = Pesanan::where('user_id', Auth::user()->id)->where('status',0)->first();
+        $pesanan_id = $pesanan->id;
+        $pesanan->status = 1;
+        $pesanan->update();
+
+        $pesanan_details = PesananDetail::where('pesanan_id', $pesanan_id)->get();
+        foreach ($pesanan_details as $pesanan_detail) {
+            $produk = Produk::where('id', $pesanan_detail->produk_id)->first();
+            $produk->stok = $produk->stok-$pesanan_detail->jumlah;
+            $produk->update();
+        }
+
+
+        return redirect('history/'.$pesanan_id)->with('success', 'CheckOut berhasil silahkan lakukan pembayaran');
     }
 }

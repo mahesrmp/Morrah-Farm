@@ -81,69 +81,49 @@
                     </div>
                 </li>
 
-                <!-- Messages Dropdown Menu -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link" data-toggle="dropdown" href="#">
-                        <i class="far fa-bell"></i>
-                        <span class="badge badge-danger navbar-badge">3</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <a href="#" class="dropdown-item">
-                            <!-- Message Start -->
-                            <div class="media">
-                                <img src="assets/dist/img/user1-128x128.jpg" alt="User Avatar"
-                                    class="img-size-50 mr-3 img-circle">
-                                <div class="media-body">
-                                    <h3 class="dropdown-item-title">
-                                        Brad Diesel
-                                        <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                                    </h3>
-                                    <p class="text-sm">Call me whenever you can...</p>
-                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                                </div>
-                            </div>
-                            <!-- Message End -->
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <!-- Message Start -->
-                            <div class="media">
-                                <img src="assets/dist/img/user8-128x128.jpg" alt="User Avatar"
-                                    class="img-size-50 img-circle mr-3">
-                                <div class="media-body">
-                                    <h3 class="dropdown-item-title">
-                                        John Pierce
-                                        <span class="float-right text-sm text-muted"><i
-                                                class="fas fa-star"></i></span>
-                                    </h3>
-                                    <p class="text-sm">I got your message bro</p>
-                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                                </div>
-                            </div>
-                            <!-- Message End -->
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <!-- Message Start -->
-                            <div class="media">
-                                <img src="assets/dist/img/user3-128x128.jpg" alt="User Avatar"
-                                    class="img-size-50 img-circle mr-3">
-                                <div class="media-body">
-                                    <h3 class="dropdown-item-title">
-                                        Nora Silvester
-                                        <span class="float-right text-sm text-warning"><i
-                                                class="fas fa-star"></i></span>
-                                    </h3>
-                                    <p class="text-sm">The subject goes here</p>
-                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                                </div>
-                            </div>
-                            <!-- Message End -->
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+                @php
+                    $stocks = \DB::select('SELECT * from produks where stok = 0');
+                    $orders = \DB::select('SELECT * from pesanans where status = 2');
+                @endphp
+                <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
+                        class="nav-link nav-link-lg message-toggle"><i class="far fa-bell"></i>
+                        <span class="badge headerBadge1 bg-danger">{{ count($stocks) + count($orders) }}</span> </a>
+                    <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
+                        <div class="dropdown-header">
+                            Messages
+                        </div>
+                        <div class="dropdown-list-content dropdown-list-message">
+                            @foreach ($stocks as $stock)
+                                <a href="{{ route('produk.edit', $stock->id) }}"
+                                    class="dropdown-item dropdown-item-unread">
+                                    <span class="dropdown-item-icon bg-danger text-white">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </span>
+                                    <span class="dropdown-item-desc">
+                                        {{ 'Stock ' . $stock->nama_produk . ' sudah habis' }} <br>
+                                        <span class="time text-dark">-- {{ $stock->updated_at }} --</span>
+                                        <i class="text-danger">*silahkan lakukan pengisian stok!</i>
+                                    </span>
+                                </a>
+                            @endforeach
+                            @foreach ($orders as $order)
+                                <a href="{{ route('result.file', $order->id) }}"
+                                {{-- <a href="{{ route('order.detail') }}" --}}
+                                    class="dropdown-item dropdown-item-unread">
+                                    <span class="dropdown-item-icon bg-success text-white">
+                                        <i class="fas fa-check"></i>
+                                    </span>
+                                    <span class="dropdown-item-desc">
+                                        {{ 'Pesanan dengan kode ' . $order->kode . ' sudah dibayar' }} <br>
+                                        <span class="time text-dark">{{ $order->updated_at }}</span>
+                                        <i class="text-danger">*silahkan cek foto disini</i>
+                                    </span>
+                                </a>
+                            @endforeach
+                        </div>
                     </div>
                 </li>
+
                 <!-- Notifications Dropdown Menu -->
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
@@ -246,6 +226,27 @@
 
                                 </p>
                             </a>
+                        </li>
+
+
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-shopping-cart"></i>
+                                <p>
+                                    <span>Ordered</span>
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item"><a class="nav-link" href="{{ route('order.detail') }}">New
+                                        order</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ route('confirm.photo') }}">Confirm
+                                        Photo</a></li>
+                                <li class="nav-item"><a class="nav-link"
+                                        href="{{ route('order.tracking') }}">Tracking </a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ route('order.finish') }}">Order
+                                        Finished</a></li>
+                            </ul>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('logout') }}" class="nav-link">

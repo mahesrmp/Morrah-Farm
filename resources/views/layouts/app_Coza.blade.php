@@ -247,7 +247,7 @@
             border-radius: 0.125rem;
         }
 
-        .modalCard{
+        .modalCard {
             position: absolute;
             z-index: 1101;
         }
@@ -273,12 +273,15 @@
                                 <ul class="account">
                                     <li>
                                         <div>
-                                            <img src="{{ asset('profileFoto/' . Auth::user()->foto) }}" class="img-circle elevation-2" width="20" alt="">
+                                            <img src="{{ asset('profileFoto/' . Auth::user()->foto) }}"
+                                                class="img-circle elevation-2" width="20" alt="">
                                             <span>{{ Auth::user()->name }}</span>
                                             <i class="fa fa-angle-down"></i>
                                         </div>
                                         <ul>
-                                            <li><a href="{{ route('akun-pembeli.edit', ['id' => Auth::user()->id]) }}">Profile</a></li>
+                                            <li><a
+                                                    href="{{ route('akun-pembeli.edit', ['id' => Auth::user()->id]) }}">Profile</a>
+                                            </li>
                                             <li><a href="#">Settings</a></li>
                                             <li><a href="{{ route('logout') }}" class="flex-c-m trans-04 p-lr-25">
                                                     Log Out
@@ -338,14 +341,14 @@
                         @endif
 
                         @if (Auth::user())
-                        <?php
+                            <?php
                             $pesanan_utama = App\Models\Pesanan::where('user_id', Auth::user()->id)
                                 ->where('status', 0)
                                 ->first();
                             if (!empty($pesanan_utama)) {
                                 $notif = App\Models\PesananDetail::where('pesanan_id', $pesanan_utama->id)->count();
                             }
-                            ?>  
+                            ?>
                             <a href="{{ route('pembeli.keranjang') }}"
                                 class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-10 p-r-11 icon-header-noti text-reset me-4">
                                 <i class="zmdi zmdi-shopping-cart"></i>
@@ -354,35 +357,105 @@
                                         class="badge rounded-pill badge-notification bg-danger">{{ $notif }}</span>
                                 @endif
                             </a>
-                            <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-10 p-r-11 icon-header-noti js-show-cart"
-                                data-notify="2">
-                                <i class="zmdi zmdi-favorite-outline"></i>
-                            </div>
-                        @else
-                            <a href="{{ route('login') }}"
-                                class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-10 p-r-11 icon-header-noti"
-                                data-notify="0">
-                                <i class="zmdi zmdi-shopping-cart"></i>
-                            </a>
-                            <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-10 p-r-11 icon-header-noti js-show-cart"
-                                data-notify="0">
-                                <i class="zmdi zmdi-favorite-outline"></i>
-                            </div>
-                            <a href="{{ route('login') }}"
-                                class="flex-c-m p-lr-10 trans-04 btn ml-2 mr-2 btn-success btn-sm">
-                                <strong>Masuk</strong>
-                            </a>
-                            <a href="{{ route('register') }}"
-                                class="flex-c-m p-lr-10 trans-04 btn mr-1 btn btn-outline-success btn-sm">
-                                <strong>Daftar</strong>
-                            </a>
-                        @endif
 
 
+                            @php
+                                $orders = \DB::table('pesanans')
+                                    ->where('status', 3)
+                                    ->where('user_id', Auth::user()->id)
+                                    ->get();
+                                $packing = \DB::table('pesanans')
+                                    ->where('status', 4)
+                                    ->where('user_id', Auth::user()->id)
+                                    ->get();
+                                $tracking = \DB::table('pesanans')
+                                    ->where('status', 5)
+                                    ->where('user_id', Auth::user()->id)
+                                    ->get();
+                            @endphp
 
+                            <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
+                                    class="nav-link nav-link-lg message-toggle"><i class="zmdi zmdi-notifications"></i>
+                                    <span
+                                        class="badge headerBadge1 bg-danger">{{ count($orders) + count($packing) + count($tracking) }}</span>
+                                </a>
+                                <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
+                                    <div class="dropdown-list-content dropdown-list-message">
+                                        @foreach ($orders as $item)
+                                <a class="dropdown-item"
+                                    href="{{ url('pesanan/' . $item->id) }}" class="dropdown-item dropdown-item-unread">{{ 'Pesanan anda dengan kode ' . $item->kode . ' sudah di confirm' }}</a>
+                        @endforeach
+                        @foreach ($packing as $item)
+                                <a class="dropdown-item"
+                                    href="{{ url('pesanan/' . $item->id) }}" class="dropdown-item dropdown-item-unread">{{ 'Lihat hasil packingan barang anda' }}</a>
+                        @endforeach
+                        @foreach ($tracking as $item)
+                                <a class="dropdown-item"
+                                    href="{{ url('pesanan/' . $item->id) }}" class="dropdown-item dropdown-item-unread">{{ 'Barang anda sudah di kirim, berikan penilaian jika sudah sampai' }}</a>
+                        @endforeach
                     </div>
-                </nav>
             </div>
+            </li>
+
+
+
+            {{-- <div class="dropdown">
+                            <a
+                              class="text-reset me-3 dropdown-toggle hidden-arrow"
+                              href="#"
+                              id="navbarDropdownMenuLink"
+                              role="button"
+                              data-mdb-toggle="dropdown"
+                              aria-expanded="false"
+                            >
+                              <i class="zmdi zmdi-notifications"></i>
+                              <span class="badge rounded-pill badge-notification bg-danger">{{ count($orders)+count($packing)+count($tracking) }}</span>
+                            </a>
+                            <ul
+                              class="dropdown-menu dropdown-menu-end"
+                              aria-labelledby="navbarDropdownMenuLink"
+                            >
+                            @foreach ($orders as $item)
+                            <li>
+                                <a class="dropdown-item" href="{{ url('pesanan/'.$item->id) }}">{{ 'Pesanan anda dengan kode '.$item->kode.' sudah di confirm' }}</a>
+                            </li>
+                            @endforeach
+                            @foreach ($packing as $item)
+                            <li>
+                                <a class="dropdown-item" href="{{ url('pesanan/'.$item->id) }}">{{ 'Lihat hasil packingan barang anda' }}</a>
+                            </li>
+                            @endforeach
+                            @foreach ($tracking as $item)
+                            <li>
+                                <a class="dropdown-item" href="{{ url('pesanan/'.$item->id) }}">{{ 'Barang anda sudah di kirim, berikan penilaian jika sudah sampai' }}</a>
+                            </li>
+                            @endforeach
+                            </ul>
+                          </div> --}}
+        @else
+            <a href="{{ route('login') }}"
+                class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-10 p-r-11 icon-header-noti"
+                data-notify="0">
+                <i class="zmdi zmdi-shopping-cart"></i>
+            </a>
+            <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-10 p-r-11 icon-header-noti js-show-cart"
+                data-notify="0">
+                <i class="zmdi zmdi-favorite-outline"></i>
+            </div>
+            <a href="{{ route('login') }}" class="flex-c-m p-lr-10 trans-04 btn ml-2 mr-2 btn-success btn-sm">
+                <strong>Masuk</strong>
+            </a>
+            <a href="{{ route('register') }}"
+                class="flex-c-m p-lr-10 trans-04 btn mr-1 btn btn-outline-success btn-sm">
+                <strong>Daftar</strong>
+            </a>
+            @endif
+
+
+
+        </div>
+        </nav>
+        </div>
         </div>
 
         <!-- Header Mobile -->
@@ -523,7 +596,7 @@
         <div class="s-full js-hide-cart"></div>
 
         <div class="header-cart flex-col-l p-l-65 p-r-25">
-            <div class="header-cart-title flex-w flex-sb-m p-b-8">
+            <d iv class="header-cart-title flex-w flex-sb-m p-b-8">
                 <span class="mtext-103 cl2">
                     Notifikasi
                 </span>
@@ -531,7 +604,7 @@
                 <div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
                     <i class="zmdi zmdi-close"></i>
                 </div>
-            </div>
+            </d>
 
             <div class="header-cart-content flex-w js-pscroll">
                 <ul class="header-cart-wrapitem w-full">

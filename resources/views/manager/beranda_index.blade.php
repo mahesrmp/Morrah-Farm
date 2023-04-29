@@ -22,7 +22,7 @@
             <!-- small card -->
             <div class="small-box bg-info">
                 <div class="inner">
-                    <h3>150</h3>
+                    <h3>{{ $totalPesanans }}</h3>
                     <p>Orderan Terbaru</p>
                 </div>
                 <div class="icon">
@@ -88,4 +88,33 @@
             </div>
         </div>
     </div>
-    @endsection
+    <div class="row" id="grafik">
+    </div>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script type="text/javascript">
+        var pendapatan = <?php echo json_encode($total_harga); ?>;
+        var bulan = <?php echo json_encode($bulan); ?>;
+        Highcharts.chart('grafik', {
+            title: {
+                text: 'Grafik Pendapatan Bulanan'
+            },
+            xAxis: {
+                categories: bulan
+            },
+            yAxis: {
+                title: {
+                    text: 'Nominal Pendapatan Bulanan'
+                }
+            },
+            plotOptions: {
+                series: {
+                    allowPointSelect: true
+                }
+            },
+            series: [{
+                name: 'Nominal Pendapatan',
+                data: pendapatan
+            }]
+        });
+    </script>
+@endsection

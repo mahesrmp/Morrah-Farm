@@ -396,42 +396,6 @@
                     </div>
             </div>
             </li>
-
-
-
-            {{-- <div class="dropdown">
-                            <a
-                              class="text-reset me-3 dropdown-toggle hidden-arrow"
-                              href="#"
-                              id="navbarDropdownMenuLink"
-                              role="button"
-                              data-mdb-toggle="dropdown"
-                              aria-expanded="false"
-                            >
-                              <i class="zmdi zmdi-notifications"></i>
-                              <span class="badge rounded-pill badge-notification bg-danger">{{ count($orders)+count($packing)+count($tracking) }}</span>
-                            </a>
-                            <ul
-                              class="dropdown-menu dropdown-menu-end"
-                              aria-labelledby="navbarDropdownMenuLink"
-                            >
-                            @foreach ($orders as $item)
-                            <li>
-                                <a class="dropdown-item" href="{{ url('pesanan/'.$item->id) }}">{{ 'Pesanan anda dengan kode '.$item->kode.' sudah di confirm' }}</a>
-                            </li>
-                            @endforeach
-                            @foreach ($packing as $item)
-                            <li>
-                                <a class="dropdown-item" href="{{ url('pesanan/'.$item->id) }}">{{ 'Lihat hasil packingan barang anda' }}</a>
-                            </li>
-                            @endforeach
-                            @foreach ($tracking as $item)
-                            <li>
-                                <a class="dropdown-item" href="{{ url('pesanan/'.$item->id) }}">{{ 'Barang anda sudah di kirim, berikan penilaian jika sudah sampai' }}</a>
-                            </li>
-                            @endforeach
-                            </ul>
-                          </div> --}}
         @else
             <a href="{{ route('login') }}"
                 class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-10 p-r-11 icon-header-noti"

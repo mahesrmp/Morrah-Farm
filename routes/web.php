@@ -66,7 +66,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
 
         Route::get('/tracking', [PesanController::class, 'tracking'])->name('order.tracking');
         Route::get('/form-tracking/{id}', [PesanController::class, 'formTracking'])->name('form.tracking');
-        Route::post('/form-tracking-process/{id}', [PesanController::class, 'formTrackingProcess'])->name('q');
+        Route::post('/form-tracking-process/{id}', [PesanController::class, 'formTrackingProcess'])->name('form.tracking.process');
 
         Route::get('/order-finish', [PesanController::class, 'orderResult'])->name('order.finish');
         Route::get('/order-finish/{id}', [PesanController::class, 'orderResultUpload'])->name('order.finish.upload');

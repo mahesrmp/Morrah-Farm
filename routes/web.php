@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\PesanController;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\ProduksiProdukController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\Auth\LoginController;
@@ -77,8 +78,9 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     //PRODUKSI
     Route::prefix('produksi')->middleware(['auth', 'auth.produksi'])->group(function () {
         //ini route khusus untuk produksi
-
         Route::get('beranda', [BerandaProduksiController::class, 'index'])->name('produksi.beranda');
+        Route::get('customer', [BerandaProduksiController::class, 'customer'])->name('produksi.customer');
+        Route::resource('produk', ProduksiProdukController::class);
     });
 
     //PETERNAK

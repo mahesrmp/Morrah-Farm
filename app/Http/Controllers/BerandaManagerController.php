@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 class BerandaManagerController extends Controller
 {
     public function index(){
-        $totalPesanans = Pesanan::count();
+        $totalPesanans = Pesanan::where('status', 2)->count();
         $totalProducts = Produk::count();
         $totalAllUser = User::count();
 
@@ -24,11 +24,16 @@ class BerandaManagerController extends Controller
         ->GroupBy(DB::raw("Month(created_at)"))
         ->pluck('jumlah_harga');
 
+        $total_orderan = Pesanan::select(DB::raw("CAST(count(id) as int) as id"))
+        ->where('status', '>=', 5)
+        ->GroupBy(DB::raw("Month(created_at)"))
+        ->pluck('id');
+
         $bulan = Pesanan::select(DB::raw("MONTHNAME(created_at) as bulan"))
         ->GroupBy(DB::raw("MONTHNAME(created_at)"))
         ->pluck('bulan');
 
-        return view('manager.beranda_index',['title' => 'Dashboard'], compact('totalPesanans', 'totalProducts', 'totalCustomer', 'totalPegawai', 'total_harga', 'bulan'));
+        return view('manager.beranda_index',['title' => 'Dashboard'], compact('totalPesanans', 'totalProducts', 'totalCustomer', 'totalPegawai', 'total_harga', 'bulan', 'total_orderan'));
     }
 
     public function customer(){

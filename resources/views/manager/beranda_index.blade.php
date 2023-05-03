@@ -28,7 +28,7 @@
                 <div class="icon">
                     <i class="fas fa-shopping-cart" style="color:white"></i>
                 </div>
-                <a href="#" class="small-box-footer">
+                <a href="{{ route('order.detail') }}" class="small-box-footer">
                     Lihat
                     <i class="fas fa-arrow-circle-right"></i>
                 </a>
@@ -88,13 +88,15 @@
             </div>
         </div>
     </div>
-    <div class="row" id="grafik">
+    <div class="row" id="grafikPendapatan">
+    </div>
+    <div class="row" id="grafikOrderan">
     </div>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script type="text/javascript">
         var pendapatan = <?php echo json_encode($total_harga); ?>;
         var bulan = <?php echo json_encode($bulan); ?>;
-        Highcharts.chart('grafik', {
+        Highcharts.chart('grafikPendapatan', {
             title: {
                 text: 'Grafik Pendapatan Bulanan'
             },
@@ -114,6 +116,50 @@
             series: [{
                 name: 'Nominal Pendapatan',
                 data: pendapatan
+            }]
+        });
+    </script>
+    <script>
+        var bulan = <?php echo json_encode($bulan); ?>;
+        var total_orderan = <?php echo json_encode($total_orderan); ?>;
+        Highcharts.chart('grafikOrderan', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Grafik Orderan Bulanan'
+            },
+            subtitle: {
+                text: 'Source: WorldClimate.com'
+            },
+            xAxis: {
+                categories: bulan,
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Nominal Orderan Bulanan'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: 'Total Orderan',
+                data: total_orderan
+
             }]
         });
     </script>

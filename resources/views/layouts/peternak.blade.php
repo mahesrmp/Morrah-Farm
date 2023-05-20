@@ -152,7 +152,7 @@
 
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                         <div class="dropdown-divider"></div>
-                        <a href="{{ route('akun-manager.edit', ['id' => Auth::user()->id]) }}"
+                        <a href="{{ route('akun-peternak.edit', ['id' => Auth::user()->id]) }}"
                             class="dropdown-item text-center">
                             <i class="fas fa-gear text-center"></i>Account Setting
                         </a>
@@ -164,20 +164,13 @@
                 </li>
             </ul>
         </nav>
-        <!-- /.navbar -->
-
-        <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-light-primary elevation-2">
-            <!-- Brand Logo -->
             <a class="brand-link">
                 <img src="assets/dist/img/logo.png" alt="Logo Morrah Farm" class="brand-image img-circle elevation-4"
                     style="opacity: .7">
                 <span class="brand-text font-weight-light">Morrah Farm</span>
             </a>
-
-            <!-- Sidebar -->
             <div class="sidebar">
-                <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
                         <img src="{{ asset('profileFoto/' . Auth::user()->foto) }}" class="img-circle elevation-2"
@@ -187,20 +180,12 @@
                         <a class="d-block">{{ Auth::user()->name }}</a>
                     </div>
                 </div>
-
-                <!-- SidebarSearch Form -->
-
-
-                <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class
-                with font-awesome or any other icon font library -->
-
                         <li class="nav-item">
-                            <a href="{{ route('manager.beranda') }}"
-                                class="nav-link {{ \Route::is('manager.beranda') ? 'active' : '' }}">
+                            <a href="{{ route('peternak.beranda') }}"
+                                class="nav-link {{ \Route::is('peternak.beranda') ? 'active' : '' }}">
                                 <i class="nav-icon fa-solid fa-house"></i>
                                 <p>
                                     Beranda
@@ -213,44 +198,20 @@
                                 class="nav-link {{ \Route::is('user.index') ? 'active' : '' }}">
                                 <i class="fa-solid fa-users"></i>
                                 <p>
-                                    Data Karyawan
+                                    Hasil Perasan
 
                                 </p>
                             </a>
                         </li>
-
                         <li class="nav-item">
                             <a href="{{ route('manager.customer') }}"
                                 class="nav-link {{ \Route::is('manager.customer') ? 'active' : '' }}">
                                 <i class="fa-solid fa-user-plus"></i>
-                                <p>Daftar Customer</p>
+                                <p>Data Kerbau</p>
                             </a>
                         </li>
-
-                        <li class="nav-item">
-                            <a href="{{ route('produk.index') }}"
-                                class="nav-link {{ \Route::is('produk.index') ? 'active' : '' }}">
-                                <i class="fa fa-palette"></i>
-                                <p>
-                                    Produk
-
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('blog.manager') }}"
-                                class="nav-link {{ \Route::is('blog.manager') ? 'active' : '' }}">
-                                <i class="fa-brands fa-blogger"></i>
-                                <p>
-                                    Blog
-
-                                </p>
-                            </a>
-                        </li>
-
                         <li class="nav-item">
                             <a href="{{ route('logout') }}" class="nav-link">
-
                                 <i class=" nav-icon fa-solid fa-right-from-bracket"></i>
                                 <p>
                                     LogOut
@@ -258,12 +219,9 @@
                                 </p>
                             </a>
                         </li>
-
                     </ul>
                 </nav>
-                <!-- /.sidebar-menu -->
             </div>
-            <!-- /.sidebar -->
         </aside>
 
         <div class="content-wrapper">
@@ -293,26 +251,19 @@
                         @yield('content')
                     </div>
                 </div>
-                
+
             </section>
         </div>
         <footer class="main-footer">
-            <strong>Copyright  &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
             All rights reserved.
             <div class="float-right d-none d-sm-inline-block">
                 <b>Version</b> 3.2.0
             </div>
         </footer>
-
-        <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
         </aside>
-        <!-- /.control-sidebar -->
     </div>
-    <!-- ./wrapper -->
-
-    <!-- jQuery -->
     @include('sweetalert::alert')
 
 

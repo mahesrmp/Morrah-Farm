@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use App\Models\Cart;
+use App\Models\HomeSlider;
 use App\Models\Produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,8 +16,10 @@ class BerandaPembeliController extends Controller
 {
     public function index()
     {
+        $slidershome = HomeSlider::all();
         return view('pembeli.beranda_index', [
-            'title' => 'Selamat Datang Di Morrah Farm'
+            'title' => 'Selamat Datang Di Morrah Farm',
+            'sliders' => $slidershome
         ]);
     }
 

@@ -228,6 +228,28 @@
                             </a>
                         </li>
 
+                        <li class="nav-item">
+                            <a href="{{ route('homeslider.index') }}"
+                                class="nav-link {{ \Route::is('homeslider.index') ? 'active' : '' }}">
+                                <i class="fa-brands fa-blogger"></i>
+                                <p>
+                                    Home Slider
+
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route('manager.laporan') }}"
+                                class="nav-link {{ \Route::is('cetak-laporan-penjualan') ? 'active' : '' }}">
+                                <i class="fa-brands fa-blogger"></i>
+                                <p>
+                                    Laporan
+
+                                </p>
+                            </a>
+                        </li>
+
 
                         <li class="nav-item">
                             <a href="#" class="nav-link">
@@ -346,11 +368,12 @@
     <script src="assets/dist/js/adminlte.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="assets/dist/js/demo.js"></script>
+    <script src="assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="assets/dist/js/pages/dashboard.js"></script>
-    <link rel="stylesheet" href="jQurery/select2.min.css">
-    <script src="jQurery/select2.min.js"></script>
-    <script src="js/jquery.mask.min.js"></script>
+    <link rel="stylesheet" href="assets/dist/jQurery/select2.min.css">
+    <script src="assets/plugins/jQurery/select2.min.js"></script>
+    <script src="assets/plugins/jquery.mask.min.js"></script>
     <script>
         $(document).ready(function() {
             $('.rupiah').mask("#.##0", {

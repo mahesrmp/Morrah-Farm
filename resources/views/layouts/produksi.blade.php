@@ -152,7 +152,7 @@
 
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                         <div class="dropdown-divider"></div>
-                        <a href="{{ route('akun-manager.edit', ['id' => Auth::user()->id]) }}"
+                        <a href="{{ route('akun-produksi.edit', ['id' => Auth::user()->id]) }}"
                             class="dropdown-item text-center">
                             <i class="fas fa-gear text-center"></i>Account Setting
                         </a>
@@ -164,11 +164,7 @@
                 </li>
             </ul>
         </nav>
-        <!-- /.navbar -->
-
-        <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-light-primary elevation-2">
-            <!-- Brand Logo -->
             <a class="brand-link">
                 <img src="assets/dist/img/logo.png" alt="Logo Morrah Farm" class="brand-image img-circle elevation-4"
                     style="opacity: .7">

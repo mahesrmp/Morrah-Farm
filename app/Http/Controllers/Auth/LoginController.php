@@ -48,7 +48,7 @@ class LoginController extends Controller
             return redirect()->route('produksi.beranda');
         } elseif ($user->role == 'peternak') {
             return redirect()->route('peternak.beranda');
-        } elseif ($user->role == 'pembeli') {
+        } elseif ($user->role == 'pembeli'){
             return redirect()->route('pembeli.beranda');
         } else {
             Auth::user()->logout();

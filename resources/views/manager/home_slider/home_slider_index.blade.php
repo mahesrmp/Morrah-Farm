@@ -18,7 +18,7 @@
                         Produk</button></a>
                 <div class="mt-3"></div>
                 <div class="row">
-                    @foreach ($produks as $produk)
+                    @foreach ($sliders as $slider)
                         <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
                             <div class="card bg-light d-flex flex-fill">
                                 <div class="card-header text-muted border-bottom-0">
@@ -26,27 +26,25 @@
                                 <div class="card-body pt-0">
                                     <div class="row">
                                         <div class="col-7">
-                                            <h2 class="lead"><b>{{ $produk->nama_produk }}</b></h2>
-                                            <p class="text-muted text-sm"><b>Deskripsi: </b>{{ $produk->keterangan }}</p>
-                                            <p class="text-muted text-sm"><b>Stok: </b>{{ $produk->stok }}</p>
-                                            <p class="text-muted text-sm"><b>Harga: </b>{{ $produk->harga }}</p>
+                                            <p class="text-muted text-sm"><b>Nama Slider: </b>{{ $slider->nama_slider }}</p>
+                                            <p class="text-muted text-sm"><b>Deskripsi: </b>{{ $slider->deskripsi }}</p>
                                         </div>
                                         <div class="col-5 text-center">
-                                            <img src="{{ url('productimage') }}/{{ $produk->gambar }}" alt="Produk-img"
-                                                class="img img-fluid">
+                                            <img src="{{ \Storage::url($slider->gambar ?? 'image/noimage.jpg') }}"
+                                                alt="slider-img" class="img img-fluid">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card-footer">
                                     <div class="text-right">
                                         {!! Form::open([
-                                            'route' => ['produk.destroy', $produk->id],
+                                            'route' => [$routePrefix . '.destroy', $slider->id],
                                             'method' => 'DELETE',
+                                            'onsubmit' => 'return confirm("Yakin ingin menghapus data ini?")',
                                         ]) !!}
-                                        <a href="{{ route('produk.edit', $produk->id) }}"
-                                            class="btn btn-success btn-sm text-center"><i class="fas fa-edit"></i></a>
-
-                                        {{ Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm text-center btndelete', 'id' => 'delete']) }}
+                                        <a href="{{ route($routePrefix . '.edit', $slider->id) }}"
+                                            class="btn btn-info btn-sm"><i class="fas fa-pencil-alt"></i></a>
+                                        {{ Form::button('<i class="fas fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm ']) }}
                                         {!! Form::close() !!}
                                     </div>
                                 </div>

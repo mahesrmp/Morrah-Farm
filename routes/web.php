@@ -19,6 +19,8 @@ use App\Http\Controllers\PesananPembeliController;
 use App\Http\Controllers\BerandaPeternakController;
 use App\Http\Controllers\BerandaProduksiController;
 use App\Http\Controllers\AdminAkunSettingController;
+use App\Http\Controllers\HomeSliderController;
+use App\Models\HomeSlider;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +43,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         Route::get('beranda', [BerandaManagerController::class, 'index'])->name('manager.beranda');
         Route::get('customer', [BerandaManagerController::class, 'customer'])->name('manager.customer');
         Route::resource('user', UserController::class);
+        Route::resource('homeslider', HomeSliderController::class);
         Route::resource('produk', ProdukController::class);
         Route::get('/akun-manager/{id}/edit', [AdminAkunSettingController::class, 'edit'])->name('akun-manager.edit');
         Route::put('/akun-manager/{id}', [AdminAkunSettingController::class, 'update'])->name('akun-manager.update');
@@ -71,6 +74,11 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
 
         Route::get('/order-finish', [PesanController::class, 'orderResult'])->name('order.finish');
         Route::get('/order-finish/{id}', [PesanController::class, 'orderResultUpload'])->name('order.finish.upload');
+
+        // Rute untuk laporan
+        Route::get('laporan', [BerandaManagerController::class, 'laporan'])->name('manager.laporan');
+        Route::get('cetak-laporan', [BerandaManagerController::class, 'cetakLaporan'])->name('cetak-laporan');
+        Route::get('/cetak-laporan-form', [BerandaManagerController::class, 'cetakForm'])->name('cetak-laporan-form');
     });
 
 
@@ -80,13 +88,17 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         //ini route khusus untuk produksi
         Route::get('beranda', [BerandaProduksiController::class, 'index'])->name('produksi.beranda');
         Route::get('customer', [BerandaProduksiController::class, 'customer'])->name('produksi.customer');
-        Route::resource('produk', ProduksiProdukController::class);
+        // Route::resource('produk', ProduksiProdukController::class);
+        Route::get('/akun-produksi/{id}/edit', [AdminAkunSettingController::class, 'edit'])->name('akun-produksi.edit');
+        Route::put('/akun-produksi/{id}', [AdminAkunSettingController::class, 'update'])->name('akun-produksi.update');
     });
 
     //PETERNAK
     Route::prefix('peternak')->middleware(['auth', 'auth.peternak'])->group(function () {
         //ini route khusus untuk peternak
         Route::get('beranda', [BerandaPeternakController::class, 'index'])->name('peternak.beranda');
+        Route::get('/akun-peternak/{id}/edit', [AdminAkunSettingController::class, 'edit'])->name('akun-peternak.edit');
+        Route::put('/akun-peternak/{id}', [AdminAkunSettingController::class, 'update'])->name('akun-peternak.update');
     });
 
     // Route::prefix('pembeli')->middleware(['auth', 'auth.pembeli'])->group(function () {

@@ -107,8 +107,7 @@
                                 </a>
                             @endforeach
                             @foreach ($orders as $order)
-                                <a href="{{ route('result.file', $order->id) }}"
-                                {{-- <a href="{{ route('order.detail') }}" --}}
+                                <a href="{{ route('result.file', $order->id) }}" {{-- <a href="{{ route('order.detail') }}" --}}
                                     class="dropdown-item dropdown-item-unread">
                                     <span class="dropdown-item-icon bg-success text-white">
                                         <i class="fas fa-check"></i>
@@ -216,6 +215,41 @@
 
                                 </p>
                             </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('about.index') }}" class="nav-link" class="nav-link {{ \Route::is('about.index') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-chart-pie"></i>
+                                <p>
+                                   About
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('about.index') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>About</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="pages/charts/flot.html" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Flot</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="pages/charts/inline.html" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Inline</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="pages/charts/uplot.html" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>uPlot</p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('blog.manager') }}"

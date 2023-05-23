@@ -201,8 +201,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('produk.index') }}"
-                                class="nav-link {{ \Route::is('produk.index') ? 'active' : '' }}">
+                            <a href="{{ route('produksiproduk.index') }}"
+                                class="nav-link {{ \Route::is('produksiproduk.index') ? 'active' : '' }}">
                                 <i class="fa fa-palette"></i>
                                 <p>
                                     Produk
@@ -248,7 +248,7 @@
                         @yield('content')
                     </div>
                 </div>
-                
+
             </section>
         </div>
         <footer class="main-footer">

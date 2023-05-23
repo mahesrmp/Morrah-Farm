@@ -1,13 +1,10 @@
 @extends('layouts.app_Coza')
 
 @section('content')
-
     <!-- Slider -->
     <section class="section-slide">
         <div class="wrap-slick1 rs2-slick1">
             <div class="slick1">
-                
-
                 <div class="item-slick1 bg-overlay1" style="background-image: url(assetuser/images/slide-06.jpg);"
                     data-thumb="assetuser/images/thumb-02.jpg" data-caption="Men’s Wear">
                     <div class="container h-full">
@@ -55,7 +52,6 @@
                     <!-- Block1 -->
                     <div class="block1 wrap-pic-w">
                         <img src="assetuser/images/banner-04.jpg" alt="IMG-BANNER">
-
                         <a href="product.html"
                             class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
                             <div class="block1-txt-child1 flex-col-l">

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
@@ -45,6 +46,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         Route::resource('user', UserController::class);
         Route::resource('homeslider', HomeSliderController::class);
         Route::resource('produk', ProdukController::class);
+        Route::resource('about', AboutController::class);
         Route::get('/akun-manager/{id}/edit', [AdminAkunSettingController::class, 'edit'])->name('akun-manager.edit');
         Route::put('/akun-manager/{id}', [AdminAkunSettingController::class, 'update'])->name('akun-manager.update');
 
@@ -88,7 +90,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         //ini route khusus untuk produksi
         Route::get('beranda', [BerandaProduksiController::class, 'index'])->name('produksi.beranda');
         Route::get('customer', [BerandaProduksiController::class, 'customer'])->name('produksi.customer');
-        // Route::resource('produk', ProduksiProdukController::class);
+        Route::resource('produksiproduk', ProduksiProdukController::class);
         Route::get('/akun-produksi/{id}/edit', [AdminAkunSettingController::class, 'edit'])->name('akun-produksi.edit');
         Route::put('/akun-produksi/{id}', [AdminAkunSettingController::class, 'update'])->name('akun-produksi.update');
     });
@@ -113,7 +115,10 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     // Route::post('pesan/{id}', [PesananPembeliController::class, 'pesan']);
 
     Route::get('blog', [BerandaPembeliController::class, 'blog'])->name('pembeli.blog');
+    Route::get('blogdetail/{id}', [BerandaPembeliController::class, 'blogdetail']);
     Route::get('about', [BerandaPembeliController::class, 'about'])->name('pembeli.about');
+    Route::get('visimisi', [BerandaPembeliController::class, 'visimisi'])->name('pembeli.visimisi');
+    Route::get('galeri', [BerandaPembeliController::class, 'galeri'])->name('pembeli.galeri');
     Route::get('contact', [BerandaPembeliController::class, 'contact'])->name('pembeli.contact');
 
     // Routing untuk menampilkan form edit user

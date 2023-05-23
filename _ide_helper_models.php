@@ -12,6 +12,17 @@
 
 namespace App\Models{
 /**
+ * App\Models\About
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|About newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|About newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|About query()
+ */
+	class About extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\Blog
  *
  * @property int $id
@@ -40,9 +51,21 @@ namespace App\Models{
 /**
  * App\Models\HomeSlider
  *
+ * @property int $id
+ * @property string $nama_slider
+ * @property string $deskripsi
+ * @property string $gambar
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|HomeSlider newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|HomeSlider newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|HomeSlider query()
+ * @method static \Illuminate\Database\Eloquent\Builder|HomeSlider whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|HomeSlider whereDeskripsi($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|HomeSlider whereGambar($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|HomeSlider whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|HomeSlider whereNamaSlider($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|HomeSlider whereUpdatedAt($value)
  */
 	class HomeSlider extends \Eloquent {}
 }

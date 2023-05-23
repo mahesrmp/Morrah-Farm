@@ -33,53 +33,6 @@ class BerandaPembeliController extends Controller
         ], compact('produks'));
     }
 
-    // public function cart()
-    // {
-    //     $cartItem = Cart::all();
-    //     return view('pembeli.keranjang_index', [
-    //         'title' => 'Keranjang Anda'
-    //     ], compact('cartItem'));
-    // }
-
-
-    // // Fungsi untuk menambahkan produk ke keranjang
-    // public function addToCart($id)
-    // {
-    //     // Cek apakah user sudah login
-    //     if (Auth::check()) {
-    //         // Ambil data produk berdasarkan ID
-    //         $produks = Produk::find($id);
-
-    //         // Cek apakah produk ada
-    //         if ($produks) {
-    //             // Cek apakah produk sudah ada di keranjang
-    //             $cartItem = Cart::where('produk_id', $id)->where('user_id', Auth::user()->id)->first();
-    //             if ($cartItem) {
-    //                 // Jika sudah ada, tambahkan jumlah
-    //                 $cartItem->jumlah += 1;
-    //                 $cartItem->save();
-    //             } else {
-    //                 // Jika belum ada, buat item baru di keranjang
-    //                 $cartItem = new Cart();
-    //                 $cartItem->user_id = Auth::user()->id;
-    //                 $cartItem->produk_id = $id;
-    //                 $cartItem->jumlah = 1;
-    //                 $cartItem->save();
-    //             }
-
-    //             // Redirect ke halaman keranjang
-    //             return redirect()->route('pembeli.keranjang')->with('success', 'Produk berhasil ditambahkan ke keranjang');
-    //         } else {
-    //             // Redirect ke halaman produk jika produk tidak ditemukan
-    //             return redirect()->route('pembeli.produk')->with('error', 'Produk tidak ditemukan');
-    //         }
-    //     } else {
-    //         // Redirect ke halaman login jika user belum login
-    //         return redirect()->route('login')->with('error', 'Silahkan login terlebih dahulu');
-    //     }
-    // }
-
-
     /* ============== Khusus Blog ============== */
     public function blog()
     {
@@ -89,7 +42,16 @@ class BerandaPembeliController extends Controller
         ], compact('blogs'));
     }
 
-
+    public function blogdetail($id)
+    {
+        $products = Produk::take(3)->get();
+        $blog = Blog::where('id', $id)->first();
+        return view('pembeli.detail_blog', [
+            'title' => 'Detail Blog',
+            'blog' => $blog,
+            'produks' => $products
+        ]);
+    }
     /* ============== Khusus About ============== */
     public function about()
     {
@@ -97,6 +59,22 @@ class BerandaPembeliController extends Controller
             'title' => 'About Morrah Farm'
         ]);
     }
+
+        /* ============== Khusus visi dan misi ============== */
+        public function visimisi()
+        {
+            return view('pembeli.visimisi', [
+                'title' => 'Visi dan Misi Morrah Farm'
+            ]);
+        }
+
+        public function galeri()
+        {
+            return view('pembeli.galeri', [
+                'title' => 'Galeri Morrah Farm'
+            ]);
+        }
+
 
 
 

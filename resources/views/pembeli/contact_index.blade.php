@@ -2,20 +2,8 @@
 
 @section('content')
     <div class="container">
-        <div class="flex-w flex-sb-m p-b-52">
-            <div class="flex-w flex-l-m filter-tope-group m-tb-10"></div>
 
-            <div class="flex-w flex-c-m m-tb-10"></div>
-        </div>
     </div>
-    <!-- Title page -->
-    <section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('assetuser/images/bg-01.jpg');">
-        <h2 class="ltext-105 cl0 txt-center">
-            Contact
-        </h2>
-    </section>
-
-
     <!-- Content page -->
     <section class="bg0 p-t-104 p-b-116">
         <div class="container">
@@ -82,7 +70,7 @@
 
                         <div class="size-212 p-t-2">
                             <span class="mtext-110 cl2">
-                                Sale Support
+                               Email
                             </span>
 
                             <p class="stext-115 cl1 size-213 p-t-18">
@@ -94,14 +82,13 @@
             </div>
         </div>
     </section>
-
-
     <!-- Map -->
-    <div class="map">
-        <div class="size-303" id="google_map" data-map-x="40.691446" data-map-y="-73.886787"
-            data-pin="assetuser/images/icons/pin.png" data-scrollwhell="0" data-draggable="1" data-zoom="11"></div>
+    <div class="map text-center">
+
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15844.06257951733!2d99.0074771!3d2.1641674!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x302e13fd3eaabb85%3A0xa9e690d292f758ea!2sMorrah%20Farm!5e1!3m2!1sid!2sid!4v1684720122940!5m2!1sid!2sid" width="1500" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
     </div>
-@endsection
+    @endsection
 @section('js')
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKFWBqlKAGCeS1rMVoaNlwyayu0e0YRes"></script>
     <script src="assetuser/js/map-custom.js"></script>

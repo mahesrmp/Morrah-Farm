@@ -18,7 +18,7 @@
 
                         <div class="form-group">
                             <label for="harga">Harga</label>
-                            {!! Form::number('harga', null, ['class' => 'form-control']) !!}
+                            {!! Form::number('harga', null, ['class' => 'form-control rupiah']) !!}
                             <span class="text-danger">{{ $errors->first('harga') }}</span>
                         </div>
 
@@ -35,7 +35,7 @@
                         </div>
 
 
-                
+
 
                         <label for="gambar">File input</label>
                         <div >

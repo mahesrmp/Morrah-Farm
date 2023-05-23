@@ -2,30 +2,32 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Produk;
+use App\Models\About;
 use Illuminate\Http\Request;
 
-class ProduksiProdukController extends Controller
+class AboutController extends Controller
 {
+    private $viewIndex = 'about_index';
+    private $viewCreate = 'about_form';
+    private $viewEdit = 'about_form';
+    private $viewShow = 'about_show';
+    private $routePrefix = 'about';
 
-    private $viewIndex = 'produk_index';
-    private $viewCreate = 'produk_form';
-    private $viewEdit = 'produk_form';
-    private $viewShow = 'produk_show';
-    private $routePrefix = 'produk';
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $produks = Produk::paginate(20);
-        return view('produksi.' . $this->viewIndex, [
-            'produks' => $produks,
-            'routePrefix'   => $this->routePrefix,
-            'title'         => 'Produk Morrah Farm'
-        ]);
+        return view('manager.about.about_index',['title' => 'About Morrah Farm']);
+
+        // $produks = About::all();
+        // return view('manager.about.' . $this->viewIndex, [
+        //     'produks' => $produks,
+        //     'routePrefix'   => $this->routePrefix,
+        //     'title'         => 'About Morrah Farm'
+        // ]);
     }
 
     /**
@@ -52,10 +54,10 @@ class ProduksiProdukController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\About  $about
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(About $about)
     {
         //
     }
@@ -63,10 +65,10 @@ class ProduksiProdukController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\About  $about
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(About $about)
     {
         //
     }
@@ -75,10 +77,10 @@ class ProduksiProdukController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\About  $about
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, About $about)
     {
         //
     }
@@ -86,10 +88,10 @@ class ProduksiProdukController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\About  $about
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(About $about)
     {
         //
     }

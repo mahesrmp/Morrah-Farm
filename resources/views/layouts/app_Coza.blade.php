@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="assetuser/vendor/bootstrap/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="assetuser/css/all.min.css">
-
+    @yield('css')
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="assetuser/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
     <!--===============================================================================================-->
@@ -40,6 +40,33 @@
     <link rel="stylesheet" type="text/css" href="assetuser/css/main.css">
     <!--===============================================================================================-->
     <style>
+         /* rating */
+    .rating-css div {
+    color: #ffe400;
+    font-size: 30px;
+    font-family: sans-serif;
+    font-weight: 800;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 20px 0;
+    }
+    .rating-css input {
+    display: none;
+    }
+    .rating-css input + label {
+    font-size: 60px;
+    text-shadow: 1px 1px 0 #8f8420;
+    cursor: pointer;
+    }
+    .rating-css input:checked + label ~ label {
+    color: #b4afaf;
+    }
+    .rating-css label:active {
+    transform: scale(0.8);
+    transition: 0.3s ease;
+    }
+
+    /* End of Star Rating */
         .account {
             list-style: none;
             margin: 0;
@@ -186,8 +213,17 @@
                                 <a href="{{ route('pembeli.blog') }}">Blog</a>
                             </li>
 
+                            {{-- <li>
+                                <a href="{{ route('pembeli.about') }}">About</a>
+                            </li> --}}
+
                             <li>
                                 <a href="{{ route('pembeli.about') }}">About</a>
+                                <ul class="sub-menu">
+                                    <li><a href="{{ route('pembeli.visimisi') }}">Visi & Misi</a></li>
+                                    <li><a href="home-02.html">Penilaian</a></li>
+                                    <li><a href="">Galeri</a></li>
+                                </ul>
                             </li>
 
                             <li>
@@ -216,11 +252,17 @@
                             ?>
                             <a href="{{ route('pembeli.keranjang') }}"
                                 @if (!empty($notif)) class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-10 p-r-11 icon-header-noti"
-                                data-notify="{{ $notif }}"> @endif
+                                data-notify="{{ $notif }}">
                                 <i class="zmdi zmdi-shopping-cart"></i>
                             </a>
-                            @php
-                                $orders = \DB::table('pesanans')
+                            @else
+                            <a href="{{ route('pembeli.keranjang') }}"
+                                class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-10 p-r-11 icon-header-noti"
+                                data-notify="{{ $notif }}">
+                                <i class="zmdi zmdi-shopping-cart"></i>
+                            </a> @endif
+                                @php
+$orders = \DB::table('pesanans')
                                     ->where('status', 3)
                                     ->where('user_id', Auth::user()->id)
                                     ->get();
@@ -231,54 +273,54 @@
                                 $tracking = \DB::table('pesanans')
                                     ->where('status', 5)
                                     ->where('user_id', Auth::user()->id)
-                                    ->get();
-                            @endphp
-                            <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart"
+                                    ->get(); @endphp
+                                <div
+                                class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart"
                                 data-notify="{{ count($orders) + count($packing) + count($tracking) }}">
                                 <i class="zmdi zmdi-notifications"></i>
-                            </div>
-                            <li class="dropdown dropdown-list-toggle">
-                                <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
-                                    <div class="dropdown-list-content dropdown-list-message">
-                                        @foreach ($orders as $item)
-                                            <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
-                                                class="dropdown-item dropdown-item-unread">{{ 'Pesanan anda dengan kode ' . $item->kode . ' sudah di confirm' }}</a>
-                                        @endforeach
-                                        @foreach ($packing as $item)
-                                            <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
-                                                class="dropdown-item dropdown-item-unread">{{ 'Lihat hasil packingan barang anda' }}</a>
-                                        @endforeach
-                                        @foreach ($tracking as $item)
-                                            <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
-                                                class="dropdown-item dropdown-item-unread">{{ 'Barang anda sudah di kirim, berikan penilaian jika sudah sampai' }}</a>
-                                        @endforeach
-                                    </div>
-                                </div>
-                            </li>
-                        @else
-                            <a href="{{ route('login') }}"
-                                class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-10 p-r-11 icon-header-noti"
-                                data-notify="0">
-                                <i class="zmdi zmdi-shopping-cart"></i>
-                            </a>
-                            <a href="{{ route('login') }}">
-                                <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-10 p-r-11 icon-header-noti"
-                                    data-notify="0">
-                                    <i class="zmdi zmdi-notifications"></i>
-                                </div>
-                            </a>
-                            <a href="{{ route('login') }}"
-                                class="flex-c-m p-lr-10 trans-04 btn ml-2 mr-2 btn-success btn-sm">
-                                <strong>Masuk</strong>
-                            </a>
-                            <a href="{{ route('register') }}"
-                                class="flex-c-m p-lr-10 trans-04 btn mr-1 btn btn-outline-success btn-sm">
-                                <strong>Daftar</strong>
-                            </a>
-                        @endif
                     </div>
-                </nav>
+                    <li class="dropdown dropdown-list-toggle">
+                        <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
+                            <div class="dropdown-list-content dropdown-list-message">
+                                @foreach ($orders as $item)
+                                    <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
+                                        class="dropdown-item dropdown-item-unread">{{ 'Pesanan anda dengan kode ' . $item->kode . ' sudah di confirm' }}</a>
+                                @endforeach
+                                @foreach ($packing as $item)
+                                    <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
+                                        class="dropdown-item dropdown-item-unread">{{ 'Lihat hasil packingan barang anda' }}</a>
+                                @endforeach
+                                @foreach ($tracking as $item)
+                                    <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
+                                        class="dropdown-item dropdown-item-unread">{{ 'Barang anda sudah di kirim, berikan penilaian jika sudah sampai' }}</a>
+                                @endforeach
+                            </div>
+                        </div>
+                    </li>
+                @else
+                    <a href="{{ route('login') }}"
+                        class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-10 p-r-11 icon-header-noti"
+                        data-notify="0">
+                        <i class="zmdi zmdi-shopping-cart"></i>
+                    </a>
+                    <a href="{{ route('login') }}">
+                        <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-10 p-r-11 icon-header-noti"
+                            data-notify="0">
+                            <i class="zmdi zmdi-notifications"></i>
+                        </div>
+                    </a>
+                    <a href="{{ route('login') }}"
+                        class="flex-c-m p-lr-10 trans-04 btn ml-2 mr-2 btn-success btn-sm">
+                        <strong>Masuk</strong>
+                    </a>
+                    <a href="{{ route('register') }}"
+                        class="flex-c-m p-lr-10 trans-04 btn mr-1 btn btn-outline-success btn-sm">
+                        <strong>Daftar</strong>
+                    </a>
+                    @endif
             </div>
+            </nav>
+        </div>
         </div>
         <!-- Header Mobile -->
         <div class="wrap-header-mobile">
@@ -383,8 +425,12 @@
 
                 <li>
                     <a href="{{ route('pembeli.about') }}">About</a>
+                    <ul class="sub-menu">
+                        <li><a href="{{ route('pembeli.visimisi') }}">Visi & Misi</a></li>
+                        <li><a href="">Galeri</a></li>
+                        <li><a href="home-02.html">Penilaian</a></li>
+                    </ul>
                 </li>
-
                 <li>
                     <a href="{{ route('pembeli.contact') }}">Contact</a>
                 </li>
@@ -473,140 +519,22 @@
 
 
     <!-- Footer -->
-    <footer class="bg3 p-t-75 p-b-32">
+    <footer class="bg3 p-t-20 p-b-20">
         <div class="container">
-            <div class="row">
-                <div class="col-sm-6 col-lg-3 p-b-50">
-                    <h4 class="stext-301 cl0 p-b-30">
-                        Categories
-                    </h4>
-
-                    <ul>
-                        <li class="p-b-10">
-                            <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                                Women
-                            </a>
-                        </li>
-
-                        <li class="p-b-10">
-                            <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                                Men
-                            </a>
-                        </li>
-
-                        <li class="p-b-10">
-                            <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                                Shoes
-                            </a>
-                        </li>
-
-                        <li class="p-b-10">
-                            <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                                Watches
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="col-sm-6 col-lg-3 p-b-50">
-                    <h4 class="stext-301 cl0 p-b-30">
-                        Help
-                    </h4>
-
-                    <ul>
-                        <li class="p-b-10">
-                            <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                                Track Order
-                            </a>
-                        </li>
-
-                        <li class="p-b-10">
-                            <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                                Returns
-                            </a>
-                        </li>
-
-                        <li class="p-b-10">
-                            <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                                Shipping
-                            </a>
-                        </li>
-
-                        <li class="p-b-10">
-                            <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                                FAQs
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="col-sm-6 col-lg-3 p-b-50">
-                    <h4 class="stext-301 cl0 p-b-30">
-                        GET IN TOUCH
-                    </h4>
-
-                    <p class="stext-107 cl7 size-201">
-                        Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us
-                        on (+1) 96 716 6879
-                    </p>
-
-                    <div class="p-t-27">
-                        <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
-                            <i class="fa fa-facebook"></i>
-                        </a>
-
-                        <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
-                            <i class="fa fa-instagram"></i>
-                        </a>
-
-                        <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
-                            <i class="fa fa-pinterest-p"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-sm-6 col-lg-3 p-b-50">
-                    <h4 class="stext-301 cl0 p-b-30">
-                        Newsletter
-                    </h4>
-
-                    <form>
-                        <div class="wrap-input1 w-full p-b-4">
-                            <input class="input1 bg-none plh1 stext-107 cl7" type="text" name="email"
-                                placeholder="email@example.com">
-                            <div class="focus-input1 trans-04"></div>
-                        </div>
-
-                        <div class="p-t-18">
-                            <button class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04">
-                                Subscribe
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
             <div class="p-t-40">
                 <div class="flex-c-m flex-w p-b-18">
+
                     <a href="#" class="m-all-1">
-                        <img src="assetuser/images/icons/icon-pay-01.png" alt="ICON-PAY">
+                        <img height="40" src="assetuser/images/icons/wa.png" alt="ICON-WA">
+                    </a>
+                    <a href="#" class="m-all-1">
+                        <img height="35" src="assetuser/images/icons/fb.png" alt="ICON-FB">
                     </a>
 
                     <a href="#" class="m-all-1">
-                        <img src="assetuser/images/icons/icon-pay-02.png" alt="ICON-PAY">
+                        <img height="40" src="assetuser/images/icons/ig.png" alt="ICON-IG">
                     </a>
 
-                    <a href="#" class="m-all-1">
-                        <img src="assetuser/images/icons/icon-pay-03.png" alt="ICON-PAY">
-                    </a>
-
-                    <a href="#" class="m-all-1">
-                        <img src="assetuser/images/icons/icon-pay-04.png" alt="ICON-PAY">
-                    </a>
-
-                    <a href="#" class="m-all-1">
-                        <img src="assetuser/images/icons/icon-pay-05.png" alt="ICON-PAY">
-                    </a>
                 </div>
 
                 <p class="stext-107 cl6 txt-center">

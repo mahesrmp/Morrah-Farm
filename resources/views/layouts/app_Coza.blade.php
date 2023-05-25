@@ -40,6 +40,7 @@
     <link rel="stylesheet" type="text/css" href="assetuser/css/main.css">
     <!--===============================================================================================-->
     <style>
+<<<<<<< HEAD
         /* CSS untuk membuat peta responsif */
         #map-container {
             position: relative;
@@ -56,6 +57,8 @@
             height: 100%;
         }
 
+=======
+>>>>>>> c3248822a3af879d390f88c0ea4ef2d890240895
         /* rating */
         .rating-css div {
             color: #ffe400;
@@ -259,6 +262,7 @@
                                 $notif = App\Models\PesananDetail::where('pesanan_id', $pesanan_utama->id)->count();
                             }
                             ?>
+<<<<<<< HEAD
                             @if (!empty($notif))
                                 <a href="{{ route('pembeli.keranjang') }}">
                                     <div class="icon-header-item cl2 hov-cl2 trans-04 p-l-22 p-r-15 icon-header-noti"
@@ -274,6 +278,16 @@
                                     </div>
                                 </a>
                             @endif
+=======
+                            <a href="{{ route('pembeli.keranjang') }}"
+                                class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-10 p-r-11 icon-header-noti text-reset me-4">
+                                <i class="zmdi zmdi-shopping-cart"></i>
+                                @if (!empty($notif))
+                                    <span
+                                        class="badge rounded-pill badge-notification bg-danger">{{ $notif }}</span>
+                                @endif
+                            </a>
+>>>>>>> c3248822a3af879d390f88c0ea4ef2d890240895
                             @php
                                 $orders = \DB::table('pesanans')
                                     ->where('status', 3)
@@ -287,7 +301,11 @@
                                     ->where('status', 5)
                                     ->where('user_id', Auth::user()->id)
                                 ->get(); @endphp
+<<<<<<< HEAD
                             <div class="icon-header-item cl2 hov-cl2 trans-04 p-r-11 p-l-20 icon-header-noti js-show-cart"
+=======
+                            <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart"
+>>>>>>> c3248822a3af879d390f88c0ea4ef2d890240895
                                 data-notify="{{ count($orders) + count($packing) + count($tracking) }}">
                                 <i class="zmdi zmdi-notifications"></i>
                             </div>
@@ -311,12 +329,20 @@
                             </li>
                         @else
                             <a href="{{ route('login') }}"
+<<<<<<< HEAD
                                 class="dis-block icon-header-item cl2 hov-cl2 trans-04 p-l-10 p-r-11 icon-header-noti"
+=======
+                                class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-10 p-r-11 icon-header-noti"
+>>>>>>> c3248822a3af879d390f88c0ea4ef2d890240895
                                 data-notify="0">
                                 <i class="zmdi zmdi-shopping-cart"></i>
                             </a>
                             <a href="{{ route('login') }}">
+<<<<<<< HEAD
                                 <div class="icon-header-item cl2 hov-cl2 trans-04 p-l-10 p-r-11 icon-header-noti"
+=======
+                                <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-10 p-r-11 icon-header-noti"
+>>>>>>> c3248822a3af879d390f88c0ea4ef2d890240895
                                     data-notify="0">
                                     <i class="zmdi zmdi-notifications"></i>
                                 </div>

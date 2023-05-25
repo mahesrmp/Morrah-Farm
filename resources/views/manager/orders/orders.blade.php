@@ -30,9 +30,10 @@
                                     <tr>
                                         <td>{{ $no++ }}</td>
                                         <td>{{ $data->user->name }}</td>
-                                        <td>
-                                            {{ $data->produk->nama_produk }}
-                                        </td>
+                                        {{-- <td>
+                                            {{ $data->produk->nama }}
+                                        </td> --}}
+                                        <td>{{ $data->produk->nama_produk ?? 'Produk tidak tersedia' }}</td>
                                         <td>{{ $data->jumlah_pesan }} Buah</td>
                                         <td>{{ $data->kode }}</td>
                                         <td>Rp{{ number_format($data->jumlah_harga, 0, ',', '.') }}</td>

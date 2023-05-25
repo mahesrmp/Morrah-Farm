@@ -167,7 +167,7 @@
 
 @extends('layouts.app_Coza')
 @section('content')
-    <div class="bg0 m-t-25 p-b-140"></div>
+    <div class="bg0 m-t-15 p-b-50"></div>
     <!-- Product -->
     <div class="bg0 m-t-23 p-b-140">
         <div class="container">

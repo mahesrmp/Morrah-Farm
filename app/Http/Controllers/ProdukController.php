@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use \App\Models\Produk as Model;
 use App\Models\Produk;
+use App\Models\Rating;
 use RealRashid\SweetAlert\Facades\Alert;
 use Redirect;
 
@@ -31,7 +32,7 @@ class ProdukController extends Controller
             'routePrefix'   => $this->routePrefix,
             'title'         => 'Produk Morrah Farm'
         ]);
-        
+
     }
 
     /**
@@ -59,7 +60,7 @@ class ProdukController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
+    {
         $request->validate([
             'nama_produk' => 'required',
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -75,7 +76,7 @@ class ProdukController extends Controller
             'stok' => $request->stok,
             'keterangan' => $request->keterangan
         ]);
-        
+
         if($request->hasFile('gambar')) {
             $request->file('gambar')->move('productimage',$request->file('gambar')->getClientOriginalName());
             $produks->gambar = $request->file('gambar')->getClientOriginalName();
@@ -94,9 +95,15 @@ class ProdukController extends Controller
      */
     public function show($id)
     {
+        $ratings = Rating::where('produk_id')->get();
+        $rating_sum = Rating::where('produk_id')->sum('rating');
+        $rating_value = $rating_sum/$ratings->count();
         return view('manager.' . $this->viewShow, [
             'model' => Model::findOrFail($id),
-            'title' => 'Detail Data Produk'
+            'title' => 'Detail Data Produk',
+            'ratings' => $ratings,
+            'rating_sum' => $rating_sum,
+            'rating_value' => $rating_value
         ]);
     }
 

@@ -6,6 +6,7 @@ use App\Http\Requests\StoreHomeSliderRequest;
 use App\Http\Requests\UpdateHomeSliderRequest;
 use App\Models\HomeSlider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -28,7 +29,7 @@ class HomeSliderController extends Controller
         return view('manager.home_slider.' . $this->viewIndex, [
             'sliders' => $sliders,
             'routePrefix'   => $this->routePrefix,
-            'title'         => 'Slider Home User'
+            'title'         => 'Tampilan Slider pada Beranda Pembeli'
         ]);
     }
 
@@ -147,7 +148,7 @@ class HomeSliderController extends Controller
      */
     public function update(UpdateHomeSliderRequest $request, $id)
     {
-    
+
         $requestData = $request->validated();
         $model = HomeSlider::findOrFail($id);
         if ($request->hasFile('gambar')) {

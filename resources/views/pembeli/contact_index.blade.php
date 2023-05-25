@@ -70,7 +70,7 @@
 
                         <div class="size-212 p-t-2">
                             <span class="mtext-110 cl2">
-                               Email
+                                Email
                             </span>
 
                             <p class="stext-115 cl1 size-213 p-t-18">
@@ -83,13 +83,29 @@
         </div>
     </section>
     <!-- Map -->
-    <div class="map text-center">
-
-            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15844.06257951733!2d99.0074771!3d2.1641674!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x302e13fd3eaabb85%3A0xa9e690d292f758ea!2sMorrah%20Farm!5e1!3m2!1sid!2sid!4v1684720122940!5m2!1sid!2sid" width="1500" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-
+    <div id="map-container">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15844.06257951733!2d99.0074771!3d2.1641674!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x302e13fd3eaabb85%3A0xa9e690d292f758ea!2sMorrah%20Farm!5e1!3m2!1sid!2sid!4v1684720122940!5m2!1sid!2sid"
+            style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
-    @endsection
+@endsection
 @section('js')
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKFWBqlKAGCeS1rMVoaNlwyayu0e0YRes"></script>
     <script src="assetuser/js/map-custom.js"></script>
+    <script>
+        // Mengubah ukuran peta saat ukuran layar berubah
+        function resizeMap() {
+            var mapContainer = document.getElementById("map-container");
+            var aspectRatio = 56.25; // Aspek rasio lebar dan tinggi 16:9
+
+            var width = mapContainer.offsetWidth;
+            var height = width / aspectRatio;
+
+            mapContainer.style.height = height + "px";
+        }
+
+        // Panggil fungsi resizeMap saat halaman dimuat dan saat ukuran layar berubah
+        window.onload = resizeMap;
+        window.onresize = resizeMap;
+    </script>
 @endsection

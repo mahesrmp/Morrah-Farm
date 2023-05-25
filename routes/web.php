@@ -21,6 +21,7 @@ use App\Http\Controllers\BerandaPeternakController;
 use App\Http\Controllers\BerandaProduksiController;
 use App\Http\Controllers\AdminAkunSettingController;
 use App\Http\Controllers\HomeSliderController;
+use App\Http\Controllers\UserRatingController;
 use App\Models\HomeSlider;
 
 /*
@@ -103,10 +104,12 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         Route::put('/akun-peternak/{id}', [AdminAkunSettingController::class, 'update'])->name('akun-peternak.update');
     });
 
-    // Route::prefix('pembeli')->middleware(['auth', 'auth.pembeli'])->group(function () {
-    //     //ini route khusus untuk pembeli
-    //     Route::get('beranda', [BerandaPembeliController::class, 'index'])->name('pembeli.beranda');
-    // });
+
+
+
+
+
+
 
     //USER
     Route::get('/beranda', [BerandaPembeliController::class, 'index'])->name('pembeli.beranda');
@@ -149,6 +152,9 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::get('/berikan-ulasan/{id}', [ReviewController::class, 'store'])->name('berikan.ulasan');
     Route::post('/berikan-ulasan-process/{id}', [ReviewController::class, 'storeReviewProcess'])->name('berikan.ulasan.process');
 
+    Route::post('add-rating', [UserRatingController::class, 'store']);
+    // Route::post('/products/{product}/ratings', [UserRatingController::class, 'store'])->name('ratings.store');
+
 
     // Route::get('logout', function () {
     //     Auth::logout();
@@ -157,11 +163,12 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
 
 
 
-    Route::get('/', function () {
-        return view('pembeli.beranda_index', [
-            'title' => 'Selamat Datang Ssayang'
-        ]);
-    });
+    // Route::get('/', function () {
+    //     return view('pembeli.beranda_index', [
+    //         'title' => 'Selamat Datang Ssayang'
+    //     ]);
+    // });
+    Route::get('/', [BerandaPembeliController::class, 'index'])->name('pembeli.beranda');
 
     Auth::routes();
 

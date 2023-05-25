@@ -40,33 +40,53 @@
     <link rel="stylesheet" type="text/css" href="assetuser/css/main.css">
     <!--===============================================================================================-->
     <style>
-         /* rating */
-    .rating-css div {
-    color: #ffe400;
-    font-size: 30px;
-    font-family: sans-serif;
-    font-weight: 800;
-    text-align: center;
-    text-transform: uppercase;
-    padding: 20px 0;
-    }
-    .rating-css input {
-    display: none;
-    }
-    .rating-css input + label {
-    font-size: 60px;
-    text-shadow: 1px 1px 0 #8f8420;
-    cursor: pointer;
-    }
-    .rating-css input:checked + label ~ label {
-    color: #b4afaf;
-    }
-    .rating-css label:active {
-    transform: scale(0.8);
-    transition: 0.3s ease;
-    }
+        /* CSS untuk membuat peta responsif */
+        #map-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            /* Perbandingan lebar dan tinggi 16:9 untuk mempertahankan aspek rasio peta */
+        }
 
-    /* End of Star Rating */
+        #map-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* rating */
+        .rating-css div {
+            color: #ffe400;
+            font-size: 30px;
+            font-family: sans-serif;
+            font-weight: 800;
+            text-align: center;
+            text-transform: uppercase;
+            padding: 20px 0;
+        }
+
+        .rating-css input {
+            display: none;
+        }
+
+        .rating-css input+label {
+            font-size: 60px;
+            text-shadow: 1px 1px 0 #8f8420;
+            cursor: pointer;
+        }
+
+        .rating-css input:checked+label~label {
+            color: #b4afaf;
+        }
+
+        .rating-css label:active {
+            transform: scale(0.8);
+            transition: 0.3s ease;
+        }
+
+        /* End of Star Rating */
         .account {
             list-style: none;
             margin: 0;
@@ -158,7 +178,6 @@
                     <div class="left-top-bar">
                         Free shipping for standard order over $100
                     </div>
-
                     <div class="right-top-bar flex-w h-full">
                         @if (Auth::user())
                             <div class="flex-c-m trans-04 p-lr-25">
@@ -210,14 +229,6 @@
                                 <a href="{{ route('pembeli.produk') }}">Shop</a>
                             </li>
                             <li>
-                                <a href="{{ route('pembeli.blog') }}">Blog</a>
-                            </li>
-
-                            {{-- <li>
-                                <a href="{{ route('pembeli.about') }}">About</a>
-                            </li> --}}
-
-                            <li>
                                 <a href="{{ route('pembeli.about') }}">About</a>
                                 <ul class="sub-menu">
                                     <li><a href="{{ route('pembeli.visimisi') }}">Visi & Misi</a></li>
@@ -225,7 +236,9 @@
                                     <li><a href="">Galeri</a></li>
                                 </ul>
                             </li>
-
+                            <li>
+                                <a href="{{ route('pembeli.blog') }}">Blog</a>
+                            </li>
                             <li>
                                 <a href="{{ route('pembeli.contact') }}">Contact</a>
                             </li>
@@ -237,10 +250,6 @@
                         <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
                             <i class="zmdi zmdi-search"></i>
                         </div>
-
-                        @if (Auth::user())
-                        @endif
-
                         @if (Auth::user())
                             <?php
                             $pesanan_utama = App\Models\Pesanan::where('user_id', Auth::user()->id)
@@ -250,19 +259,23 @@
                                 $notif = App\Models\PesananDetail::where('pesanan_id', $pesanan_utama->id)->count();
                             }
                             ?>
-                            <a href="{{ route('pembeli.keranjang') }}"
-                                @if (!empty($notif)) class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-10 p-r-11 icon-header-noti"
-                                data-notify="{{ $notif }}">
-                                <i class="zmdi zmdi-shopping-cart"></i>
-                            </a>
+                            @if (!empty($notif))
+                                <a href="{{ route('pembeli.keranjang') }}">
+                                    <div class="icon-header-item cl2 hov-cl2 trans-04 p-l-22 p-r-15 icon-header-noti"
+                                        data-notify="{{ $notif }}">
+                                        <i class="zmdi zmdi-shopping-cart"></i>
+                                    </div>
+                                </a>
                             @else
-                            <a href="{{ route('pembeli.keranjang') }}"
-                                class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-10 p-r-11 icon-header-noti"
-                                data-notify="{{ $notif }}">
-                                <i class="zmdi zmdi-shopping-cart"></i>
-                            </a> @endif
-                                @php
-$orders = \DB::table('pesanans')
+                                <a href="{{ route('pembeli.keranjang') }}">
+                                    <div class="icon-header-item cl2 hov-cl2 trans-04 p-l-22 p-r-15 icon-header-noti"
+                                        data-notify="0">
+                                        <i class="zmdi zmdi-shopping-cart"></i>
+                                    </div>
+                                </a>
+                            @endif
+                            @php
+                                $orders = \DB::table('pesanans')
                                     ->where('status', 3)
                                     ->where('user_id', Auth::user()->id)
                                     ->get();
@@ -273,54 +286,53 @@ $orders = \DB::table('pesanans')
                                 $tracking = \DB::table('pesanans')
                                     ->where('status', 5)
                                     ->where('user_id', Auth::user()->id)
-                                    ->get(); @endphp
-                                <div
-                                class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart"
+                                ->get(); @endphp
+                            <div class="icon-header-item cl2 hov-cl2 trans-04 p-r-11 p-l-20 icon-header-noti js-show-cart"
                                 data-notify="{{ count($orders) + count($packing) + count($tracking) }}">
                                 <i class="zmdi zmdi-notifications"></i>
-                    </div>
-                    <li class="dropdown dropdown-list-toggle">
-                        <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
-                            <div class="dropdown-list-content dropdown-list-message">
-                                @foreach ($orders as $item)
-                                    <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
-                                        class="dropdown-item dropdown-item-unread">{{ 'Pesanan anda dengan kode ' . $item->kode . ' sudah di confirm' }}</a>
-                                @endforeach
-                                @foreach ($packing as $item)
-                                    <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
-                                        class="dropdown-item dropdown-item-unread">{{ 'Lihat hasil packingan barang anda' }}</a>
-                                @endforeach
-                                @foreach ($tracking as $item)
-                                    <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
-                                        class="dropdown-item dropdown-item-unread">{{ 'Barang anda sudah di kirim, berikan penilaian jika sudah sampai' }}</a>
-                                @endforeach
                             </div>
-                        </div>
-                    </li>
-                @else
-                    <a href="{{ route('login') }}"
-                        class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-10 p-r-11 icon-header-noti"
-                        data-notify="0">
-                        <i class="zmdi zmdi-shopping-cart"></i>
-                    </a>
-                    <a href="{{ route('login') }}">
-                        <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-10 p-r-11 icon-header-noti"
-                            data-notify="0">
-                            <i class="zmdi zmdi-notifications"></i>
-                        </div>
-                    </a>
-                    <a href="{{ route('login') }}"
-                        class="flex-c-m p-lr-10 trans-04 btn ml-2 mr-2 btn-success btn-sm">
-                        <strong>Masuk</strong>
-                    </a>
-                    <a href="{{ route('register') }}"
-                        class="flex-c-m p-lr-10 trans-04 btn mr-1 btn btn-outline-success btn-sm">
-                        <strong>Daftar</strong>
-                    </a>
-                    @endif
+                            <li class="dropdown dropdown-list-toggle">
+                                <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
+                                    <div class="dropdown-list-content dropdown-list-message">
+                                        @foreach ($orders as $item)
+                                            <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
+                                                class="dropdown-item dropdown-item-unread">{{ 'Pesanan anda dengan kode ' . $item->kode . ' sudah di confirm' }}</a>
+                                        @endforeach
+                                        @foreach ($packing as $item)
+                                            <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
+                                                class="dropdown-item dropdown-item-unread">{{ 'Lihat hasil packingan barang anda' }}</a>
+                                        @endforeach
+                                        @foreach ($tracking as $item)
+                                            <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
+                                                class="dropdown-item dropdown-item-unread">{{ 'Barang anda sudah di kirim, berikan penilaian jika sudah sampai' }}</a>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </li>
+                        @else
+                            <a href="{{ route('login') }}"
+                                class="dis-block icon-header-item cl2 hov-cl2 trans-04 p-l-10 p-r-11 icon-header-noti"
+                                data-notify="0">
+                                <i class="zmdi zmdi-shopping-cart"></i>
+                            </a>
+                            <a href="{{ route('login') }}">
+                                <div class="icon-header-item cl2 hov-cl2 trans-04 p-l-10 p-r-11 icon-header-noti"
+                                    data-notify="0">
+                                    <i class="zmdi zmdi-notifications"></i>
+                                </div>
+                            </a>
+                            <a href="{{ route('login') }}"
+                                class="flex-c-m p-lr-10 trans-04 btn ml-2 mr-2 btn-success btn-sm">
+                                <strong>Masuk</strong>
+                            </a>
+                            <a href="{{ route('register') }}"
+                                class="flex-c-m p-lr-10 trans-04 btn mr-1 btn btn-outline-success btn-sm">
+                                <strong>Daftar</strong>
+                            </a>
+                        @endif
+                    </div>
+                </nav>
             </div>
-            </nav>
-        </div>
         </div>
         <!-- Header Mobile -->
         <div class="wrap-header-mobile">
@@ -472,10 +484,10 @@ $orders = \DB::table('pesanans')
                     <ul class="header-cart-wrapitem w-full">
                         <li class="header-cart-item flex-w flex-t m-b-12">
                             <div class="header-cart-item-txt p-t-8">
-                                <a href="{{ url('pesanan/' . $item->id) }}"
+                                {{-- <a href="{{ url('pesanan/' . $item->id) }}"
                                     class="header-cart-item-name m-b-18 hov-cl1 trans-04">
                                     White Shirt Pleat
-                                </a>
+                                </a> --}}
 
                                 <span class="header-cart-item-info">
                                     1 x $19.00
@@ -519,7 +531,7 @@ $orders = \DB::table('pesanans')
 
 
     <!-- Footer -->
-    <footer class="bg3 p-t-20 p-b-20">
+    <footer class="bg3 p-t-20 p-b-20 layout-footer-fixed">
         <div class="container">
             <div class="p-t-40">
                 <div class="flex-c-m flex-w p-b-18">

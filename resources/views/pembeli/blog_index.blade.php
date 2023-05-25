@@ -22,7 +22,7 @@
                         <!-- item blog -->
                         @foreach ($blogs as $blog)
                             <div class="p-b-63">
-                                <a href="blog-detail.html" class="hov-img0 how-pos5-parent">
+                                <a href="{{ url('blogdetail/') }}/{{ $blog->id }}" class="hov-img0 how-pos5-parent">
                                     <img src="{{ url('blogFotos') }}/{{ $blog->gambar }}" alt="IMG-BLOG">
                                     <div class="flex-col-c-m size-123 bg9 how-pos5">
                                         <span class="ltext-107 cl2 txt-center">
@@ -40,11 +40,8 @@
                                             {{ $blog->judul }}
                                         </a>
                                     </h4>
-                                    <p class="stext-117 cl6">
-                                        {{ $blog->isi }}
-                                    </p>
-                                    <div class="flex-w flex-sb-m p-t-18">
-                                        <span class="flex-w flex-m stext-111 cl2 p-r-30 m-tb-10">
+                                    <div class="flex-w flex-sb-m">
+                                        <span class="flex-w flex-m stext-111 cl2 p-r-30">
                                             <span>
                                                 <span class="cl4">By</span>
                                                 {{ $blog->user->name }}

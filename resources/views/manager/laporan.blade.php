@@ -21,11 +21,12 @@
                         <tbody>
                             @foreach ($laporan as $item)
                                 <tr>
-                                    <td>{{ $item->tanggal }}</td>
+                                    <td>{{ $item->tanggal }}
+                                    </td>
                                     <td>{{ $item->nama_produk }}</td>
-                                    <td>{{ $item->harga }}</td>
+                                    <td>{{ formatRupiah($item->harga) }}</td>
                                     <td>{{ $item->total_jumlah }}</td>
-                                    <td>{{ $item->total_harga }}</td>
+                                    <td>{{ formatRupiah($item->total_harga) }}</td>
                                 </tr>
                             @endforeach
                         </tbody>

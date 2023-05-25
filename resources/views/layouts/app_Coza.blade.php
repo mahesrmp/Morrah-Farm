@@ -40,33 +40,37 @@
     <link rel="stylesheet" type="text/css" href="assetuser/css/main.css">
     <!--===============================================================================================-->
     <style>
-         /* rating */
-    .rating-css div {
-    color: #ffe400;
-    font-size: 30px;
-    font-family: sans-serif;
-    font-weight: 800;
-    text-align: center;
-    text-transform: uppercase;
-    padding: 20px 0;
-    }
-    .rating-css input {
-    display: none;
-    }
-    .rating-css input + label {
-    font-size: 60px;
-    text-shadow: 1px 1px 0 #8f8420;
-    cursor: pointer;
-    }
-    .rating-css input:checked + label ~ label {
-    color: #b4afaf;
-    }
-    .rating-css label:active {
-    transform: scale(0.8);
-    transition: 0.3s ease;
-    }
+        /* rating */
+        .rating-css div {
+            color: #ffe400;
+            font-size: 30px;
+            font-family: sans-serif;
+            font-weight: 800;
+            text-align: center;
+            text-transform: uppercase;
+            padding: 20px 0;
+        }
 
-    /* End of Star Rating */
+        .rating-css input {
+            display: none;
+        }
+
+        .rating-css input+label {
+            font-size: 60px;
+            text-shadow: 1px 1px 0 #8f8420;
+            cursor: pointer;
+        }
+
+        .rating-css input:checked+label~label {
+            color: #b4afaf;
+        }
+
+        .rating-css label:active {
+            transform: scale(0.8);
+            transition: 0.3s ease;
+        }
+
+        /* End of Star Rating */
         .account {
             list-style: none;
             margin: 0;
@@ -251,18 +255,15 @@
                             }
                             ?>
                             <a href="{{ route('pembeli.keranjang') }}"
-                                @if (!empty($notif)) class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-10 p-r-11 icon-header-noti"
-                                data-notify="{{ $notif }}">
+                                class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-10 p-r-11 icon-header-noti text-reset me-4">
                                 <i class="zmdi zmdi-shopping-cart"></i>
+                                @if (!empty($notif))
+                                    <span
+                                        class="badge rounded-pill badge-notification bg-danger">{{ $notif }}</span>
+                                @endif
                             </a>
-                            @else
-                            <a href="{{ route('pembeli.keranjang') }}"
-                                class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-10 p-r-11 icon-header-noti"
-                                data-notify="{{ $notif }}">
-                                <i class="zmdi zmdi-shopping-cart"></i>
-                            </a> @endif
-                                @php
-$orders = \DB::table('pesanans')
+                            @php
+                                $orders = \DB::table('pesanans')
                                     ->where('status', 3)
                                     ->where('user_id', Auth::user()->id)
                                     ->get();
@@ -273,54 +274,53 @@ $orders = \DB::table('pesanans')
                                 $tracking = \DB::table('pesanans')
                                     ->where('status', 5)
                                     ->where('user_id', Auth::user()->id)
-                                    ->get(); @endphp
-                                <div
-                                class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart"
+                                ->get(); @endphp
+                            <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart"
                                 data-notify="{{ count($orders) + count($packing) + count($tracking) }}">
                                 <i class="zmdi zmdi-notifications"></i>
-                    </div>
-                    <li class="dropdown dropdown-list-toggle">
-                        <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
-                            <div class="dropdown-list-content dropdown-list-message">
-                                @foreach ($orders as $item)
-                                    <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
-                                        class="dropdown-item dropdown-item-unread">{{ 'Pesanan anda dengan kode ' . $item->kode . ' sudah di confirm' }}</a>
-                                @endforeach
-                                @foreach ($packing as $item)
-                                    <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
-                                        class="dropdown-item dropdown-item-unread">{{ 'Lihat hasil packingan barang anda' }}</a>
-                                @endforeach
-                                @foreach ($tracking as $item)
-                                    <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
-                                        class="dropdown-item dropdown-item-unread">{{ 'Barang anda sudah di kirim, berikan penilaian jika sudah sampai' }}</a>
-                                @endforeach
                             </div>
-                        </div>
-                    </li>
-                @else
-                    <a href="{{ route('login') }}"
-                        class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-10 p-r-11 icon-header-noti"
-                        data-notify="0">
-                        <i class="zmdi zmdi-shopping-cart"></i>
-                    </a>
-                    <a href="{{ route('login') }}">
-                        <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-10 p-r-11 icon-header-noti"
-                            data-notify="0">
-                            <i class="zmdi zmdi-notifications"></i>
-                        </div>
-                    </a>
-                    <a href="{{ route('login') }}"
-                        class="flex-c-m p-lr-10 trans-04 btn ml-2 mr-2 btn-success btn-sm">
-                        <strong>Masuk</strong>
-                    </a>
-                    <a href="{{ route('register') }}"
-                        class="flex-c-m p-lr-10 trans-04 btn mr-1 btn btn-outline-success btn-sm">
-                        <strong>Daftar</strong>
-                    </a>
-                    @endif
+                            <li class="dropdown dropdown-list-toggle">
+                                <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
+                                    <div class="dropdown-list-content dropdown-list-message">
+                                        @foreach ($orders as $item)
+                                            <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
+                                                class="dropdown-item dropdown-item-unread">{{ 'Pesanan anda dengan kode ' . $item->kode . ' sudah di confirm' }}</a>
+                                        @endforeach
+                                        @foreach ($packing as $item)
+                                            <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
+                                                class="dropdown-item dropdown-item-unread">{{ 'Lihat hasil packingan barang anda' }}</a>
+                                        @endforeach
+                                        @foreach ($tracking as $item)
+                                            <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
+                                                class="dropdown-item dropdown-item-unread">{{ 'Barang anda sudah di kirim, berikan penilaian jika sudah sampai' }}</a>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </li>
+                        @else
+                            <a href="{{ route('login') }}"
+                                class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-10 p-r-11 icon-header-noti"
+                                data-notify="0">
+                                <i class="zmdi zmdi-shopping-cart"></i>
+                            </a>
+                            <a href="{{ route('login') }}">
+                                <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-10 p-r-11 icon-header-noti"
+                                    data-notify="0">
+                                    <i class="zmdi zmdi-notifications"></i>
+                                </div>
+                            </a>
+                            <a href="{{ route('login') }}"
+                                class="flex-c-m p-lr-10 trans-04 btn ml-2 mr-2 btn-success btn-sm">
+                                <strong>Masuk</strong>
+                            </a>
+                            <a href="{{ route('register') }}"
+                                class="flex-c-m p-lr-10 trans-04 btn mr-1 btn btn-outline-success btn-sm">
+                                <strong>Daftar</strong>
+                            </a>
+                        @endif
+                    </div>
+                </nav>
             </div>
-            </nav>
-        </div>
         </div>
         <!-- Header Mobile -->
         <div class="wrap-header-mobile">
@@ -472,10 +472,10 @@ $orders = \DB::table('pesanans')
                     <ul class="header-cart-wrapitem w-full">
                         <li class="header-cart-item flex-w flex-t m-b-12">
                             <div class="header-cart-item-txt p-t-8">
-                                <a href="{{ url('pesanan/' . $item->id) }}"
+                                {{-- <a href="{{ url('pesanan/' . $item->id) }}"
                                     class="header-cart-item-name m-b-18 hov-cl1 trans-04">
                                     White Shirt Pleat
-                                </a>
+                                </a> --}}
 
                                 <span class="header-cart-item-info">
                                     1 x $19.00

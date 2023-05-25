@@ -96,72 +96,6 @@
 @extends('layouts.app_Coza')
 @section('content')
     <div class="bg0 m-t-10 p-b-30"></div>
-    {{-- <form class="bg0 p-t-75 p-b-85">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-10 col-xl-12 m-lr-auto m-b-50">
-                    <div class="m-l-25 m-r--38 m-lr-0-xl">
-                        <div class="wrap-table-shopping-cart">
-                            <table class="table-shopping-cart">
-                                <tr class="table_head">
-                                    <th class="column-1 text-center">Gambar</th>
-                                    <th class="column-2 text-center">Nama Produk</th>
-                                    <th class="column-3 text-center">Harga Satuan</th>
-                                    <th class="column-4 text-center">Jumlah</th>
-                                    <th class="column-5 text-center">Total</th>
-                                    <th class="column-6 text-center">Aksi</th>
-                                </tr>
-                                @foreach ($pesanan_details as $pesanan_detail)
-                                    <tr class="table_row">
-                                        <td class="column-1 text-center">
-                                            <div class="how-itemcart1">
-                                                <img src="{{ url('productimage') }}/{{ $pesanan_detail->produk->gambar }}"
-                                                    alt="IMG">
-                                            </div>
-                                        </td>
-                                        <td class="column-2 text-center">{{ $pesanan_detail->produk->nama_produk }}</td>
-                                        <td class="column-3 text-center">{{ formatRupiah($pesanan_detail->produk->harga) }}</td>
-                                        <td class="column-4 text-center">
-                                            {{ $pesanan_detail->jumlah }}
-                                        </td>
-                                        <td class="column-5 text-center">{{ formatRupiah($pesanan_detail->jumlah_harga) }}</td>
-                                        <td class="text-center">
-                                            <form action="{{ url('check-out') }}/{{ $pesanan_detail->id }}" method="post">
-                                                @csrf
-                                                {{ method_field('DELETE') }}
-                                                <button type="submit" class="btn btn-danger btn-sm"
-                                                    onclick="return confirm('Yakin Ingin Menghapus Produk?');">
-                                                    <i class="fa fa-trash"></i>
-                                                </button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </table>
-                        </div>
-                        <div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
-                            <div class="flex-w flex-m m-r-20 m-tb-5">
-                                <div
-                                    class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5">
-                                    Apply coupon
-                                </div>
-                            </div>
-                            @if (count($pesanan_details) > 0)
-                                <a href="{{ url('konfirmasi-check-out') }}"
-                                    onclick="return confirm('Yakin Mau CheckOut?');">
-                                    <div
-                                        class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10">
-                                        Chek Out
-                                    </div>
-                                </a>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form> --}}
-
     <form class="bg0 p-t-75 p-b-85">
         <div class="container">
             <div class="row">
@@ -216,12 +150,12 @@
                         <div class="flex-w flex-t bor12 p-b-13">
                             <div class="size-208">
                                 <span class="stext-110 cl2">
-                                    Subtotal:
+                                    Tanggal:
                                 </span>
                             </div>
-                            <div class="size-209">
+                            <div class="size-212">
                                 <span class="mtext-110 cl2">
-                                    $79.65
+                                    {{ $pesanan->tanggal }}
                                 </span>
                             </div>
                         </div>
@@ -234,15 +168,13 @@
                             </div>
                             <div class="size-209 p-t-1">
                                 <span class="mtext-110 cl2">
-                                    $79.65
+                                    {{ formatRupiah($pesanan->jumlah_harga) }}
                                 </span>
                             </div>
                         </div>
                         @if (count($pesanan_details) > 0)
-                            <a href="{{ url('konfirmasi-check-out') }}" onclick="return confirm('Yakin Mau CheckOut?');">
-                                <button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
-                                    Proceed to Checkout
-                                </button>
+                            <a href="{{ url('konfirmasi-check-out') }}" onclick="return confirm('Yakin Mau CheckOut?');" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+                                    Checkout
                             </a>
                         @endif
                     </div>

@@ -75,7 +75,7 @@ class UserRatingController extends Controller
                 // return redirect()->back()->with('success', 'Terima kasih sudah memberikan penilain');
                 return redirect()->route('pembeli.produk')->with('success', 'Terima kasih sudah memberikan penilain');
             } else {
-                return redirect()->back()->with('error', 'Anda tidak bisa menilai produk ini tanpa membeli');
+                return redirect()->route('pembeli.produk')->with('error', 'Anda tidak bisa menilai produk ini tanpa membeli');
             }
         } else {
             return redirect()->back()->with('success', 'The link you Followed was broke');

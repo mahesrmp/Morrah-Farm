@@ -256,15 +256,13 @@
                                 @else
                                     <div class="row mt-3">
                                         <div class="col-6">
-                                            <a href="{{ route('login') }}"><button class="btn btn-primary">
-                                                    Add to cart
-                                                </button>
+                                            <a href="{{ route('login') }}" class="btn btn-primary">
+                                                Add to cart
                                             </a>
                                         </div>
                                         <div class="col-6">
-                                            <a href="{{ route('login') }}"><button class="btn btn-success">
-                                                    Beri Penilaian
-                                                </button>
+                                            <a href="{{ route('login') }}" class="btn btn-success">
+                                                Beri Penilaian
                                             </a>
                                         </div>
                                     </div>

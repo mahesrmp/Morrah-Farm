@@ -28,10 +28,7 @@ class UserRatingController extends Controller
 
     public function create(Produk $produk)
     {
-        return view('ratings.create', [
-            'title' => 'Berikan Penilaian Anda',
-            'produk' => $produk
-        ]);
+       //
     }
 
 
@@ -62,8 +59,6 @@ class UserRatingController extends Controller
                     $existing_rating->stars_rated = $stars_rated;
                     $existing_rating->update();
                 } else {
-
-
                     Rating::create([
                         'user_id' => Auth::id(),
                         'produk_id' => $produk_id,

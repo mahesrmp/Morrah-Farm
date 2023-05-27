@@ -1,61 +1,52 @@
 @extends('layouts.app_LTE')
 
 @section('content')
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card card-primary">
-                    <div class="card-header">
-                        <h3 class="card-title">Form Tambah Slider</h3>
-                    </div>
-                    {!! Form::model($model, ['route' => $route, 'method' => $method, 'files' => true]) !!}
+    <div class="row">
+        <div class="col-md-10">
+            <!-- general form elements -->
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Tambah Slider</h3>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                <form action="{{ route('home-sliders.update', $homSlider->id) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="nama_slider">Nama Slider</label>
-                            {!! Form::text('nama_slider', null, ['class' => 'form-control', 'autofocus']) !!}
-                            <span class="text-danger">{{ $errors->first('nama_slider') }}</span>
+                            <label for="exampleInputEmail1">Nama Slider</label>
+                            <input name="nama_slider" type="text" value="{{ $homSlider->nama_slider }}" class="form-control" id="exampleInputEmail1"
+                                placeholder="Nama Slider">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Deskripsi</label>
+                            <input name="deskripsi" type="text" value="{{ $homSlider->deskripsi }}" class="form-control" id="exampleInputPassword1"
+                                placeholder="Deksirpis Singkat">
                         </div>
 
                         <div class="form-group">
-                            <label for="deskripsi">Deskripsi</label>
-                            {!! Form::text('deskripsi', null, ['class' => 'form-control']) !!}
-                            <span class="text-danger">{{ $errors->first('deskripsi') }}</span>
+                            <label for="gambar">Gambar lama:</label>
+                            <img src="{{ asset('images/' . $homSlider->gambar) }}" alt="{{ $homSlider->nama_slider }}"
+                                height="100" width="100">
                         </div>
-                        <label for="gambar">Gambar (*Resolusi Gambar harus 1920 x 930)</label>
-                        <div>
-                            {{-- <img id="img" src="assets/homeslider/choose.png" alt="" height="100px"> --}}
-                            @if ($model->foto != null)
-                                <div class="m-3">
-                                    <img src="{{ \Storage::url($model->foto) }}" alt="Profil" width="200px">
+
+                        <div class="form-group">
+                            <label for="exampleInputFile">Gambar (*resolusi gambar harus berukuran 1920 x 930)</label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="exampleInputFile" name="gambar">
+                                    <label class="custom-file-label" for="exampleInputFile">Klik Untuk memilih gambar</label>
                                 </div>
-                            @endif
-                            <div class="custom-file">
-                                <input type="file" name="gambar" class="custom-file-input" id="input">
-                                <label class="custom-file-label" for="exampleInputFile">*Resolusi Gambar harus 1920 x
-                                    930</label>
                             </div>
                         </div>
-                        <span class="text-danger">{{ $errors->first('gambar') }}</span>
                     </div>
+                    <!-- /.card-body -->
                     <div class="card-footer">
-                        {!! Form::submit($button, ['class' => 'btn btn-primary btn-sm']) !!}
-                        {!! Form::close() !!}
+                        <button type="submit" class="btn btn-primary">Edit</button>
                     </div>
-                </div>
+                </form>
             </div>
-            <div class="col-md-6"></div>
         </div>
     </div>
-@endsection
-
-@section('script')
-    <script>
-        let img = document.getElementById('img');
-        let input = document.getElementById('input');
-
-        input.onchange = (e) => {
-            if (input.files[0])
-                img.src = URL.createObjectURL(input.files[0]);
-        };
-    </script>
 @endsection

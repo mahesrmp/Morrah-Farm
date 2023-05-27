@@ -7,8 +7,8 @@
             <div class="slick1">
                 @foreach ($sliders as $slider)
                     <div class="item-slick1 bg-overlay1"
-                        style="background-image: url({{ \Storage::url($slider->gambar ?? 'image/noimage.jpg') }} );"
-                        data-thumb="{{ \Storage::url($slider->gambar ?? 'image/noimage.jpg') }}" data-caption="Men’s Wear">
+                        style="background-image: url({{ asset('images/' . $slider->gambar) }}" alt="{{ $slider->nama_slider }} );"
+                        data-thumb="{{ asset('images/' . $slider->gambar) }}" alt="{{ $slider->nama_slider }}" data-caption="Men’s Wear">
                         <div class="container h-full">
                             <div class="flex-col-c-m h-full p-t-100 p-b-60 respon5">
                                 <div class="layer-slick1 animated visible-false" data-appear="rollIn" data-delay="0">

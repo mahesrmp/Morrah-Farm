@@ -2,22 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreHomeSliderRequest;
-use App\Http\Requests\UpdateHomeSliderRequest;
 use App\Models\HomeSlider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
 
 class HomeSliderController extends Controller
 {
-    private $viewIndex = 'home_slider_index';
-    private $viewCreate = 'home_slider_form';
-    private $viewEdit = 'home_slider_form';
-    private $viewShow = 'produk_show';
-    private $routePrefix = 'homeslider';
-
     /**
      * Display a listing of the resource.
      *
@@ -25,11 +16,17 @@ class HomeSliderController extends Controller
      */
     public function index()
     {
-        $sliders = HomeSlider::paginate(20);
-        return view('manager.home_slider.' . $this->viewIndex, [
+
+        $sliders = HomeSlider::all();
+        $postCount = HomeSlider::count();
+
+        // Tentukan batas maksimum untuk jumlah post
+        $maxPostCount = 3;
+        return view('manager.home_slider.home_slider_index', [
+            'title' => 'Slider di beranda User',
             'sliders' => $sliders,
-            'routePrefix'   => $this->routePrefix,
-            'title'         => 'Tampilan Slider pada Beranda Pembeli'
+            'postCount' => $postCount,
+            'maxPostCount' => $maxPostCount
         ]);
     }
 
@@ -40,15 +37,7 @@ class HomeSliderController extends Controller
      */
     public function create()
     {
-        $data = [
-            'model'     => new HomeSlider(),
-            'method'    => 'POST',
-            'route'     => $this->routePrefix . '.store',
-            'button'    => 'SIMPAN',
-            'title'     => 'Form Tambah Slider',
-        ];
-
-        return view('manager.home_slider.' . $this->viewCreate, $data);
+        return view('manager.home_slider.home_slider_form');
     }
 
     /**
@@ -57,44 +46,24 @@ class HomeSliderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreHomeSliderRequest $request)
+    public function store(Request $request)
     {
-        $requestData = $request->validated();
+        $request->validate([
+            'nama_slider' => 'required',
+            'deskripsi' => 'required',
+            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
 
-        if ($request->hasFile('gambar')) {
-            $requestData['gambar'] = $request->file('gambar')->store('public/homeslider');
-        }
-        HomeSlider::create($requestData);
-        flash('Data berhasil didaftarkan');
-        return redirect()->route('homeslider.index')->with('success', 'Slider berhasil ditambahkan');
+        $imageName = time() . '.' . $request->gambar->extension();
+        $request->gambar->move(public_path('images'), $imageName);
 
+        HomeSlider::create([
+            'nama_slider' => $request->nama_slider,
+            'deskripsi' => $request->deskripsi,
+            'gambar' => $imageName,
+        ]);
 
-
-
-
-
-
-
-        // $request->validate([
-        //     'nama_slider' => 'required',
-        //     'deskripsi' => 'required',
-        //     'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-
-        // ]);
-
-        // $produks = HomeSlider::create([
-        //     'nama_slider' => $request->nama_slider,
-        //     'deskripsi' => $request->deskripsi,
-        //     'gambar' => $request->gambar,
-        // ]);
-
-        // if($request->hasFile('gambar')) {
-        //     $request->file('gambar')->move('assets/homeslider',$request->file('gambar')->getClientOriginalName());
-        //     $produks->gambar = $request->file('gambar')->getClientOriginalName();
-        //     $produks->save();
-        // }
-
-
+        return redirect()->route('home-sliders.index')->with('success', 'Slider created successfully.');
     }
 
     /**
@@ -114,29 +83,12 @@ class HomeSliderController extends Controller
      * @param  \App\Models\HomeSlider  $homeSlider
      * @return \Illuminate\Http\Response
      */
-    public function edit(HomeSlider $id)
+    public function edit(HomeSlider $homeSlider)
     {
-        // $produks = [
-        //     'model'     => HomeSlider::findOrFail($homeSlider),
-        //     'method'    => 'PUT',
-        //     'route'     => [$this->routePrefix . '.update', $homeSlider,],
-        //     'button'    => 'UPDATE',
-        //     'title'     => 'Form Update Home Sldier',
-        // ];
-
-        // return view('manager.home_slider.' . $this->viewEdit, $produks);
-
-
-        $data = [
-            'model'     => HomeSlider::FindOrFail($id),
-            'method'    => 'PUT',
-            'route'     => [$this->routePrefix . '.update', $id],
-            'button'    => 'UPDATE',
-            'title'     => 'Form Update Home Sldier',
-
-        ];
-
-        return view('manager.home_slider.' . $this->viewEdit, $data);
+        return view('manager.home_slider.home_slider_form', [
+            'title' => 'Edit Home Slider',
+            'homSlider' => $homeSlider
+        ]);
     }
 
     /**
@@ -146,20 +98,27 @@ class HomeSliderController extends Controller
      * @param  \App\Models\HomeSlider  $homeSlider
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateHomeSliderRequest $request, $id)
+    public function update(Request $request, HomeSlider $homeSlider)
     {
+        $request->validate([
+            'nama_slider' => 'required',
+            'deskripsi' => 'required',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
 
-        $requestData = $request->validated();
-        $model = HomeSlider::findOrFail($id);
         if ($request->hasFile('gambar')) {
-            if($model->gambar != null && Storage::exists($model->gambar)){
-                Storage::delete($model->gambar);
-            }
-            $requestData['gambar'] = $request->file('gambar')->store('public');
+            $imageName = time() . '.' . $request->gambar->extension();
+            $request->gambar->move(public_path('images'), $imageName);
+            Storage::delete(public_path('images/' . $homeSlider->gambar));
+
+            $homeSlider->gambar = $imageName;
         }
-        $model->fill($requestData);
-        $model->save();
-        return redirect()->route('produk.index')->with('success', 'Slider Berhasil di Ubah');
+
+        $homeSlider->nama_slider = $request->nama_slider;
+        $homeSlider->deskripsi = $request->deskripsi;
+        $homeSlider->save();
+
+        return redirect()->route('home-sliders.index')->with('success', 'Slider updated successfully');
     }
 
     /**
@@ -168,10 +127,11 @@ class HomeSliderController extends Controller
      * @param  \App\Models\HomeSlider  $homeSlider
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(HomeSlider $homeSlider)
     {
-        $model = HomeSlider::firstOrFail();
-        $model->delete();
-        return back()->with('success', 'Slider berhasil dihapus.');
+        Storage::delete(public_path('images/' . $homeSlider->gambar));
+        $homeSlider->delete();
+
+        return redirect()->route('home-sliders.index')->with('success', 'Slider deleted successfully');
     }
 }

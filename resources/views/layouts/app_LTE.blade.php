@@ -36,8 +36,8 @@
 
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake" src="assets/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60"
-                width="60">
+            <img class="animation__shake" src="assets/dist/img/logo3.png" alt="AdminLTELogo" height="200"
+                width="200">
         </div>
 
         <!-- Navbar -->
@@ -217,10 +217,11 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('about.index') }}" class="nav-link" class="nav-link {{ \Route::is('about.index') ? 'active' : '' }}">
+                            <a href="{{ route('about.index') }}" class="nav-link"
+                                class="nav-link {{ \Route::is('about.index') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-chart-pie"></i>
                                 <p>
-                                   About
+                                    About
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
@@ -229,24 +230,6 @@
                                     <a href="{{ route('about.index') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>About</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="pages/charts/flot.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Flot</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="pages/charts/inline.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Inline</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="pages/charts/uplot.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>uPlot</p>
                                     </a>
                                 </li>
                             </ul>
@@ -263,9 +246,9 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ route('homeslider.index') }}"
-                                class="nav-link {{ \Route::is('homeslider.index') ? 'active' : '' }}">
-                                <i class="fa-brands fa-blogger"></i>
+                            <a href="{{ route('home-sliders.index') }}"
+                                class="nav-link {{ \Route::is('home-sliders.index') ? 'active' : '' }}">
+                                <i class="fa-sharp fa-solid fa-images"></i>
                                 <p>
                                     Home Slider
 
@@ -276,7 +259,7 @@
                         <li class="nav-item">
                             <a href="{{ route('manager.laporan') }}"
                                 class="nav-link {{ \Route::is('cetak-laporan-penjualan') ? 'active' : '' }}">
-                                <i class="fa-brands fa-blogger"></i>
+                                <i class="fa-solid fa-book"></i>
                                 <p>
                                     Laporan
 
@@ -385,6 +368,8 @@
     <!-- Sparkline -->
     <script src="assets/plugins/sparklines/sparkline.js"></script>
     <!-- JQVMap -->
+    <!-- date-range-picker -->
+    <script src="assets/plugins/daterangepicker/daterangepicker.js"></script>
     <script src="assets/plugins/jqvmap/jquery.vmap.min.js"></script>
     <script src="assets/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
     <!-- jQuery Knob Chart -->
@@ -408,6 +393,7 @@
     <link rel="stylesheet" href="assets/dist/jQurery/select2.min.css">
     <script src="assets/plugins/jQurery/select2.min.js"></script>
     <script src="assets/plugins/jquery.mask.min.js"></script>
+    <script src="../../dist/js/demo.js"></script>
     <script>
         $(document).ready(function() {
             $('.rupiah').mask("#.##0", {
@@ -415,6 +401,18 @@
             });
             $('.select2').select2();
         });
+    </script>
+    <script>
+        $(function() {
+            // Summernote
+            $('#summernote').summernote()
+
+            // CodeMirror
+            CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
+                mode: "htmlmixed",
+                theme: "monokai"
+            });
+        })
     </script>
     {{-- <script type="text/javascript">
         $(function() {

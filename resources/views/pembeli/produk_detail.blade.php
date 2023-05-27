@@ -163,94 +163,15 @@
                                         @if (Auth::user())
                                             <div class="row mt-5">
                                                 <div class="col-6">
-                                                    <a href=""><button class="btn btn-primary">
-                                                            Add to Cart
-                                                        </button>
-                                                    </a>
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-primary mt-2"><i
+                                                            class="zmdi zmdi-shopping-cart"></i>add cart</button>
                                                 </div>
                                                 <div class="col-6">
                                                     <button class="btn btn-success js-show-modal1">
                                                         Beri Penilaian
                                                     </button>
                                                 </div>
-                                                <form>
-                                                    <!-- Modal1 -->
-                                                    <div class="wrap-modal1 js-modal1 p-t-60 p-b-20">
-                                                        <div class="overlay-modal1 js-hide-modal1"></div>
-                                                        <div class="container">
-                                                            <div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
-                                                                <button class="how-pos3 hov3 trans-04 js-hide-modal1">
-                                                                    <img src="assetuser/images/icons/icon-close.png"
-                                                                        alt="CLOSE">
-                                                                </button>
-                                                                <div class="tab-pane ">
-                                                                    <div class="row">
-                                                                        <div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
-                                                                            <div class="p-b-30 m-lr-15-sm">
-                                                                                <!-- Add review -->
-                                                                                <form class="w-full"
-                                                                                    action="{{ url('/add-rating') }}"
-                                                                                    method="POST">
-                                                                                    @csrf
-                                                                                    <input type="hidden" name="produk_id"
-                                                                                        value="{{ $produk->id }}">
-                                                                                    <h5 class="mtext-108 cl2 p-b-7">
-                                                                                        Komentar Anda sangat berharga bagi
-                                                                                        kami
-                                                                                    </h5>
-                                                                                    <div
-                                                                                        class="flex-w flex-m p-t-50 p-b-23">
-                                                                                        <span class="stext-102 cl3 m-r-16">
-                                                                                            Berikan Rating
-                                                                                        </span>
-                                                                                        <span
-                                                                                            class="wrap-rating fs-25 cl11 pointer">
-                                                                                            <i
-                                                                                                class="item-rating pointer zmdi zmdi-star-outline"></i>
-                                                                                            <i
-                                                                                                class="item-rating pointer zmdi zmdi-star-outline"></i>
-                                                                                            <i
-                                                                                                class="item-rating pointer zmdi zmdi-star-outline"></i>
-                                                                                            <i
-                                                                                                class="item-rating pointer zmdi zmdi-star-outline"></i>
-                                                                                            <i
-                                                                                                class="item-rating pointer zmdi zmdi-star-outline"></i>
-                                                                                            <input class="dis-none"
-                                                                                                type="number"
-                                                                                                name="rating">
-                                                                                        </span>
-                                                                                    </div>
-                                                                                    <div class="row p-b-25">
-                                                                                        <div class="col-12 p-b-5">
-                                                                                            <label class="stext-102 cl3"
-                                                                                                for="review">Review
-                                                                                                Anda</label>
-                                                                                            <textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="review" name="komentar"></textarea>
-                                                                                        </div>
-                                                                                        <div class="col-sm-6 p-b-5">
-                                                                                            <label class="stext-102 cl3"
-                                                                                                for="name">Gambar yang
-                                                                                                anda
-                                                                                                Beli</label>
-                                                                                            <input
-                                                                                                class="size-111 bor8 stext-102 cl2 p-lr-20"
-                                                                                                id="name"
-                                                                                                type="file"
-                                                                                                name="image">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <button type="submit"
-                                                                                        class="btn btn-primary">
-                                                                                        Kirim
-                                                                                    </button>
-                                                                                </form>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
                                             </div>
                                     </div>
                                 @else
@@ -401,6 +322,62 @@
         </div>
         </div>
     </section>
+    <!-- Modal1 -->
+    <div class="wrap-modal1 js-modal1 p-t-60 p-b-20">
+        <div class="overlay-modal1 js-hide-modal1"></div>
+        <div class="container">
+            <div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
+                <button class="how-pos3 hov3 trans-04 js-hide-modal1">
+                    <img src="assetuser/images/icons/icon-close.png" alt="CLOSE">
+                </button>
+                <div class="tab-pane ">
+                    <div class="row">
+                        <div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
+                            <div class="p-b-30 m-lr-15-sm">
+                                <!-- Add review -->
+                                <form class="w-full" action="{{ url('/add-rating') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="produk_id" value="{{ $produk->id }}">
+                                    <h5 class="mtext-108 cl2 p-b-7">
+                                        Komentar Anda sangat berharga bagi
+                                        kami
+                                    </h5>
+                                    <div class="flex-w flex-m p-t-50 p-b-23">
+                                        <span class="stext-102 cl3 m-r-16">
+                                            Berikan Rating
+                                        </span>
+                                        <span class="wrap-rating fs-25 cl11 pointer">
+                                            <i class="item-rating pointer zmdi zmdi-star-outline"></i>
+                                            <i class="item-rating pointer zmdi zmdi-star-outline"></i>
+                                            <i class="item-rating pointer zmdi zmdi-star-outline"></i>
+                                            <i class="item-rating pointer zmdi zmdi-star-outline"></i>
+                                            <i class="item-rating pointer zmdi zmdi-star-outline"></i>
+                                            <input class="dis-none" type="number" name="rating">
+                                        </span>
+                                    </div>
+                                    <div class="row p-b-25">
+                                        <div class="col-12 p-b-5">
+                                            <label class="stext-102 cl3" for="review">Review
+                                                Anda</label>
+                                            <textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="review" name="komentar"></textarea>
+                                        </div>
+                                        <div class="col-sm-6 p-b-5">
+                                            <label class="stext-102 cl3" for="name">Gambar yang anda Beli</label>
+                                            <input class="size-111 bor8 stext-102 cl2 p-lr-20" id="name"
+                                                type="file" name="image">
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">
+                                        Kirim
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 @section('js')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"

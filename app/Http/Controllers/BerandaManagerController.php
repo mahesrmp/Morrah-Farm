@@ -48,24 +48,34 @@ class BerandaManagerController extends Controller
         ]);
     }
 
-    public function laporan()
+    public function laporan(Request $request)
     {
 
-        $tanggal = Carbon::now();
-        // $tanggal = date('Y-m-d'); // Ganti dengan tanggal yang diinginkan
-    $laporan = PesananDetail::join('produks', 'pesanan_details.produk_id', '=', 'produks.id')
-        ->select('pesanan_details.created_at as tanggal', 'produks.nama_produk', 'produks.harga', DB::raw('SUM(pesanan_details.jumlah) as total_jumlah'), DB::raw('SUM(pesanan_details.jumlah * produks.harga) as total_harga'))
-        ->whereDate('pesanan_details.created_at', $tanggal)
-        ->groupBy('pesanan_details.created_at', 'produks.nama_produk', 'produks.harga')
-        ->get();
+        $bulan = $request->input('bulan');
 
-        return view('manager.laporan', [
-            'title' => 'Laporan Penjualan',
-            'laporan' => $laporan
-        ]);
+        $query = DB::table('pesanan_details')
+            ->join('pesanans', 'pesanan_details.pesanan_id', '=', 'pesanans.id')
+            ->join('produks', 'pesanan_details.produk_id', '=', 'produks.id')
+            ->select(
+                DB::raw('DATE_FORMAT(pesanans.created_at, "%Y-%m-%d") as bulan'),
+                'produks.nama_produk',
+                'produks.harga',
+                DB::raw('SUM(pesanan_details.jumlah) as jumlah_terjual'),
+                DB::raw('SUM(pesanan_details.jumlah * pesanan_details.jumlah_harga) as pendapatan')
+            )
+            ->where('pesanans.status', 5)
+            ->groupBy('bulan', 'produks.nama_produk', 'produks.harga')
+            ->orderBy('bulan');
 
+        if ($bulan) {
+            $query->where(DB::raw('DATE_FORMAT(pesanans.created_at, "%Y-%m-%d")'), '=', $bulan);
+        }
+
+        $laporan = $query->get();
+
+        return view('manager.laporan',[
+            'title' => 'Laporan Penjualan'
+        ])->with('laporan', $laporan);
 
     }
 }
-
-

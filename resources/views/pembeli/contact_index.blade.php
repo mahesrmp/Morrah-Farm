@@ -2,8 +2,8 @@
 
 @section('content')
     <div class="container">
-
     </div>
+    <div class="bg0 m-t-15 p-b-50"></div>
     <!-- Content page -->
     <section class="bg0 p-t-104 p-b-116">
         <div class="container">

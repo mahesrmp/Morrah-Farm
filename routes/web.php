@@ -22,7 +22,7 @@ use App\Http\Controllers\BerandaProduksiController;
 use App\Http\Controllers\AdminAkunSettingController;
 use App\Http\Controllers\HomeSliderController;
 use App\Http\Controllers\UserRatingController;
-use App\Models\HomeSlider;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -45,9 +45,9 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         Route::get('beranda', [BerandaManagerController::class, 'index'])->name('manager.beranda');
         Route::get('customer', [BerandaManagerController::class, 'customer'])->name('manager.customer');
         Route::resource('user', UserController::class);
-        Route::resource('homeslider', HomeSliderController::class);
         Route::resource('produk', ProdukController::class);
         Route::resource('about', AboutController::class);
+        Route::resource('home-sliders', HomeSliderController::class);
         Route::get('/akun-manager/{id}/edit', [AdminAkunSettingController::class, 'edit'])->name('akun-manager.edit');
         Route::put('/akun-manager/{id}', [AdminAkunSettingController::class, 'update'])->name('akun-manager.update');
 
@@ -137,7 +137,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::get('/pembeli/keranjang/{id}', [PesananPembeliController::class, 'index'])->name('pembeli.pesan.produk');
     Route::post('pesan-process/{id}', [PesananPembeliController::class, 'pesan']);
     Route::get('keranjang', [PesananPembeliController::class, 'cart'])->name('pembeli.keranjang');
-    Route::delete('check-out/{id}', [PesananPembeliController::class, 'delete']);
+    Route::delete('check-out/{id}', [PesananPembeliController::class, 'delete'])->name('produk.delete');
     Route::get('konfirmasi-check-out', [PesananPembeliController::class, 'konfirmasi']);
 
 

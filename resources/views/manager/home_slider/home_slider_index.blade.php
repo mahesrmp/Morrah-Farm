@@ -1,58 +1,93 @@
 @extends('layouts.app_LTE')
 
 @section('content')
-    <section class="content-header">
-        <div class="container-fluid">
-            <h1 class="text-center">{{ $title }}</h1>
-        </div><!-- /.container-fluid -->
-    </section>
-
-    <!-- Main content -->
-    <section class="content">
-
-        <!-- Default box -->
-        <div class="card card-solid">
-            <div class="card-body pb-0">
-                <a href="{{ route($routePrefix . '.create') }}">
-                    <button type="button" class="btn btn-primary btn-sm"><i class="fa-sharp fa-solid fa-user-plus"></i>Tambah
-                        Produk</button></a>
-                <div class="mt-3"></div>
-                <div class="row">
-                    @foreach ($sliders as $slider)
-                        <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
-                            <div class="card bg-light d-flex flex-fill">
-                                <div class="card-header text-muted border-bottom-0">
-                                </div>
-                                <div class="card-body pt-0">
-                                    <div class="row">
-                                        <div class="col-7">
-                                            <p class="text-muted text-sm"><b>Nama Slider: </b>{{ $slider->nama_slider }}</p>
-                                            <p class="text-muted text-sm"><b>Deskripsi: </b>{{ $slider->deskripsi }}</p>
-                                        </div>
-                                        <div class="col-5 text-center">
-                                            <img src="{{ \Storage::url($slider->gambar ?? 'image/noimage.jpg') }}"
-                                                alt="slider-img" class="img img-fluid">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="text-right">
-                                        {!! Form::open([
-                                            'route' => [$routePrefix . '.destroy', $slider->id],
-                                            'method' => 'DELETE',
-                                            'onsubmit' => 'return confirm("Yakin ingin menghapus data ini?")',
-                                        ]) !!}
-                                        <a href="{{ route($routePrefix . '.edit', $slider->id) }}"
-                                            class="btn btn-info btn-sm"><i class="fas fa-pencil-alt"></i></a>
-                                        {{ Form::button('<i class="fas fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm ']) }}
-                                        {!! Form::close() !!}
-                                    </div>
+    <div class="row">
+        <div class="col-md-10">
+            <!-- general form elements -->
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Tambah Slider</h3>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                <form action="{{ route('home-sliders.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Nama Slider</label>
+                            <input name="nama_slider" type="text" class="form-control" id="exampleInputEmail1"
+                                placeholder="Nama Slider">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Deskripsi</label>
+                            <input name="deskripsi" type="text" class="form-control" id="exampleInputPassword1"
+                                placeholder="Deksirpis Singkat">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputFile">Gambar (*resolusi gambar harus berukuran 1920 x 930)</label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="exampleInputFile" name="gambar">
+                                    <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        @if ($postCount < $maxPostCount)
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        @else
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        @endif
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Daftar Slider</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr class="text-center">
+                                <th>No</th>
+                                <th>Nama Slider</th>
+                                <th>Deskripsi</th>
+                                <th>Gambar</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($sliders as $slider)
+                                <tr class="text-center">
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $slider->nama_slider }}</td>
+                                    <td>{{ $slider->deskripsi }}</td>
+                                    <td><img src="{{ asset('images/' . $slider->gambar) }}" alt="{{ $slider->nama_slider }}"
+                                            height="100" width="100"></td>
+                                    <td>
+                                        <form action="{{ route('home-sliders.destroy', $slider->id) }}" method="POST">
+                                            <a class="btn btn-primary"
+                                                href="{{ route('home-sliders.edit', $slider->id) }}">Edit</a>
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 @endsection

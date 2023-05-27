@@ -40,8 +40,6 @@
     <link rel="stylesheet" type="text/css" href="assetuser/css/main.css">
     <!--===============================================================================================-->
     <style>
-        <<<<<<< HEAD
-
         /* CSS untuk membuat peta responsif */
         #map-container {
             position: relative;
@@ -58,7 +56,7 @@
             height: 100%;
         }
 
-        =======>>>>>>>c3248822a3af879d390f88c0ea4ef2d890240895
+
 
         /* rating */
         .rating-css div {
@@ -295,6 +293,7 @@
                                 data-notify="{{ count($orders) + count($packing) + count($tracking) }}">
                                 <i class="zmdi zmdi-notifications"></i>
                             </div>
+                            
                             <li class="dropdown dropdown-list-toggle">
                                 <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
                                     <div class="dropdown-list-content dropdown-list-message">
@@ -318,7 +317,9 @@
                                 class="dis-block icon-header-item cl2 hov-cl2 trans-04 p-l-10 p-r-11 icon-header-noti"
                                 data-notify="0">
                                 <i class="zmdi zmdi-shopping-cart"></i>
+
                             </a>
+
                             <a href="{{ route('login') }}">
                                 <div class="icon-header-item cl2 hov-cl2 trans-04 p-l-10 p-r-11 icon-header-noti"
                                     data-notify="0">
@@ -469,7 +470,6 @@
             </div>
         </div>
     </header>
-
     <!-- Cart -->
     <div class="wrap-header-cart js-panel-cart">
         <div class="s-full js-hide-cart"></div>
@@ -488,31 +488,25 @@
                     <ul class="header-cart-wrapitem w-full">
                         <li class="header-cart-item flex-w flex-t m-b-12">
                             <div class="header-cart-item-txt p-t-8">
-                                {{-- <a href="{{ url('pesanan/' . $item->id) }}"
-                                    class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-                                    White Shirt Pleat
-                                </a> --}}
-
                                 <span class="header-cart-item-info">
-                                    1 x $19.00
+
                                 </span>
                             </div>
                         </li>
-
-                        @foreach ($orders as $item)
-                            <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
-                                class="dropdown-item dropdown-item-unread">{{ 'Pesanan anda dengan kode ' . $item->kode . ' sudah di confirm' }}</a>
-                        @endforeach
-                        @foreach ($packing as $item)
-                            <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
-                                class="dropdown-item dropdown-item-unread">{{ 'Lihat hasil packingan barang anda' }}</a>
-                        @endforeach
-                        @foreach ($tracking as $item)
-                            <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
-                                class="dropdown-item dropdown-item-unread">{{ 'Barang anda sudah di kirim, berikan penilaian jika sudah sampai' }}</a>
-                        @endforeach
                         <li class="header-cart-item flex-w flex-t m-b-12">
                             <div class="w-full">
+                                @foreach ($orders as $item)
+                                    <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
+                                        class="dropdown-item dropdown-item-unread">{{ 'Pesanan anda dengan kode ' . $item->kode . ' sudah di confirm' }}</a>
+                                @endforeach
+                                @foreach ($packing as $item)
+                                    <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
+                                        class="dropdown-item dropdown-item-unread">{{ 'Lihat hasil packingan barang anda' }}</a>
+                                @endforeach
+                                @foreach ($tracking as $item)
+                                    <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
+                                        class="dropdown-item dropdown-item-unread">{{ 'Barang anda sudah di kirim, berikan penilaian jika sudah sampai' }}</a>
+                                @endforeach
                             </div>
                         </li>
                     </ul>
@@ -535,7 +529,7 @@
 
 
     <!-- Footer -->
-    <footer class="bg3 p-t-20 p-b-20 layout-footer-fixed">
+    <footer class="bg3 layout-footer-fixed">
         <div class="container">
             <div class="p-t-40">
                 <div class="flex-c-m flex-w p-b-18">
@@ -567,7 +561,6 @@
             </div>
         </div>
     </footer>
-
 
 
 

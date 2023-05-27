@@ -1,4 +1,4 @@
-@extends('layouts.app_Coza')
+{{-- @extends('layouts.app_Coza')
 
 @section('content')
     <div class="container">
@@ -76,4 +76,9 @@
             </div>
         </div>
     </div>
+@endsection --}}
+
+@extends('layouts.app_Coza')
+@section('content')
+<div class="bg0 m-t-15 p-b-50"></div>
 @endsection

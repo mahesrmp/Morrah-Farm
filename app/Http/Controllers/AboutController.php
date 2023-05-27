@@ -4,14 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\About;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AboutController extends Controller
 {
-    private $viewIndex = 'about_index';
-    private $viewCreate = 'about_form';
-    private $viewEdit = 'about_form';
-    private $viewShow = 'about_show';
-    private $routePrefix = 'about';
 
     /**
      * Display a listing of the resource.
@@ -20,15 +16,14 @@ class AboutController extends Controller
      */
     public function index()
     {
-        return view('manager.about.about_index',['title' => 'About Morrah Farm']);
+        $abouts = About::all();
 
-        // $produks = About::all();
-        // return view('manager.about.' . $this->viewIndex, [
-        //     'produks' => $produks,
-        //     'routePrefix'   => $this->routePrefix,
-        //     'title'         => 'About Morrah Farm'
-        // ]);
+        return view('manager.about.about_index', [
+            'title' => 'About Morrah Farm',
+            'abouts' => $abouts
+        ]);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -37,9 +32,10 @@ class AboutController extends Controller
      */
     public function create()
     {
-        //
+        return view('manager.about.about_form', [
+            'title' => 'Create About Morrah Farm',
+        ]);
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -48,7 +44,21 @@ class AboutController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'judul' => 'required',
+            'isi' => 'required',
+            'gambar' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        // Upload gambar jika ada
+        if ($request->hasFile('gambar')) {
+            $gambarPath = $request->file('gambar')->store('public');
+            $validatedData['gambar'] = $gambarPath;
+        }
+
+        About::create($validatedData);
+
+        return redirect()->route('about.index')->with('success', 'Blog berhasil ditambahkan!');
     }
 
     /**
@@ -57,9 +67,14 @@ class AboutController extends Controller
      * @param  \App\Models\About  $about
      * @return \Illuminate\Http\Response
      */
-    public function show(About $about)
+    public function show($id)
     {
-        //
+        $about = About::findOrFail($id);
+
+        return view('manager.about.about_show',[
+            'title' => 'Tampilan Detail Abouts',
+            'about' => $about
+        ]);
     }
 
     /**
@@ -70,7 +85,10 @@ class AboutController extends Controller
      */
     public function edit(About $about)
     {
-        //
+        return view('manager.about.about_edit', [
+            'title' => 'Edit About Morrah Farm',
+            'about' => $about
+        ]);
     }
 
     /**
@@ -82,7 +100,26 @@ class AboutController extends Controller
      */
     public function update(Request $request, About $about)
     {
-        //
+        $validatedData = $request->validate([
+            'judul' => 'required',
+            'isi' => 'required',
+            'gambar' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        // Hapus gambar lama jika ada gambar baru diunggah
+        if ($request->hasFile('gambar') && !empty($about->gambar)) {
+            Storage::delete($about->gambar);
+        }
+
+        // Upload gambar baru jika ada
+        if ($request->hasFile('gambar')) {
+            $gambarPath = $request->file('gambar')->store('public');
+            $validatedData['gambar'] = $gambarPath;
+        }
+
+        $about->update($validatedData);
+
+        return redirect()->route('about.index')->with('success', 'Blog berhasil diupdate!');
     }
 
     /**
@@ -93,6 +130,13 @@ class AboutController extends Controller
      */
     public function destroy(About $about)
     {
-        //
+        // Hapus gambar dari folder jika ada
+        if (!empty($about->gambar)) {
+            Storage::delete($about->gambar);
+        }
+
+        $about->delete();
+
+        return redirect()->route('about.index')->with('success', 'Blog berhasil dihapus!');
     }
 }

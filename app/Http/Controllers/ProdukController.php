@@ -26,11 +26,12 @@ class ProdukController extends Controller
      */
     public function index(Request $request)
     {
+
         $produks = Model::paginate(20);
         return view('manager.' . $this->viewIndex, [
             'produks' => $produks,
             'routePrefix'   => $this->routePrefix,
-            'title'         => 'Produk Morrah Farm'
+            'title'         => 'Produk Morrah Farm',
         ]);
 
     }
@@ -138,7 +139,7 @@ class ProdukController extends Controller
         // dd($request->all());
         $request->validate([
             'nama_produk' => 'required',
-            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'harga' => 'required|numeric',
             'stok' => 'required|numeric',
             'keterangan' => 'required'

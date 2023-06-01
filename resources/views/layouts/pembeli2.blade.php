@@ -3,13 +3,14 @@
 
 <head>
     <base href="/public">
-    <title>Morrah Farm | {{ $title }}</title>
+    <title>Morrah Farm </title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
     <link rel="icon" type="image/png" href="assetuser/images/logo2.png" />
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="assetuser/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="assetuser/css/all.min.css">
     @yield('css')
@@ -136,6 +137,7 @@
 </head>
 
 <body class="animsition">
+
     <!-- Header -->
     <header>
         <!-- Header desktop -->
@@ -319,86 +321,27 @@
                     <i class="zmdi zmdi-search"></i>
                 </div>
                 @if (Auth::user())
-                    <?php
-                    $pesanan_utama = App\Models\Pesanan::where('user_id', Auth::user()->id)
-                        ->where('status', 0)
-                        ->first();
-                    if (!empty($pesanan_utama)) {
-                        $notif = App\Models\PesananDetail::where('pesanan_id', $pesanan_utama->id)->count();
-                    }
-                    ?>
-                    @if (!empty($notif))
-                        <a href="{{ route('pembeli.keranjang') }}">
-                            <div class="icon-header-item cl2 hov-cl2 trans-04 p-l-22 p-r-15 icon-header-noti"
-                                data-notify="{{ $notif }}">
-                                <i class="zmdi zmdi-shopping-cart"></i>
-                            </div>
-                        </a>
-                    @else
-                        <a href="{{ route('pembeli.keranjang') }}">
-                            <div class="icon-header-item cl2 hov-cl2 trans-04 p-l-22 p-r-15 icon-header-noti"
-                                data-notify="0">
-                                <i class="zmdi zmdi-shopping-cart"></i>
-                            </div>
-                        </a>
-                    @endif
-                    @php
-                        $orders = \DB::table('pesanans')
-                            ->where('status', 3)
-                            ->where('user_id', Auth::user()->id)
-                            ->get();
-                        $packing = \DB::table('pesanans')
-                            ->where('status', 4)
-                            ->where('user_id', Auth::user()->id)
-                            ->get();
-                        $tracking = \DB::table('pesanans')
-                            ->where('status', 5)
-                            ->where('user_id', Auth::user()->id)
-                        ->get(); @endphp
-                    <div class="icon-header-item cl2 hov-cl2 trans-04 p-r-11 p-l-20 icon-header-noti js-show-cart"
-                        data-notify="{{ count($orders) + count($packing) + count($tracking) }}">
-                        <i class="zmdi zmdi-notifications"></i>
-                    </div>
-
-                    <li class="dropdown dropdown-list-toggle">
-                        <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
-                            <div class="dropdown-list-content dropdown-list-message">
-                                @foreach ($orders as $item)
-                                    <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
-                                        class="dropdown-item dropdown-item-unread">{{ 'Pesanan anda dengan kode ' . $item->kode . ' sudah di confirm' }}</a>
-                                @endforeach
-                                @foreach ($packing as $item)
-                                    <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
-                                        class="dropdown-item dropdown-item-unread">{{ 'Lihat hasil packingan barang anda' }}</a>
-                                @endforeach
-                                @foreach ($tracking as $item)
-                                    <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
-                                        class="dropdown-item dropdown-item-unread">{{ 'Barang anda sudah di kirim, berikan penilaian jika sudah sampai' }}</a>
-                                @endforeach
-                            </div>
-                        </div>
-                    </li>
-                @else
-                    <a href="{{ route('login') }}"
-                        class="dis-block icon-header-item cl2 hov-cl2 trans-04 p-l-10 p-r-11 icon-header-noti"
-                        data-notify="0">
+                    <a href="{{ route('pembeli.keranjang') }}"
+                        class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti"
+                        data-notify="3">
                         <i class="zmdi zmdi-shopping-cart"></i>
-
                     </a>
 
+                    <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart"
+                        data-notify="2">
+                        <i class="zmdi zmdi-notifications"></i>
+                    </div>
+                @else
+                    <a href="{{ route('login') }}"
+                        class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti"
+                        data-notify="0">
+                        <i class="zmdi zmdi-shopping-cart"></i>
+                    </a>
                     <a href="{{ route('login') }}">
-                        <div class="icon-header-item cl2 hov-cl2 trans-04 p-l-10 p-r-11 icon-header-noti"
+                        <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-10 p-r-11 icon-header-noti"
                             data-notify="0">
                             <i class="zmdi zmdi-notifications"></i>
                         </div>
-                    </a>
-                    <a href="{{ route('login') }}"
-                        class="flex-c-m p-lr-10 trans-04 btn ml-2 mr-2 btn-success btn-sm">
-                        <strong>Masuk</strong>
-                    </a>
-                    <a href="{{ route('register') }}"
-                        class="flex-c-m p-lr-10 trans-04 btn mr-1 btn btn-outline-success btn-sm">
-                        <strong>Daftar</strong>
                     </a>
                 @endif
 
@@ -636,62 +579,45 @@
     <script src="assetuser/vendor/isotope/isotope.pkgd.min.js"></script>
     <!--===============================================================================================-->
     <script src="assetuser/vendor/sweetalert/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>
     <script>
-        $('.js-addwish-b2').on('click', function(e) {
-            e.preventDefault();
+        document.getElementById('password').addEventListener('input', function() {
+            var password = document.getElementById('password').value;
+            var result = zxcvbn(password);
+            var strengthMeter = document.getElementById('password-strength');
+
+            var strength = {
+                0: 'Very Weak',
+                1: 'Weak',
+                2: 'Fair',
+                3: 'Strong',
+                4: 'Very Strong'
+            };
+
+            var score = result.score;
+            var feedback = result.feedback.warning || '';
+
+            strengthMeter.innerHTML = '<div class="progress">' +
+                '<div class="progress-bar bg-' + getProgressBarColor(score) +
+                '" role="progressbar" style="width: ' + (score * 20) + '%" aria-valuenow="' + (score * 20) +
+                '" aria-valuemin="0" aria-valuemax="100"></div>' +
+                '</div>' +
+                '<div class="mt-1">' + strength[score] + '</div>' +
+                '<div class="mt-1">' + feedback + '</div>';
         });
 
-        $('.js-addwish-b2').each(function() {
-            var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
-            $(this).on('click', function() {
-                swal(nameProduct, "is added to wishlist !", "success");
-
-                $(this).addClass('js-addedwish-b2');
-                $(this).off('click');
-            });
-        });
-
-        $('.js-addwish-detail').each(function() {
-            var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
-
-            $(this).on('click', function() {
-                swal(nameProduct, "is added to wishlist !", "success");
-
-                $(this).addClass('js-addedwish-detail');
-                $(this).off('click');
-            });
-        });
-
-        /*---------------------------------------------*/
-
-        $('.js-addcart-detail').each(function() {
-            var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
-            $(this).on('click', function() {
-                swal(nameProduct, "is added to cart !", "success");
-            });
-        });
+        function getProgressBarColor(score) {
+            if (score <= 1) {
+                return 'danger';
+            } else if (score <= 2) {
+                return 'warning';
+            } else if (score <= 3) {
+                return 'info';
+            } else {
+                return 'success';
+            }
+        }
     </script>
-    <!--===============================================================================================-->
-    <script src="assetuser/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script>
-        $('.js-pscroll').each(function() {
-            $(this).css('position', 'relative');
-            $(this).css('overflow', 'hidden');
-            var ps = new PerfectScrollbar(this, {
-                wheelSpeed: 1,
-                scrollingThreshold: 1000,
-                wheelPropagation: false,
-            });
-
-            $(window).on('resize', function() {
-                ps.update();
-            })
-        });
-    </script>
-    <!--===============================================================================================-->
-    <script src="assetuser/js/main.js"></script>
-    @yield('js')
-
 </body>
 
 </html>

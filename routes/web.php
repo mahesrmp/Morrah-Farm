@@ -153,24 +153,10 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::post('/berikan-ulasan-process/{id}', [ReviewController::class, 'storeReviewProcess'])->name('berikan.ulasan.process');
 
     Route::post('add-rating', [UserRatingController::class, 'store']);
-    // Route::post('/products/{product}/ratings', [UserRatingController::class, 'store'])->name('ratings.store');
-
-
-    // Route::get('logout', function () {
-    //     Auth::logout();
-    // });
     Route::get('logout', [LoginController::class, 'logout']);
 
-
-
-    // Route::get('/', function () {
-    //     return view('pembeli.beranda_index', [
-    //         'title' => 'Selamat Datang Ssayang'
-    //     ]);
-    // });
     Route::get('/', [BerandaPembeliController::class, 'index'])->name('pembeli.beranda');
 
     Auth::routes();
 
-    // Route::get('/beranda', [BerandaPembeliController::class, 'index'])->name('pembeli.beranda');
 }); //prevent-back-history

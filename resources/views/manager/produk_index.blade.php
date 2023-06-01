@@ -29,7 +29,8 @@
                                             <h2 class="lead"><b>{{ $produk->nama_produk }}</b></h2>
                                             <p class="text-muted text-sm"><b>Deskripsi: </b>{{ $produk->keterangan }}</p>
                                             <p class="text-muted text-sm"><b>Stok: </b>{{ $produk->stok }}</p>
-                                            <p class="text-muted text-sm"><b>Harga: </b>{{ $produk->formatRupiah('harga') }}</p>
+                                            <p class="text-muted text-sm"><b>Harga: </b>{{ $produk->formatRupiah('harga') }}
+                                            </p>
                                         </div>
                                         <div class="col-5 text-center">
                                             <img src="{{ url('productimage') }}/{{ $produk->gambar }}" alt="Produk-img"
@@ -58,3 +59,4 @@
         </div>
     </section>
 @endsection
+

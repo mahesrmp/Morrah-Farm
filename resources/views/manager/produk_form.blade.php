@@ -24,21 +24,14 @@
 
                         <div class="form-group">
                             <label for="keterangan">Deskripsi</label>
-                            {!! Form::textarea('keterangan', null, ['class' => 'form-control']) !!}
+                            {!! Form::textarea('keterangan', null, [
+                                'class' => 'form-control',
+                                'placeholder' => 'Masukkan Keterangan',
+                                'rows' => 5
+                                ]) !!}
                             <span class="text-danger">{{ $errors->first('keterangan') }}</span>
                         </div>
-                        <div class="form-group">
-                            <textarea rows="4"id="summernote">
-                                                Place
-                                                <em>some</em>
-                                                <u>text</u>
-                                                <strong>here</strong></textarea>
-                        </div>
-                        <div class="card-footer">
-                            Visit
-                            <a href="https://github.com/summernote/summernote/">Summernote</a>
-                            documentation for more examples and information about the plugin.
-                        </div>
+
                         <div class="form-group">
                             <label for="stok">Stok</label>
                             {!! Form::number('stok', null, ['class' => 'form-control']) !!}
@@ -48,7 +41,7 @@
 
 
 
-                        <label for="gambar">File input</label>
+                        <label for="gambar">Gambar Produk (*ukuran gambar harus 768x1024 pixel)</label>
                         <div>
                             <div class="custom-file">
                                 <input type="file" name="gambar" class="custom-file-input" id="exampleInputFile">

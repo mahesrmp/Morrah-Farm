@@ -12,6 +12,66 @@
 
 namespace App\Models{
 /**
+ * App\Models\About
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|About newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|About newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|About query()
+ */
+	class About extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\Blog
+ *
+ * @property int $id
+ * @property string $judul
+ * @property string $isi
+ * @property string $gambar
+ * @property int $id_user
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|Blog newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Blog newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Blog query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Blog whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blog whereGambar($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blog whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blog whereIdUser($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blog whereIsi($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blog whereJudul($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blog whereUpdatedAt($value)
+ */
+	class Blog extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\HomeSlider
+ *
+ * @property int $id
+ * @property string $nama_slider
+ * @property string $deskripsi
+ * @property string $gambar
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|HomeSlider newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|HomeSlider newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|HomeSlider query()
+ * @method static \Illuminate\Database\Eloquent\Builder|HomeSlider whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|HomeSlider whereDeskripsi($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|HomeSlider whereGambar($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|HomeSlider whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|HomeSlider whereNamaSlider($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|HomeSlider whereUpdatedAt($value)
+ */
+	class HomeSlider extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\Peanan
  *
  * @method static \Illuminate\Database\Eloquent\Builder|Peanan newModelQuery()
@@ -27,21 +87,57 @@ namespace App\Models{
  *
  * @property int $id
  * @property int $user_id
- * @property string $status
  * @property string $tanggal
+ * @property string $status
+ * @property int $kode
  * @property int $jumlah_harga
+ * @property string $gambar
+ * @property string $address
+ * @property int $produk_id
+ * @property int $jumlah_pesan
+ * @property string $img
+ * @property string $nama_pengirim
+ * @property string $tlpn
+ * @property string $angkutan
+ * @property string $jenis
+ * @property string $plat
+ * @property string $kurir
+ * @property string $resi
+ * @property string $review
+ * @property string $img2
+ * @property string $video
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\PesananDetail[] $pesanan_detail
+ * @property-read int|null $pesanan_detail_count
+ * @property-read \App\Models\Produk|null $produk
+ * @property-read \App\Models\User|null $user
  * @method static \Illuminate\Database\Eloquent\Builder|Pesanan newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Pesanan newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Pesanan query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Pesanan whereAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Pesanan whereAngkutan($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Pesanan whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Pesanan whereGambar($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Pesanan whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Pesanan whereImg($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Pesanan whereImg2($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Pesanan whereJenis($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Pesanan whereJumlahHarga($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Pesanan whereJumlahPesan($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Pesanan whereKode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Pesanan whereKurir($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Pesanan whereNamaPengirim($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Pesanan wherePlat($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Pesanan whereProdukId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Pesanan whereResi($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Pesanan whereReview($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Pesanan whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Pesanan whereTanggal($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Pesanan whereTlpn($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Pesanan whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Pesanan whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Pesanan whereVideo($value)
  */
 	class Pesanan extends \Eloquent {}
 }
@@ -57,6 +153,8 @@ namespace App\Models{
  * @property int $jumlah_harga
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Pesanan|null $pesanan
+ * @property-read \App\Models\Produk|null $produk
  * @method static \Illuminate\Database\Eloquent\Builder|PesananDetail newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|PesananDetail newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|PesananDetail query()
@@ -83,6 +181,8 @@ namespace App\Models{
  * @property string $keterangan
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\PesananDetail[] $pesanan_detail
+ * @property-read int|null $pesanan_detail_count
  * @method static \Illuminate\Database\Eloquent\Builder|Produk newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Produk newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Produk query()
@@ -115,8 +215,12 @@ namespace App\Models{
  * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Blog[] $blogs
+ * @property-read int|null $blogs_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Pesanan[] $pesanan
+ * @property-read int|null $pesanan_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Sanctum\PersonalAccessToken[] $tokens
  * @property-read int|null $tokens_count
  * @method static \Database\Factories\UserFactory factory(...$parameters)

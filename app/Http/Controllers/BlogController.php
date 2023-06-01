@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
+use App\Models\Produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,8 +18,9 @@ class BlogController extends Controller
     {
         $blogs = Blog::all();
         return view('manager.blogs.index', [
-            'title' => "Blog Manager"
-        ], compact('blogs'));
+            'title' => "Blog Manager",
+            'blogs' => $blogs,
+        ]);
     }
 
     /**

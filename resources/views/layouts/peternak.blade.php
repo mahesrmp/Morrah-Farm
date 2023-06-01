@@ -152,7 +152,7 @@
 
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                         <div class="dropdown-divider"></div>
-                        <a href="{{ route('akun-manager.edit', ['id' => Auth::user()->id]) }}"
+                        <a href="{{ route('akun-peternak.edit', ['id' => Auth::user()->id]) }}"
                             class="dropdown-item text-center">
                             <i class="fas fa-gear text-center"></i>Account Setting
                         </a>
@@ -164,11 +164,7 @@
                 </li>
             </ul>
         </nav>
-        <!-- /.navbar -->
-
-        <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-light-primary elevation-2">
-            <!-- Brand Logo -->
             <a class="brand-link">
                 <img src="assets/dist/img/logo.png" alt="Logo Morrah Farm" class="brand-image img-circle elevation-4"
                     style="opacity: .7">
@@ -198,6 +194,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
+<<<<<<< HEAD
                             <a href="{{ route('kerbau.index') }}"
                                 class="nav-link {{ \Route::is('peternak.*') ? '' : '' }}">
                                 <i class="fa-solid fa-cow"></i>
@@ -209,11 +206,26 @@
                                 class="nav-link {{ \Route::is('susu.index') ? '' : '' }}">
                                 <i class="fa-solid fa-glass-water"></i>
                                 <p>Laporan Susu</p>
+=======
+                            <a href="{{ route('user.index') }}"
+                                class="nav-link {{ \Route::is('user.index') ? 'active' : '' }}">
+                                <i class="fa-solid fa-users"></i>
+                                <p>
+                                    Hasil Perasan
+
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('manager.customer') }}"
+                                class="nav-link {{ \Route::is('manager.customer') ? 'active' : '' }}">
+                                <i class="fa-solid fa-user-plus"></i>
+                                <p>Data Kerbau</p>
+>>>>>>> e176096d08c44579ff6be3ac46ebcb95aeec014d
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('logout') }}" class="nav-link">
-
                                 <i class=" nav-icon fa-solid fa-right-from-bracket"></i>
                                 <p>LogOut</p>
                             </a>
@@ -249,11 +261,11 @@
                         @yield('content')
                     </div>
                 </div>
-                
+
             </section>
         </div>
         <footer class="main-footer">
-            <strong>Copyright  &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
             All rights reserved.
             <div class="float-right d-none d-sm-inline-block">
                 <b>Version</b> 3.2.0
@@ -261,11 +273,7 @@
         </footer>
         <aside class="control-sidebar control-sidebar-dark">
         </aside>
-        <!-- /.control-sidebar -->
     </div>
-    <!-- ./wrapper -->
-
-    <!-- jQuery -->
     @include('sweetalert::alert')
     <script src="assets/plugins/jquery/jquery.min.js"></script>
     <!-- jQuery UI 1.11.4 -->

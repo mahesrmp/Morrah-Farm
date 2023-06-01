@@ -1,21 +1,7 @@
-@extends('layouts.app_Coza')
-
+{{-- @extends('layouts.app_Coza')
 @section('content')
     <div class="bg0 m-t-25 p-b-140">
-        <div class="container">
-            <div class="flex-w flex-sb-m p-b-52">
-                <div class="flex-w flex-l-m filter-tope-group m-tb-10"></div>
-
-                <div class="flex-w flex-c-m m-tb-10"></div>
-            </div>
-        </div>
-
-        <section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('assetuser/images/bg-02.jpg');">
-            <h2 class="ltext-105 cl0 txt-center">
-                Produk
-            </h2>
-        </section>
-
+        <div class="container"></div>
         <div class="bg0 m-t-25 p-b-140">
             <div class="container">
                 <div class="flex-w flex-sb-m p-b-52">
@@ -23,9 +9,8 @@
                     <div class="flex-w flex-c-m m-tb-10"></div>
                 </div>
                 <div class="row">
-
                     @foreach ($produks as $produk)
-                        <div class="col-sm-11 col-md-3 "
+                        <div class="col-sm-11 col-md-3"
                             style="box-shadow: 3px 5px 9px 2px rgba(0,0,0,0.2); column-gap: 50px; margin-bottom:70px; margin-right:100px; justify-content:center; border-radius:11px;">
                             <!-- Block2 -->
                             <div class="block2">
@@ -38,7 +23,6 @@
                                         data-toggle="modal" data-target="#myModal{{ $produk->id }}">
                                         Detail
                                     </a>
-
                                     </a>
                                 </div>
                                 <div class="card-body">
@@ -77,8 +61,6 @@
         </div>
     </div>
 
-
-
     <!-- Modal -->
     @foreach ($produks as $produk)
         <div class="modal modalCard fade" id="myModal{{ $produk->id }}" tabindex="-1" role="dialog"
@@ -113,7 +95,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="col-md-6 col-lg-5 p-b-30">
                                         <div class="p-r-50 p-t-5 p-lr-0-lg">
                                             <h4 class="mtext-105 cl2 js-name-detail p-b-14">
@@ -127,7 +108,6 @@
                                             <p class="stext-102 cl3 p-t-23">
                                                 {{ $produk->keterangan }}
                                             </p>
-
                                             <form action="{{ url('pesan') }}/{{ $produk->id }}" method="post">
                                                 @csrf
                                                 <div class="p-t-33">
@@ -175,7 +155,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                     </div>
@@ -183,4 +162,51 @@
             </div>
         </div>
     @endforeach
+@endsection --}}
+
+
+@extends('layouts.app_Coza')
+@section('content')
+    <div class="bg0 m-t-15 p-b-50"></div>
+    <!-- Product -->
+    <div class="bg0 m-t-23 p-b-140">
+        <div class="container">
+            <div class="row isotope-grid">
+                @foreach ($produks as $produk)
+                    <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
+                        <!-- Block2 -->
+                        <div class="block2">
+                            <div class="block2-pic hov-img0">
+                                <img src="{{ url('productimage') }}/{{ $produk->gambar }}" alt="IMG-PRODUCT">
+                                <a href="{{ url('pembeli/keranjang') }}/{{ $produk->id }}"
+                                    class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04"
+                                    data-target="#myModal{{ $produk->id }}">
+                                    Detail Produk
+                                </a>
+                            </div>
+                            <div class="block2-txt flex-w flex-t p-t-14">
+                                <div class="block2-txt-child1 flex-col-l ">
+                                    <a href="{{ url('pembeli/keranjang') }}/{{ $produk->id }}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                                        {{ $produk->nama_produk }}
+                                    </a>
+                                    <span class="stext-105 cl3">
+                                        {{ formatRupiah($produk->harga) }}
+                                    </span>
+                                </div>
+                                <div class="block2-txt-child2 flex-r p-t-3">
+                                    <a href="{{ url('pembeli/keranjang') }}/{{ $produk->id }}"
+                                        class="dis-block pos-relative">
+                                        <img height="25" width="22" class="icon-heart1 dis-block trans-04"
+                                            src="assetuser/images/icons/cart.png" alt="ICON">
+                                        <img height="25" width="22" class="icon-heart2 dis-block trans-04 ab-t-l"
+                                            src="assetuser/images/icons/cart.png" alt="ICON">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
 @endsection

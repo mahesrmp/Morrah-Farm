@@ -8,7 +8,7 @@
                     <div class="card-header">
                         <h3 class="card-title">Form tambah data Produk</h3>
                     </div>
-                    {!! Form::model($model, ['route' => $route, 'method' => $method, 'files' => true], ) !!}
+                    {!! Form::model($model, ['route' => $route, 'method' => $method, 'files' => true]) !!}
                     <div class="card-body">
                         <div class="form-group">
                             <label for="nama_produk">Nama Barang</label>
@@ -18,7 +18,7 @@
 
                         <div class="form-group">
                             <label for="harga">Harga</label>
-                            {!! Form::number('harga', null, ['class' => 'form-control']) !!}
+                            {!! Form::number('harga', null, ['class' => 'form-control rupiah']) !!}
                             <span class="text-danger">{{ $errors->first('harga') }}</span>
                         </div>
 
@@ -27,7 +27,18 @@
                             {!! Form::textarea('keterangan', null, ['class' => 'form-control']) !!}
                             <span class="text-danger">{{ $errors->first('keterangan') }}</span>
                         </div>
-
+                        <div class="form-group">
+                            <textarea rows="4"id="summernote">
+                                                Place
+                                                <em>some</em>
+                                                <u>text</u>
+                                                <strong>here</strong></textarea>
+                        </div>
+                        <div class="card-footer">
+                            Visit
+                            <a href="https://github.com/summernote/summernote/">Summernote</a>
+                            documentation for more examples and information about the plugin.
+                        </div>
                         <div class="form-group">
                             <label for="stok">Stok</label>
                             {!! Form::number('stok', null, ['class' => 'form-control']) !!}
@@ -35,10 +46,10 @@
                         </div>
 
 
-                
+
 
                         <label for="gambar">File input</label>
-                        <div >
+                        <div>
                             <div class="custom-file">
                                 <input type="file" name="gambar" class="custom-file-input" id="exampleInputFile">
                                 <label class="custom-file-label" for="exampleInputFile">Choose file</label>

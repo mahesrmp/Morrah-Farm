@@ -14,7 +14,9 @@ class BerandaPeternakController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        return view('peternak.beranda_index');
+        return view('peternak.beranda_index',[
+            'title' => 'Dahsboard Peternak'
+        ]);
     }
 
     public function kerbau(){

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
@@ -20,6 +21,9 @@ use App\Http\Controllers\ProduksiProdukController;
 use App\Http\Controllers\BerandaPeternakController;
 use App\Http\Controllers\BerandaProduksiController;
 use App\Http\Controllers\AdminAkunSettingController;
+use App\Http\Controllers\HomeSliderController;
+use App\Http\Controllers\UserRatingController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +46,8 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         Route::get('customer', [BerandaManagerController::class, 'customer'])->name('manager.customer');
         Route::resource('user', UserController::class);
         Route::resource('produk', ProdukController::class);
+        Route::resource('about', AboutController::class);
+        Route::resource('home-sliders', HomeSliderController::class);
         Route::get('/akun-manager/{id}/edit', [AdminAkunSettingController::class, 'edit'])->name('akun-manager.edit');
         Route::put('/akun-manager/{id}', [AdminAkunSettingController::class, 'update'])->name('akun-manager.update');
 
@@ -72,11 +78,18 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         Route::get('/order-finish', [PesanController::class, 'orderResult'])->name('order.finish');
         Route::get('/order-finish/{id}', [PesanController::class, 'orderResultUpload'])->name('order.finish.upload');
 
+<<<<<<< HEAD
         Route::get('kerbau', [BerandaManagerController::class, 'kerbau'])->name('manager.kerbau');
         Route::get('susu', [BerandaManagerController::class, 'susu'])->name('manager.susu');
         Route::get('/susu/search', 'BerandaManagerController@sususearch')->name('susu.search');
         Route::get('/kerbau/search', 'BerandaManagerController@kerbausearch')->name('kerbau.search');
 
+=======
+        // Rute untuk laporan
+        Route::get('laporan', [BerandaManagerController::class, 'laporan'])->name('manager.laporan');
+        Route::get('cetak-laporan', [BerandaManagerController::class, 'cetakLaporan'])->name('cetak-laporan');
+        Route::get('/cetak-laporan-form', [BerandaManagerController::class, 'cetakForm'])->name('cetak-laporan-form');
+>>>>>>> e176096d08c44579ff6be3ac46ebcb95aeec014d
     });
 
 
@@ -86,24 +99,37 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         //ini route khusus untuk produksi
         Route::get('beranda', [BerandaProduksiController::class, 'index'])->name('produksi.beranda');
         Route::get('customer', [BerandaProduksiController::class, 'customer'])->name('produksi.customer');
+<<<<<<< HEAD
      //   Route::resource('produk', ProduksiProdukController::class);
+=======
+        Route::resource('produksiproduk', ProduksiProdukController::class);
+        Route::get('/akun-produksi/{id}/edit', [AdminAkunSettingController::class, 'edit'])->name('akun-produksi.edit');
+        Route::put('/akun-produksi/{id}', [AdminAkunSettingController::class, 'update'])->name('akun-produksi.update');
+>>>>>>> e176096d08c44579ff6be3ac46ebcb95aeec014d
     });
 
     //PETERNAK
     Route::prefix('peternak')->middleware(['auth', 'auth.peternak'])->group(function () {
         //ini route khusus untuk peternak
         Route::get('beranda', [BerandaPeternakController::class, 'index'])->name('peternak.beranda');
+<<<<<<< HEAD
          //Route::get('peternak', [KerbauController::class, 'index'])->name('peternak.kerbau.blade');
         // Route::get('peternak', [SusuPeternakController::class, 'index'])->name('peternak.susu.blade');
         Route::resource('kerbau', KerbauController::class);
         Route::resource('susu', SusuController::class);
 
+=======
+        Route::get('/akun-peternak/{id}/edit', [AdminAkunSettingController::class, 'edit'])->name('akun-peternak.edit');
+        Route::put('/akun-peternak/{id}', [AdminAkunSettingController::class, 'update'])->name('akun-peternak.update');
+>>>>>>> e176096d08c44579ff6be3ac46ebcb95aeec014d
     });
 
-    // Route::prefix('pembeli')->middleware(['auth', 'auth.pembeli'])->group(function () {
-    //     //ini route khusus untuk pembeli
-    //     Route::get('beranda', [BerandaPembeliController::class, 'index'])->name('pembeli.beranda');
-    // });
+
+
+
+
+
+
 
     //USER
     Route::get('/beranda', [BerandaPembeliController::class, 'index'])->name('pembeli.beranda');
@@ -112,7 +138,10 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     // Route::post('pesan/{id}', [PesananPembeliController::class, 'pesan']);
 
     Route::get('blog', [BerandaPembeliController::class, 'blog'])->name('pembeli.blog');
+    Route::get('blogdetail/{id}', [BerandaPembeliController::class, 'blogdetail']);
     Route::get('about', [BerandaPembeliController::class, 'about'])->name('pembeli.about');
+    Route::get('visimisi', [BerandaPembeliController::class, 'visimisi'])->name('pembeli.visimisi');
+    Route::get('galeri', [BerandaPembeliController::class, 'galeri'])->name('pembeli.galeri');
     Route::get('contact', [BerandaPembeliController::class, 'contact'])->name('pembeli.contact');
 
     // Routing untuk menampilkan form edit user
@@ -128,7 +157,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::get('/pembeli/keranjang/{id}', [PesananPembeliController::class, 'index'])->name('pembeli.pesan.produk');
     Route::post('pesan-process/{id}', [PesananPembeliController::class, 'pesan']);
     Route::get('keranjang', [PesananPembeliController::class, 'cart'])->name('pembeli.keranjang');
-    Route::delete('check-out/{id}', [PesananPembeliController::class, 'delete']);
+    Route::delete('check-out/{id}', [PesananPembeliController::class, 'delete'])->name('produk.delete');
     Route::get('konfirmasi-check-out', [PesananPembeliController::class, 'konfirmasi']);
 
 
@@ -143,6 +172,9 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::get('/berikan-ulasan/{id}', [ReviewController::class, 'store'])->name('berikan.ulasan');
     Route::post('/berikan-ulasan-process/{id}', [ReviewController::class, 'storeReviewProcess'])->name('berikan.ulasan.process');
 
+    Route::post('add-rating', [UserRatingController::class, 'store']);
+    // Route::post('/products/{product}/ratings', [UserRatingController::class, 'store'])->name('ratings.store');
+
 
     // Route::get('logout', function () {
     //     Auth::logout();
@@ -151,11 +183,12 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
 
 
 
-    Route::get('/', function () {
-        return view('pembeli.beranda_index', [
-            'title' => 'Selamat Datang Ssayang'
-        ]);
-    });
+    // Route::get('/', function () {
+    //     return view('pembeli.beranda_index', [
+    //         'title' => 'Selamat Datang Ssayang'
+    //     ]);
+    // });
+    Route::get('/', [BerandaPembeliController::class, 'index'])->name('pembeli.beranda');
 
     Auth::routes();
 

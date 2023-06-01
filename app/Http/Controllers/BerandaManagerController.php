@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Pesanan;
 use App\Models\Produk;
 use App\Models\User;
+use App\Models\Kerbau;
+use App\Models\Susu;
 use DB;
 use Illuminate\Http\Request;
 
@@ -44,4 +46,56 @@ class BerandaManagerController extends Controller
             'title' => 'Daftar Customer Morrah Farm'
         ]);
     }
+
+    public function kerbau()
+    {
+        $kerbaus = Kerbau::all();
+        return view('manager.kerbau',[
+            'title' => 'Laporan Data Kerbau Jantan',
+            'kerbaus' => $kerbaus
+        ]);
+    }
+    public function susu()
+    {
+        $susus = Susu::all();
+        return view('manager.susu',[
+            'title' => 'Laporan Data Susu',
+            'susus' => $susus
+        ]);
+    }
+
+    public function sususearch(Request $request)
+{
+    $date = $request->input('date');
+
+    if ($date) {
+        $susus = Susu::whereDate('tanggal', $date)
+                     ->get(['pelapor', 'jumlah_susu', 'tanggal']);
+    } else {
+        $susus = Susu::all(['pelapor', 'jumlah_susu', 'tanggal']);
+    }
+
+    return view('manager.susu', [
+        'title' => 'Laporan Data Susu',
+        'susus' => $susus
+    ]);
+}
+
+public function kerbausearch(Request $request)
+{
+    $date = $request->input('date');
+
+    if ($date) {
+        $kerbaus = kerbau::whereDate('tanggal', $date)
+                     ->get(['pelapor', 'jumlah_kerbau', 'tanggal']);
+    } else {
+        $kerbaus = Kerbau::all(['pelapor', 'jumlah_kerbau', 'tanggal']);
+    }
+
+    return view('manager.kerbau', [
+        'title' => 'Laporan Data Kerbau',
+        'kerbaus' => $kerbaus
+    ]);
+}
+
 }

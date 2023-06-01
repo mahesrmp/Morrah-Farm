@@ -174,10 +174,7 @@
                     style="opacity: .7">
                 <span class="brand-text font-weight-light">Morrah Farm</span>
             </a>
-
-            <!-- Sidebar -->
             <div class="sidebar">
-                <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
                         <img src="{{ asset('profileFoto/' . Auth::user()->foto) }}" class="img-circle elevation-2"
@@ -187,20 +184,12 @@
                         <a class="d-block">{{ Auth::user()->name }}</a>
                     </div>
                 </div>
-
-                <!-- SidebarSearch Form -->
-
-
-                <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class
-                with font-awesome or any other icon font library -->
-
                         <li class="nav-item">
-                            <a href="{{ route('manager.beranda') }}"
-                                class="nav-link {{ \Route::is('manager.beranda') ? 'active' : '' }}">
+                            <a href="{{ route('peternak.beranda') }}"
+                                class="nav-link {{ \Route::is('peternak.beranda') ? 'active' : '' }}">
                                 <i class="nav-icon fa-solid fa-house"></i>
                                 <p>
                                     Beranda
@@ -209,63 +198,30 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('user.index') }}"
-                                class="nav-link {{ \Route::is('user.index') ? 'active' : '' }}">
-                                <i class="fa-solid fa-users"></i>
-                                <p>
-                                    Data Karyawan
-
-                                </p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="{{ route('manager.customer') }}"
-                                class="nav-link {{ \Route::is('manager.customer') ? 'active' : '' }}">
-                                <i class="fa-solid fa-user-plus"></i>
-                                <p>Daftar Customer</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="{{ route('produk.index') }}"
-                                class="nav-link {{ \Route::is('produk.index') ? 'active' : '' }}">
-                                <i class="fa fa-palette"></i>
-                                <p>
-                                    Produk
-
-                                </p>
+                            <a href="{{ route('kerbau.index') }}"
+                                class="nav-link {{ \Route::is('peternak.*') ? '' : '' }}">
+                                <i class="fa-solid fa-cow"></i>
+                                <p>Laporan Kerbau Jantan</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('blog.manager') }}"
-                                class="nav-link {{ \Route::is('blog.manager') ? 'active' : '' }}">
-                                <i class="fa-brands fa-blogger"></i>
-                                <p>
-                                    Blog
-
-                                </p>
+                            <a href="{{ route('susu.index') }}"
+                                class="nav-link {{ \Route::is('susu.index') ? '' : '' }}">
+                                <i class="fa-solid fa-glass-water"></i>
+                                <p>Laporan Susu</p>
                             </a>
                         </li>
-
                         <li class="nav-item">
                             <a href="{{ route('logout') }}" class="nav-link">
 
                                 <i class=" nav-icon fa-solid fa-right-from-bracket"></i>
-                                <p>
-                                    LogOut
-
-                                </p>
+                                <p>LogOut</p>
                             </a>
                         </li>
-
                     </ul>
                 </nav>
-                <!-- /.sidebar-menu -->
             </div>
-            <!-- /.sidebar -->
         </aside>
-
         <div class="content-wrapper">
             <div class="content-header">
                 <div class="container-fluid">
@@ -303,10 +259,7 @@
                 <b>Version</b> 3.2.0
             </div>
         </footer>
-
-        <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
         </aside>
         <!-- /.control-sidebar -->
     </div>
@@ -314,8 +267,6 @@
 
     <!-- jQuery -->
     @include('sweetalert::alert')
-
-
     <script src="assets/plugins/jquery/jquery.min.js"></script>
     <!-- jQuery UI 1.11.4 -->
     <script src="assets/plugins/jquery-ui/jquery-ui.min.js"></script>
@@ -360,33 +311,6 @@
             $('.select2').select2();
         });
     </script>
-    {{-- <script type="text/javascript">
-        $(function() {
-            $(document).on('click', '#delete',
-                function(e) {
-                    e.preventDefault();
-                    var link = $(this).attr("href");
-
-                    Swal.fire({
-                        title: 'Are you sure?',
-                        text: "You won't be able to revert this!",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes, delete it!'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            Swal.fire(
-                                'Deleted!',
-                                'Your file has been deleted.',
-                                'success'
-                            )
-                        }
-                    })
-                })
-        })
-    </script> --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2/dist/sweetalert2.all.min.js"></script>

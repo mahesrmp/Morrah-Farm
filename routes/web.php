@@ -7,8 +7,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\PesanController;
+use App\Http\Controllers\KerbauController;
 use App\Http\Controllers\ProdukController;
-use App\Http\Controllers\ProduksiProdukController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\Auth\LoginController;
@@ -16,6 +16,7 @@ use App\Http\Controllers\AkunPembeliController;
 use App\Http\Controllers\BerandaManagerController;
 use App\Http\Controllers\BerandaPembeliController;
 use App\Http\Controllers\PesananPembeliController;
+use App\Http\Controllers\ProduksiProdukController;
 use App\Http\Controllers\BerandaPeternakController;
 use App\Http\Controllers\BerandaProduksiController;
 use App\Http\Controllers\AdminAkunSettingController;
@@ -37,7 +38,6 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     //MANAGER
     Route::prefix('manager')->middleware(['auth', 'auth.manager'])->group(function () {
         //ini route khusus untuk Manager
-
         Route::get('beranda', [BerandaManagerController::class, 'index'])->name('manager.beranda');
         Route::get('customer', [BerandaManagerController::class, 'customer'])->name('manager.customer');
         Route::resource('user', UserController::class);
@@ -71,6 +71,12 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
 
         Route::get('/order-finish', [PesanController::class, 'orderResult'])->name('order.finish');
         Route::get('/order-finish/{id}', [PesanController::class, 'orderResultUpload'])->name('order.finish.upload');
+
+        Route::get('kerbau', [BerandaManagerController::class, 'kerbau'])->name('manager.kerbau');
+        Route::get('susu', [BerandaManagerController::class, 'susu'])->name('manager.susu');
+        Route::get('/susu/search', 'BerandaManagerController@sususearch')->name('susu.search');
+        Route::get('/kerbau/search', 'BerandaManagerController@kerbausearch')->name('kerbau.search');
+
     });
 
 
@@ -80,13 +86,18 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         //ini route khusus untuk produksi
         Route::get('beranda', [BerandaProduksiController::class, 'index'])->name('produksi.beranda');
         Route::get('customer', [BerandaProduksiController::class, 'customer'])->name('produksi.customer');
-        Route::resource('produk', ProduksiProdukController::class);
+     //   Route::resource('produk', ProduksiProdukController::class);
     });
 
     //PETERNAK
     Route::prefix('peternak')->middleware(['auth', 'auth.peternak'])->group(function () {
         //ini route khusus untuk peternak
         Route::get('beranda', [BerandaPeternakController::class, 'index'])->name('peternak.beranda');
+         //Route::get('peternak', [KerbauController::class, 'index'])->name('peternak.kerbau.blade');
+        // Route::get('peternak', [SusuPeternakController::class, 'index'])->name('peternak.susu.blade');
+        Route::resource('kerbau', KerbauController::class);
+        Route::resource('susu', SusuController::class);
+
     });
 
     // Route::prefix('pembeli')->middleware(['auth', 'auth.pembeli'])->group(function () {

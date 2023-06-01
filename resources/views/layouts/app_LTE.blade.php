@@ -249,6 +249,19 @@
                             </ul>
                         </li>
                         <li class="nav-item">
+                            <a href="#" class="nav-link">
+                            <i class="fa-solid fa-book"></i>
+                                <p>
+                                    <span>Data Inventory</span>
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item"><a class="nav-link" href="{{ route('manager.kerbau')}}">Laporan Kerbau Jantan</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ route('manager.susu') }}">Laporan Susu</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('logout') }}" class="nav-link">
 
                                 <i class=" nav-icon fa-solid fa-right-from-bracket"></i>

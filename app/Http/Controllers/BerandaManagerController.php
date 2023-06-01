@@ -6,6 +6,12 @@ use App\Models\Pesanan;
 use App\Models\PesananDetail;
 use App\Models\Produk;
 use App\Models\User;
+<<<<<<< HEAD
+use App\Models\Kerbau;
+use App\Models\Susu;
+use DB;
+=======
+>>>>>>> e176096d08c44579ff6be3ac46ebcb95aeec014d
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -48,6 +54,59 @@ class BerandaManagerController extends Controller
         ]);
     }
 
+<<<<<<< HEAD
+    public function kerbau()
+    {
+        $kerbaus = Kerbau::all();
+        return view('manager.kerbau',[
+            'title' => 'Laporan Data Kerbau Jantan',
+            'kerbaus' => $kerbaus
+        ]);
+    }
+    public function susu()
+    {
+        $susus = Susu::all();
+        return view('manager.susu',[
+            'title' => 'Laporan Data Susu',
+            'susus' => $susus
+        ]);
+    }
+
+    public function sususearch(Request $request)
+{
+    $date = $request->input('date');
+
+    if ($date) {
+        $susus = Susu::whereDate('tanggal', $date)
+                     ->get(['pelapor', 'jumlah_susu', 'tanggal']);
+    } else {
+        $susus = Susu::all(['pelapor', 'jumlah_susu', 'tanggal']);
+    }
+
+    return view('manager.susu', [
+        'title' => 'Laporan Data Susu',
+        'susus' => $susus
+    ]);
+}
+
+public function kerbausearch(Request $request)
+{
+    $date = $request->input('date');
+
+    if ($date) {
+        $kerbaus = kerbau::whereDate('tanggal', $date)
+                     ->get(['pelapor', 'jumlah_kerbau', 'tanggal']);
+    } else {
+        $kerbaus = Kerbau::all(['pelapor', 'jumlah_kerbau', 'tanggal']);
+    }
+
+    return view('manager.kerbau', [
+        'title' => 'Laporan Data Kerbau',
+        'kerbaus' => $kerbaus
+    ]);
+}
+
+=======
     public function laporan(Request $request)
     {
 
@@ -78,4 +137,5 @@ class BerandaManagerController extends Controller
         ])->with('laporan', $laporan);
 
     }
+>>>>>>> e176096d08c44579ff6be3ac46ebcb95aeec014d
 }

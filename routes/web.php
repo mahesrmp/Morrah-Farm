@@ -112,7 +112,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
 
 
     //USER
-    Route::get('/beranda', [BerandaPembeliController::class, 'index'])->name('pembeli.beranda');
+    // Route::get('/beranda', [BerandaPembeliController::class, 'index'])->name('pembeli.beranda');
     Route::get('produk', [BerandaPembeliController::class, 'product'])->name('pembeli.produk');
     // Route::get('detailproduk/{id}', [PesananPembeliController::class, 'index'])->name('pembeli.detailproduk');
     // Route::post('pesan/{id}', [PesananPembeliController::class, 'pesan']);

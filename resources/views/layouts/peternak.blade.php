@@ -194,36 +194,29 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('user.index') }}"
-                                class="nav-link {{ \Route::is('user.index') ? 'active' : '' }}">
-                                <i class="fa-solid fa-users"></i>
-                                <p>
-                                    Hasil Perasan
-
-                                </p>
+                            <a href="{{ route('kerbau.index') }}"
+                                class="nav-link {{ \Route::is('peternak.*') ? '' : '' }}">
+                                <i class="fa-solid fa-cow"></i>
+                                <p>Laporan Kerbau Jantan</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('manager.customer') }}"
-                                class="nav-link {{ \Route::is('manager.customer') ? 'active' : '' }}">
-                                <i class="fa-solid fa-user-plus"></i>
-                                <p>Data Kerbau</p>
+                            <a href="{{ route('susu.index') }}"
+                                class="nav-link {{ \Route::is('susu.index') ? '' : '' }}">
+                                <i class="fa-solid fa-glass-water"></i>
+                                <p>Laporan Susu</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('logout') }}" class="nav-link">
                                 <i class=" nav-icon fa-solid fa-right-from-bracket"></i>
-                                <p>
-                                    LogOut
-
-                                </p>
+                                <p>LogOut</p>
                             </a>
                         </li>
                     </ul>
                 </nav>
             </div>
         </aside>
-
         <div class="content-wrapper">
             <div class="content-header">
                 <div class="container-fluid">
@@ -265,8 +258,6 @@
         </aside>
     </div>
     @include('sweetalert::alert')
-
-
     <script src="assets/plugins/jquery/jquery.min.js"></script>
     <!-- jQuery UI 1.11.4 -->
     <script src="assets/plugins/jquery-ui/jquery-ui.min.js"></script>
@@ -311,33 +302,6 @@
             $('.select2').select2();
         });
     </script>
-    {{-- <script type="text/javascript">
-        $(function() {
-            $(document).on('click', '#delete',
-                function(e) {
-                    e.preventDefault();
-                    var link = $(this).attr("href");
-
-                    Swal.fire({
-                        title: 'Are you sure?',
-                        text: "You won't be able to revert this!",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes, delete it!'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            Swal.fire(
-                                'Deleted!',
-                                'Your file has been deleted.',
-                                'success'
-                            )
-                        }
-                    })
-                })
-        })
-    </script> --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2/dist/sweetalert2.all.min.js"></script>

@@ -1,90 +1,5 @@
-{{-- @extends('layouts.app_Coza')
-
-@section('content')
-    <div class="bg0 m-t-25 p-b-140">
-        <div class="container">
-            <div class="flex-w flex-sb-m p-b-52">
-                <div class="flex-w flex-l-m filter-tope-group m-tb-10"></div>
-
-                <div class="flex-w flex-c-m m-tb-10"></div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <a href="{{ route('pembeli.produk') }}" class="btn btn-primary"><i class="fa fa-arrow-left"></i> Kembali</a>
-                </div>
-                <div class="col-md-12 mt-2">
-                    <div class="container-fluid">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ route('pembeli.produk') }}">Produk</a></li>
-                                <li class="breadcrumb-item">Check Out</li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-                <div class="col-md-12 mt-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <img src="{{ url('productimage') }}/{{ $produk->gambar }}" width="445px"
-                                        alt="">
-                                </div>
-                                <div class="col-md-6 mt-4">
-                                    <h3>{{ $produk->nama_barang }}</h3>
-                                    <table class="table table-borderless">
-                                        <form action="{{ url('/pesan-process/' . $produk->id) }}" method="POST">
-                                            <tr>
-                                                <td>Harga</td>
-                                                <td>:</td>
-                                                <td>Rp. {{ number_format($produk->harga) }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Stok</td>
-                                                <td>:</td>
-                                                <td>{{ $produk->stok }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Keterangan</td>
-                                                <td>:</td>
-                                                <td>{{ $produk->keterangan }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Alamat Pengirim</td>
-                                                <td>:</td>
-                                                <td>
-                                                    <textarea name="address" id="" cols="40" rows="7" style="resize: none" required
-                                                        value={{ old('address') }}></textarea>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Jumlah Pesan</td>
-                                                <td>:</td>
-                                                <td>
-                                                    @csrf
-                                                    <input type="number" name="jumlah_pesan" class="form-control" required
-                                                        min="1" value="{{ old('jumlah_pesan') }}">
-                                                    <button type="submit" class="btn btn-primary mt-2"><i
-                                                            class="zmdi zmdi-shopping-cart"></i>add cart</button>
-                                                </td>
-                                            </tr>
-                                        </form>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-@endsection --}}
-
 @extends('layouts.app_Coza')
 @section('content')
-    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous"> --}}
     <div class="bg0 m-t-15 p-b-50"></div>
     <section class="sec-product-detail bg0 p-t-65 p-b-60">
         <div class="container">
@@ -190,6 +105,7 @@
                                     @endif
                                 </div>
                             </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -320,7 +236,6 @@
                 </div>
             </div>
         </div>
-        </div>
     </section>
     <!-- Modal1 -->
     <div class="wrap-modal1 js-modal1 p-t-60 p-b-20">
@@ -352,19 +267,19 @@
                                             <i class="item-rating pointer zmdi zmdi-star-outline"></i>
                                             <i class="item-rating pointer zmdi zmdi-star-outline"></i>
                                             <i class="item-rating pointer zmdi zmdi-star-outline"></i>
-                                            <input class="dis-none" type="number" name="rating">
+                                            <input class="dis-none" type="number" name="rating" required>
                                         </span>
                                     </div>
                                     <div class="row p-b-25">
                                         <div class="col-12 p-b-5">
                                             <label class="stext-102 cl3" for="review">Review
                                                 Anda</label>
-                                            <textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="review" name="komentar"></textarea>
+                                            <textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="review" name="komentar" required></textarea>
                                         </div>
                                         <div class="col-sm-6 p-b-5">
                                             <label class="stext-102 cl3" for="name">Gambar yang anda Beli</label>
                                             <input class="size-111 bor8 stext-102 cl2 p-lr-20" id="name"
-                                                type="file" name="image">
+                                                type="file" name="image" required>
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-primary">
@@ -378,9 +293,4 @@
             </div>
         </div>
     </div>
-@endsection
-@section('js')
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
-    </script>
 @endsection

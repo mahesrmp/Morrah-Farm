@@ -29,6 +29,8 @@
     <link rel="stylesheet" href="assets/plugins/daterangepicker/daterangepicker.css">
     <!-- summernote -->
     <link rel="stylesheet" href="assets/plugins/summernote/summernote-bs4.min.css">
+    <!-- include summernote css/js-->
+    {{-- <link href="assets/sm/summernote.css" rel="stylesheet"> --}}
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -288,6 +290,19 @@
                             </ul>
                         </li>
                         <li class="nav-item">
+                            <a href="#" class="nav-link">
+                            <i class="fa-solid fa-book"></i>
+                                <p>
+                                    <span>Data Inventory</span>
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item"><a class="nav-link" href="{{ route('manager.kerbau')}}">Laporan Kerbau Jantan</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ route('manager.susu') }}">Laporan Susu</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('logout') }}" class="nav-link">
 
                                 <i class=" nav-icon fa-solid fa-right-from-bracket"></i>
@@ -393,7 +408,7 @@
     <link rel="stylesheet" href="assets/dist/jQurery/select2.min.css">
     <script src="assets/plugins/jQurery/select2.min.js"></script>
     <script src="assets/plugins/jquery.mask.min.js"></script>
-    <script src="../../dist/js/demo.js"></script>
+    <script src="assets/dist/js/demo.js"></script>
     <script>
         $(document).ready(function() {
             $('.rupiah').mask("#.##0", {
@@ -414,36 +429,11 @@
             });
         })
     </script>
-    {{-- <script type="text/javascript">
-        $(function() {
-            $(document).on('click', '#delete',
-                function(e) {
-                    e.preventDefault();
-                    var link = $(this).attr("href");
-
-                    Swal.fire({
-                        title: 'Are you sure?',
-                        text: "You won't be able to revert this!",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes, delete it!'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            Swal.fire(
-                                'Deleted!',
-                                'Your file has been deleted.',
-                                'success'
-                            )
-                        }
-                    })
-                })
-        })
-    </script> --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2/dist/sweetalert2.all.min.js"></script>
+    <!-- include summernote css/js-->
+    {{-- <script src="assets/sm/summernote.js"></script> --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2/dist/sweetalert2.min.css">
 
     @include('sweetalert::alert')

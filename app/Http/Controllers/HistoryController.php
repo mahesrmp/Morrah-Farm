@@ -38,6 +38,9 @@ class HistoryController extends Controller
         $pesanan = Pesanan::where('id', $id)->first();
         $pesanan_details = PesananDetail::where('pesanan_id', $pesanan->id)->get();
 
+        $pesanan->read = 1;
+        $pesanan->save();
+
         return view('pembeli.history.detail', [
             "title" => 'Pesanan | Detail Pemesanan'
         ], compact('pesanan', 'pesanan_details'));

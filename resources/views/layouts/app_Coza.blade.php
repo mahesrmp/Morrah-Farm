@@ -223,6 +223,7 @@
                             <?php
                             $pesanan_utama = App\Models\Pesanan::where('user_id', Auth::user()->id)
                                 ->where('status', 0)
+                                ->where('read', 0)
                                 ->first();
                             if (!empty($pesanan_utama)) {
                                 $notif = App\Models\PesananDetail::where('pesanan_id', $pesanan_utama->id)->count();
@@ -244,52 +245,85 @@
                                 </a>
                             @endif
                             @php
+                                $ordersCount = \DB::table('pesanans')
+                                    ->where('status', 3)
+                                    ->where('read', 0)
+                                    ->where('user_id', Auth::user()->id)
+                                    ->get();
                                 $orders = \DB::table('pesanans')
                                     ->where('status', 3)
+                                    ->where('user_id', Auth::user()->id)
+                                    ->get();
+                                $packingCount = \DB::table('pesanans')
+                                    ->where('status', 4)
+                                    ->where('read', 0)
                                     ->where('user_id', Auth::user()->id)
                                     ->get();
                                 $packing = \DB::table('pesanans')
                                     ->where('status', 4)
                                     ->where('user_id', Auth::user()->id)
                                     ->get();
+                                $trackingCount = \DB::table('pesanans')
+                                    ->where('status', 5)
+                                    ->where('read', 0)
+                                    ->where('user_id', Auth::user()->id)
+                                    ->get();
                                 $tracking = \DB::table('pesanans')
                                     ->where('status', 5)
                                     ->where('user_id', Auth::user()->id)
-                                ->get(); @endphp
+                                    ->get();
+                            @endphp
                             <div class="icon-header-item cl2 hov-cl2 trans-04 p-r-11 p-l-20 icon-header-noti js-show-cart"
-                                data-notify="{{ count($orders) + count($packing) + count($tracking) }}">
+                                data-notify="{{ count($ordersCount) + count($packingCount) + count($trackingCount) }}">
                                 <i class="zmdi zmdi-notifications"></i>
                             </div>
-
                             <li class="dropdown dropdown-list-toggle">
                                 <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
                                     <div class="dropdown-list-content dropdown-list-message">
                                         @foreach ($orders as $item)
-                                            <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
-                                                class="dropdown-item dropdown-item-unread">{{ 'Pesanan anda dengan kode ' . $item->kode . ' sudah di confirm' }}</a>
+                                            @if ($item->read == 0)
+                                                <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
+                                                    class="dropdown-item dropdown-item-unread"
+                                                    style="font-weight: bold; color: red;">{{ 'Pesanan anda dengan kode ' . $item->kode . ' sudah di confirm' }}</a>
+                                            @else
+                                                <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
+                                                    class="dropdown-item dropdown-item-unread">{{ 'Pesanan anda dengan kode ' . $item->kode . ' sudah di confirm' }}</a>
+                                            @endif
                                         @endforeach
                                         @foreach ($packing as $item)
-                                            <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
-                                                class="dropdown-item dropdown-item-unread">{{ 'Lihat hasil packingan barang anda' }}</a>
+                                            @if ($item->read == 0)
+                                                <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
+                                                    class="dropdown-item dropdown-item-unread"
+                                                    style="font-weight: bold; color: red;">{{ 'Lihat hasil packingan barang anda' }}</a>
+                                            @else
+                                                <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
+                                                    class="dropdown-item dropdown-item-unread">{{ 'Lihat hasil packingan barang anda' }}</a>
+                                            @endif
                                         @endforeach
+
+
                                         @foreach ($tracking as $item)
-                                            <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
-                                                class="dropdown-item dropdown-item-unread">{{ 'Barang anda sudah di kirim, berikan penilaian jika sudah sampai' }}</a>
+                                            @if ($item->read == 0)
+                                                <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
+                                                    class="dropdown-item dropdown-item-unread"
+                                                    style="font-weight: bold; color: red;">{{ 'Barang anda sudah di kirim, berikan penilaian jika sudah sampai' }}</a>
+                                            @else
+                                                <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
+                                                    class="dropdown-item dropdown-item-unread">{{ 'Barang anda sudah di kirim, berikan penilaian jika sudah sampai' }}</a>
+                                            @endif
                                         @endforeach
                                     </div>
                                 </div>
                             </li>
                         @else
                             <a href="{{ route('login') }}"
-                                class="dis-block icon-header-item cl2 hov-cl2 trans-04 p-l-10 p-r-11 icon-header-noti"
-                                data-notify="0">
+                                class="dis-block icon-header-item cl2 hov-cl2 trans-04 p-l-10 p-r-11" data-notify="0">
                                 <i class="zmdi zmdi-shopping-cart"></i>
 
                             </a>
 
                             <a href="{{ route('login') }}">
-                                <div class="icon-header-item cl2 hov-cl2 trans-04 p-l-10 p-r-11 icon-header-noti"
-                                    data-notify="0">
+                                <div class="icon-header-item cl2 hov-cl2 trans-04 p-l-10 p-r-11" data-notify="0">
                                     <i class="zmdi zmdi-notifications"></i>
                                 </div>
                             </a>
@@ -522,16 +556,36 @@
                         <li class="header-cart-item flex-w flex-t m-b-12">
                             <div class="w-full">
                                 @foreach ($orders as $item)
-                                    <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
-                                        class="dropdown-item dropdown-item-unread">{{ 'Pesanan anda dengan kode ' . $item->kode . ' sudah di confirm' }}</a>
+                                    @if ($item->read == 0)
+                                        <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
+                                            class="dropdown-item dropdown-item-unread"
+                                            style="font-weight: bold; color: red;">{{ 'Pesanan anda dengan kode ' . $item->kode . ' sudah di confirm' }}</a>
+                                    @else
+                                        <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
+                                            class="dropdown-item dropdown-item-unread">{{ 'Pesanan anda dengan kode ' . $item->kode . ' sudah di confirm' }}</a>
+                                    @endif
                                 @endforeach
                                 @foreach ($packing as $item)
-                                    <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
-                                        class="dropdown-item dropdown-item-unread">{{ 'Lihat hasil packingan barang anda' }}</a>
+                                    @if ($item->read == 0)
+                                        <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
+                                            class="dropdown-item dropdown-item-unread"
+                                            style="font-weight: bold; color: red;">{{ 'Lihat hasil packingan barang anda' }}</a>
+                                    @else
+                                        <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
+                                            class="dropdown-item dropdown-item-unread">{{ 'Lihat hasil packingan barang anda' }}</a>
+                                    @endif
                                 @endforeach
+
+
                                 @foreach ($tracking as $item)
-                                    <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
-                                        class="dropdown-item dropdown-item-unread">{{ 'Barang anda sudah di kirim, berikan penilaian jika sudah sampai' }}</a>
+                                    @if ($item->read == 0)
+                                        <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
+                                            class="dropdown-item dropdown-item-unread"
+                                            style="font-weight: bold; color: red;">{{ 'Barang anda sudah di kirim, berikan penilaian jika sudah sampai' }}</a>
+                                    @else
+                                        <a class="dropdown-item" href="{{ url('pesanan/' . $item->id) }}"
+                                            class="dropdown-item dropdown-item-unread">{{ 'Barang anda sudah di kirim, berikan penilaian jika sudah sampai' }}</a>
+                                    @endif
                                 @endforeach
                             </div>
                         </li>

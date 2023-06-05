@@ -35,6 +35,7 @@ return new class extends Migration
             $table->text('review')->default('');
             $table->string('img2')->default('');
             $table->string('video')->default('');
+            $table->boolean('read')->default(false);
             $table->timestamps();
         });
     }

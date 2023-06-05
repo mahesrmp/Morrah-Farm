@@ -85,6 +85,7 @@ class PesanController extends Controller
             $request->file('img')->move('productimage/', $request->file('img')->getClientOriginalName());
             $dataConfirmPhotoProcess->img = $request->file('img')->getClientOriginalName();
             $dataConfirmPhotoProcess->status = 4;
+            $dataConfirmPhotoProcess->read = 0;
             $dataConfirmPhotoProcess->update();
         }
 
@@ -122,6 +123,7 @@ class PesanController extends Controller
         $formTracking->kurir = $request->kurir;
         $formTracking->resi = $request->resi;
         $formTracking->status = 5;
+        $formTracking->read = 0;
         $formTracking->update();
 
         return redirect()->route('order.tracking')->with('toast_success', 'Data berhasil tersimpan');

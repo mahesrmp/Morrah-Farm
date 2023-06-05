@@ -194,7 +194,6 @@
                             </a>
                         </li>
                         <li class="nav-item">
-<<<<<<< HEAD
                             <a href="{{ route('kerbau.index') }}"
                                 class="nav-link {{ \Route::is('peternak.*') ? '' : '' }}">
                                 <i class="fa-solid fa-cow"></i>
@@ -206,22 +205,6 @@
                                 class="nav-link {{ \Route::is('susu.index') ? '' : '' }}">
                                 <i class="fa-solid fa-glass-water"></i>
                                 <p>Laporan Susu</p>
-=======
-                            <a href="{{ route('user.index') }}"
-                                class="nav-link {{ \Route::is('user.index') ? 'active' : '' }}">
-                                <i class="fa-solid fa-users"></i>
-                                <p>
-                                    Hasil Perasan
-
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('manager.customer') }}"
-                                class="nav-link {{ \Route::is('manager.customer') ? 'active' : '' }}">
-                                <i class="fa-solid fa-user-plus"></i>
-                                <p>Data Kerbau</p>
->>>>>>> e176096d08c44579ff6be3ac46ebcb95aeec014d
                             </a>
                         </li>
                         <li class="nav-item">

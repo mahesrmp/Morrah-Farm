@@ -36,7 +36,7 @@
                                 </a>
                                 <div class="p-t-32">
                                     <h4 class="p-b-15">
-                                        <a href="blog-detail.html" class="ltext-108 cl2 hov-cl1 trans-04">
+                                        <a href="{{ url('blogdetail/') }}/{{ $blog->id }}" class="ltext-108 cl2 hov-cl1 trans-04">
                                             {{ $blog->judul }}
                                         </a>
                                     </h4>

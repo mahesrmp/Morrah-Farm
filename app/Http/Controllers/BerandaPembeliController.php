@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\About;
 use App\Models\Blog;
 use App\Models\Cart;
 use App\Models\HomeSlider;
@@ -55,8 +56,10 @@ class BerandaPembeliController extends Controller
     /* ============== Khusus About ============== */
     public function about()
     {
+        $abouts = About::all();
         return view('pembeli.about_index', [
-            'title' => 'About Morrah Farm'
+            'title' => 'About Morrah Farm',
+            'abouts' => $abouts
         ]);
     }
 

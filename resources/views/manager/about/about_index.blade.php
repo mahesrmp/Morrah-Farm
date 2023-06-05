@@ -1,14 +1,24 @@
 @extends('layouts.app_LTE')
 @section('content')
     <div class="row">
-        <div class="col-md-10">
+        <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Daftar About</h3>
+                    <a href="{{ route('about.create') }}" class="btn btn-primary">Tambah About</a>
+                    <div class="card-tools">
+                        <div class="input-group input-group-sm" style="width: 150px;">
+                            <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-default">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!-- /.card-header -->
-                <div class="card-body">
-                    <table class="table table-bordered">
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-hover text-nowrap">
                         <thead>
                             <tr class="text-center">
                                 <th>No</th>
@@ -30,14 +40,14 @@
                                             style="max-width: 100px;">
                                     </td>
                                     <td>
-                                        <a href="{{ route('about.show', $about->id) }}" class="btn btn-info">Show Detail</a>
-                                        <a href="{{ route('about.edit', $about->id) }}" class="btn btn-primary">Edit</a>
+                                        <a href="{{ route('about.show', $about->id) }}" class="btn btn-info"><i class="fas fa-eye"></i></a>
+                                        <a href="{{ route('about.edit', $about->id) }}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
                                         <form action="{{ route('about.destroy', $about->id) }}" method="POST"
                                             class="d-inline">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger"
-                                                onclick="return confirm('Apakah Anda yakin ingin menghapus blog ini?')">Delete</button>
+                                                onclick="return confirm('Apakah Anda yakin ingin menghapus blog ini?')"><i class="fa fa-trash"></i></button>
                                         </form>
                                     </td>
                                 </tr>
@@ -45,7 +55,9 @@
                         </tbody>
                     </table>
                 </div>
+                <!-- /.card-body -->
             </div>
+            <!-- /.card -->
         </div>
     </div>
 @endsection

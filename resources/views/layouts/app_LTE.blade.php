@@ -219,22 +219,14 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('about.index') }}" class="nav-link"
+                            <a href="{{ route('about.index') }}"
                                 class="nav-link {{ \Route::is('about.index') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-chart-pie"></i>
+                                <i class="fa-brands fa-blogger"></i>
                                 <p>
                                     About
-                                    <i class="right fas fa-angle-left"></i>
+
                                 </p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('about.index') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>About</p>
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('blog.manager') }}"

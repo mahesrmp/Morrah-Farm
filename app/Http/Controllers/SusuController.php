@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Susu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SusuController extends Controller
 {
@@ -37,7 +38,7 @@ class SusuController extends Controller
         $data = [
             'model'     => new Susu(),
             'method'    => 'POST',
-            'route'     => $this->routePrefix .'.store',
+            'route'     => $this->routePrefix . '.store',
             'button'    => 'SIMPAN',
             'title'     => 'Form tambah data laporan susu harian',
         ];
@@ -46,7 +47,25 @@ class SusuController extends Controller
     }
 
     public function store(Request $request)
-    {   
+    {
+
+        $request->validate([
+            'tanggal' => 'required',
+            'jumlah_susu' => 'required',
+        ]);
+
+        // Mendapatkan pengguna yang sedang login
+        $user = Auth::user();
+
+        // Mendapatkan nama pengguna yang sedang login
+        $pelapor = $user->name;
+
+        $susus = Susu::create([
+            'pelapor' => $pelapor,
+            'tanggal' => $request->tanggal,
+            'jumlah_susu' => $request->jumlah_susu,
+        ]);
+
         $request->validate([
             'pelapor' => 'required',
             'tanggal' => 'required',
@@ -58,7 +77,7 @@ class SusuController extends Controller
             'tanggal' => $request->tanggal,
             'jumlah_susu' => $request->jumlah_susu,
         ]);
-        
+
         return redirect()->route('susu.index')->with('success', 'Laporan berhasil ditambahkan');
     }
 
@@ -88,7 +107,7 @@ class SusuController extends Controller
         $susus = [
             'model'     => Susu::findOrFail($id),
             'method'    => 'PUT',
-            'route'     => [$this->routePrefix .'.update', $id,],
+            'route'     => [$this->routePrefix . '.update', $id,],
             'button'    => 'UPDATE',
             'title'     => 'Form Update Laporan Susu',
         ];
@@ -116,7 +135,7 @@ class SusuController extends Controller
         $susus->pelapor = $request->pelapor;
         $susus->tanggal = $request->tanggal;
         $susus->jumlah_susu = $request->jumlah_susu;
-        return redirect()->route('susu.index')->with('success','Laporan Data Susu Berhasil di Ubah');
+        return redirect()->route('susu.index')->with('success', 'Laporan Data Susu Berhasil di Ubah');
     }
 
     /**
@@ -129,6 +148,6 @@ class SusuController extends Controller
     {
         $susus = Susu::findOrFail($id);
         $susus->delete();
-        return back()->with('success','Laporan Data Susu Berhasil dihapus');
+        return back()->with('success', 'Laporan Data Susu Berhasil dihapus');
     }
 }

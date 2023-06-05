@@ -58,7 +58,7 @@ class AboutController extends Controller
 
         About::create($validatedData);
 
-        return redirect()->route('about.index')->with('success', 'Blog berhasil ditambahkan!');
+        return redirect()->route('about.index')->with('success', 'About berhasil ditambahkan!');
     }
 
     /**

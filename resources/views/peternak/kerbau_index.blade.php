@@ -14,7 +14,8 @@
         <div class="card card-solid">
             <div class="card-body pb-0">
                 <a href="{{ route($routePrefix . '.create') }}">
-                    <button type="button" class="btn btn-primary btn-sm"><i class="fa-sharp fa-solid fa-user-plus"></i>Laporkan Kerbau Jantan</button></a>
+                    <button type="button" class="btn btn-primary btn-sm"><i
+                            class="fa-sharp fa-solid fa-user-plus"></i>Laporkan Kerbau Jantan</button></a>
                 <div class="mt-3"></div>
                 <div class="row">
                     @foreach ($kerbaus as $kerbau)
@@ -28,8 +29,9 @@
                                             <h2 class="lead"><b>{{ $kerbau->pelapor }}</b></h2>
                                             <p class="text-muted text-sm"><b>Pelapor: </b>{{ $kerbau->pelapor }}</p>
                                             <p class="text-muted text-sm"><b>Tanggal: </b>{{ $kerbau->tanggal }}</p>
-                                            <p class="text-muted text-sm"><b>Jumlah Kerbau: </b>{{ $kerbau->jumlah_kerbau }}</p>
-                                            
+                                            <p class="text-muted text-sm"><b>Jumlah Kerbau: </b>{{ $kerbau->jumlah_kerbau }}
+                                            </p>
+
                                         </div>
                                     </div>
                                 </div>

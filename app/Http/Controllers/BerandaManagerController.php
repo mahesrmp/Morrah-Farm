@@ -6,12 +6,8 @@ use App\Models\Pesanan;
 use App\Models\PesananDetail;
 use App\Models\Produk;
 use App\Models\User;
-<<<<<<< HEAD
 use App\Models\Kerbau;
 use App\Models\Susu;
-use DB;
-=======
->>>>>>> e176096d08c44579ff6be3ac46ebcb95aeec014d
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -54,7 +50,6 @@ class BerandaManagerController extends Controller
         ]);
     }
 
-<<<<<<< HEAD
     public function kerbau()
     {
         $kerbaus = Kerbau::all();
@@ -106,7 +101,6 @@ public function kerbausearch(Request $request)
     ]);
 }
 
-=======
     public function laporan(Request $request)
     {
 
@@ -137,5 +131,4 @@ public function kerbausearch(Request $request)
         ])->with('laporan', $laporan);
 
     }
->>>>>>> e176096d08c44579ff6be3ac46ebcb95aeec014d
 }

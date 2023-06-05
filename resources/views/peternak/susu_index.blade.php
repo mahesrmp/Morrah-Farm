@@ -25,11 +25,15 @@
                                 <div class="card-body pt-0">
                                     <div class="row">
                                         <div class="col-7">
-                                            <h2 class="lead"><b>{{ $susu->pelapor }}</b></h2>
+                                            {{-- <h2 class="lead"><b>{{ $susu->pelapor }}</b></h2>
                                             <p class="text-muted text-sm"><b>Pelapor: </b>{{ $susu->pelapor }}</p>
                                             <p class="text-muted text-sm"><b>Tanggal: </b>{{ $susu->tanggal }}</p>
-                                            <p class="text-muted text-sm"><b>Jumlah Susu: </b>{{ $susu->jumlah_susu }}</p>
-                                            
+                                            <p class="text-muted text-sm"><b>Jumlah Susu: </b>{{ $susu->jumlah_susu }}</p> --}}
+
+                                            <td>{{ $susu->pelapor }}</td>
+                                            <td>{{ $susu->tanggal }}</td>
+                                            <td>{{ $susu->jumlah_susu }}</td>
+
                                         </div>
                                     </div>
                                 </div>

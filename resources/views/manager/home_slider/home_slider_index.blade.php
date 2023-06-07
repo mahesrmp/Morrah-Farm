@@ -36,9 +36,9 @@
                     <!-- /.card-body -->
                     <div class="card-footer">
                         @if ($postCount < $maxPostCount)
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
                         @else
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
                         @endif
 
                     </div>
@@ -74,20 +74,72 @@
                                     <td><img src="{{ asset('images/' . $slider->gambar) }}" alt="{{ $slider->nama_slider }}"
                                             height="100" width="100"></td>
                                     <td>
-                                        <form action="{{ route('home-sliders.destroy', $slider->id) }}" method="POST">
+                                        <form action="{{ route('home-sliders.destroy', $slider->id) }}" method="POST"
+                                            class="delete-slider-form">
                                             <a class="btn btn-primary"
                                                 href="{{ route('home-sliders.edit', $slider->id) }}">Edit</a>
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                            <button type="submit" class="btn btn-danger delete-slider">Delete</button>
                                         </form>
                                     </td>
                                 </tr>
                             @endforeach
+
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+    <script type="text/javascript">
+        $(function() {
+            $(document).on('submit', '.delete-slider-form', function(e) {
+                e.preventDefault();
+                var form = $(this);
+                var link = form.attr("action");
+
+                Swal.fire({
+                    title: 'Yakin Menghapus Slider?',
+                    text: "Jika Anda menghapus maka data tidak akan bisa kembali!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: link,
+                            type: 'POST',
+                            data: {
+                                '_method': 'DELETE',
+                                '_token': '{{ csrf_token() }}'
+                            },
+                            success: function(response) {
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Your file has been deleted.',
+                                    'success'
+                                ).then(() => {
+                                    // Reload or redirect to another page
+                                    location
+                                .reload(); // Reload halaman setelah penghapusan berhasil
+                                });
+                            },
+                            error: function(xhr) {
+                                Swal.fire(
+                                    'Error!',
+                                    'An error occurred while deleting the file.',
+                                    'error'
+                                );
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

@@ -1,7 +1,6 @@
 @extends('layouts.app_Coza')
 
 @section('content')
-
     <div class="container">
         <div class="flex-w flex-sb-m p-b-52">
             <div class="flex-w flex-l-m filter-tope-group m-tb-10"></div>
@@ -18,7 +17,7 @@
 
 
     <!-- Content page -->
-    <section class="bg0 p-t-75 p-b-120">
+    {{-- <section class="bg0 p-t-75 p-b-120">
         <div class="container">
             <div class="row p-b-148">
                 <div class="col-md-7 col-lg-8">
@@ -104,5 +103,75 @@
                 </div>
             </div>
         </div>
+    </section> --}}
+
+    <section class="bg0 p-t-75 p-b-120">
+        <div class="container">
+            @foreach ($abouts as $key => $about)
+                @php
+                    $isOdd = $about->id % 2 != 0;
+                @endphp
+
+                @if ($isOdd)
+                    <div class="row p-b-148">
+                        <div class="col-md-7 col-lg-8">
+                            <div class="p-t-7 p-r-85 p-r-15-lg p-r-0-md">
+                                <h3 class="mtext-111 cl2 p-b-16">
+                                    {{ $about->judul }}
+                                </h3>
+
+                                <p class="stext-113 cl6 p-b-26">
+                                    {{ $about->isi }}
+                                </p>
+
+
+
+                                <p class="stext-113 cl6 p-b-26">
+
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-11 col-md-5 col-lg-4 m-lr-auto">
+                            <div class="how-bor1 ">
+                                <div class="hov-img0">
+                                    <img src="{{ Storage::url($about->gambar) }}" alt="IMG">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @else
+                    <div class="row">
+                        <div class="order-md-2 col-md-7 col-lg-8 p-b-30">
+                            <div class="p-t-7 p-l-85 p-l-15-lg p-l-0-md">
+                                <h3 class="mtext-111 cl2 p-b-16">
+                                    {{ $about->judul }}
+                                </h3>
+
+                                <p class="stext-110 cl6 p-b-26">
+                                    {{ $about->isi }}
+                                </p>
+
+                                <div class="bor16 p-l-29 p-b-9 m-t-22">
+                                    <span class="stext-111 cl8">
+
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="order-md-1 col-11 col-md-5 col-lg-4 m-lr-auto p-b-30">
+                            <div class="how-bor2">
+                                <div class="hov-img0">
+                                    <img src="{{ Storage::url($about->gambar) }}" alt="IMG">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            @endforeach
+        </div>
     </section>
+
+    {{--  --}}
 @endsection

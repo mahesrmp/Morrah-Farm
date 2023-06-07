@@ -1,34 +1,48 @@
 @extends('layouts.app_LTE')
 @section('content')
-
-    <div class="container">
-        <h1>Edit Blog</h1>
-        <form action="{{ route('about.update', $about->id) }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            @method('PUT')
-            <div class="form-group">
-                <label for="judul">Judul</label>
-                <input type="text" name="judul" id="judul" class="form-control" value="{{ $about->judul }}" required>
-            </div>
-            <div class="form-group">
-                <label for="isi">Isi</label>
-                <textarea name="isi" id="isi" class="form-control" required>{{ $about->isi }}</textarea>
-            </div>
-            <div class="form-group">
-                <label for="gambar">Gambar</label>
-                <input type="file" name="gambar" id="gambar" class="form-control-file">
-            </div>
-            @if ($about->gambar)
-                <div class="form-group">
-                    <label>Gambar saat ini:</label>
-                    <img src="{{ Storage::url($about->gambar) }}" alt="Gambar" style="max-width: 100px;">
+    <div class="row">
+        <div class="col-md-10">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">{{ $title }}</h3>
                 </div>
-            @endif
-            <button type="submit" class="btn btn-primary">Update</button>
-        </form>
+                <form action="{{ route('about.update', $about->id) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Judul</label>
+                            <input name="judul" type="text" class="form-control" value="{{ $about->judul }}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="isi">Isi</label>
+                            <textarea rows="5" name="isi" id="isi" class="form-control" required>{{ $about->isi }}</textarea>
+                        </div>
+                        @if ($about->gambar)
+                            <div class="form-group">
+                                <label>Gambar saat ini:</label>
+                                <img src="{{ Storage::url($about->gambar) }}" alt="Gambar" style="max-width: 100px;">
+                            </div>
+                        @endif
+                        <div class="form-group">
+                            <label for="exampleInputFile">Gambar</label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" name="gambar" class="custom-file-input" id="exampleInputFile">
+                                    <label class="custom-file-label" for="exampleInputFile">Pilih Gambar</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 @endsection
-
 @push('scripts')
     <script src="https://cdn.tiny.cloud/1/YOUR_API_KEY/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
@@ -69,5 +83,3 @@
         });
     </script>
 @endpush
-
-

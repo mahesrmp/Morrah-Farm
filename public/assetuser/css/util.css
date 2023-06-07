@@ -3,8 +3,8 @@
 /*//////////////////////////////////////////////////////////////////
 [ REBOOT ]*/
 *, *:before, *:after {
-	margin: 0px; 
-	padding: 0px; 
+	margin: 0px;
+	padding: 0px;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
@@ -3171,14 +3171,14 @@ iframe {border: none;}
 	display: block;
 }
 
-.wrap-pic-w img {width: 100%;}
-.wrap-pic-max-w img {max-width: 100%;}
+.wrap-pic-w img {width: 80%;}
+.wrap-pic-max-w img {max-width: 80%;}
 
-.wrap-pic-h img {height: 100%;}
-.wrap-pic-max-h img {max-height: 100%;}
+.wrap-pic-h img {height: 80%;}
+.wrap-pic-max-h img {max-height: 80%;}
 
-.wrap-pic-s img {width: 100%; height: 100%;}
-.wrap-pic-max-s img {max-width: 100%; max-height: 100%;}
+.wrap-pic-s img {width: 80%; height: 80%;}
+.wrap-pic-max-s img {max-width: 80%; max-height: 80%;}
 
 
 /*---------------------------------------------*/

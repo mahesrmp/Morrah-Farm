@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\About;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
+
 
 class AboutController extends Controller
 {
@@ -57,8 +59,8 @@ class AboutController extends Controller
         }
 
         About::create($validatedData);
-
-        return redirect()->route('about.index')->with('success', 'Blog berhasil ditambahkan!');
+        Alert::success('Success Title', 'Success Message');
+        return redirect()->route('about.index');
     }
 
     /**
@@ -136,7 +138,7 @@ class AboutController extends Controller
         }
 
         $about->delete();
-
-        return redirect()->route('about.index')->with('success', 'Blog berhasil dihapus!');
+        Alert::success('Success', 'Data Terhapus');
+        return redirect()->route('about.index');
     }
 }

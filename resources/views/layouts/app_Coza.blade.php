@@ -606,6 +606,7 @@
 
 
     @yield('content')
+    @include('sweetalert::alert')
 
 
     <!-- Footer -->
@@ -744,6 +745,7 @@
     </script>
     <!--===============================================================================================-->
     <script src="assetuser/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @yield('js')
 
 </body>

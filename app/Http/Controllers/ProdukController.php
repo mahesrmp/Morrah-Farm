@@ -27,9 +27,11 @@ class ProdukController extends Controller
     public function index(Request $request)
     {
 
-        $produks = Model::paginate(20);
+        $produks = Model::all();
+        // $rating = Rating::where('produk_id', $produks->id)->get;
         return view('manager.' . $this->viewIndex, [
             'produks' => $produks,
+            // 'rating' => $rating,
             'routePrefix'   => $this->routePrefix,
             'title'         => 'Produk Morrah Farm',
         ]);
@@ -83,8 +85,8 @@ class ProdukController extends Controller
             $produks->gambar = $request->file('gambar')->getClientOriginalName();
             $produks->save();
         }
-
-        return redirect()->route('produk.index')->with('success', 'Produk berhasil ditambahkan');
+        Alert::success('Yeee', 'Berhasil Menambahkan Produk');
+        return redirect()->route('produk.index');
     }
 
 
@@ -168,6 +170,7 @@ class ProdukController extends Controller
     {
         $produk = Produk::findOrFail($id);
         $produk->delete();
-        return back()->with('success','Data Produk Berhasil dihapus');
+        Alert::success('Yeee', 'Berhasil Menghapus Produk');
+        return back();
     }
 }

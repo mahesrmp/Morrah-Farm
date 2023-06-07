@@ -7,6 +7,7 @@ use App\Models\Produk;
 use App\Models\Rating;
 use Auth;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UserRatingController extends Controller
 {
@@ -40,8 +41,42 @@ class UserRatingController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $stars_rated = $request->input('rating');
+        $produk_id = $request->input('produk_id');
+        $komentar = $request->input('komentar');
+
+        $produk_check = Produk::where('id', $produk_id)->get();
+        if ($produk_check) {
+            $veriified_purchase = Pesanan::where('pesanans.user_id', Auth::id())
+                ->join('pesanan_details', 'pesanans.id', 'pesanan_details.pesanan_id')
+                ->where('pesanan_details.produk_id', $produk_id)->get();
+            if ($veriified_purchase->count() > 0 ) {
+                $existing_rating = Rating::where('user_id', Auth::id())->where('produk_id', $produk_id)->first();
+                if ($existing_rating) {
+                    $existing_rating->rating = $stars_rated;
+                    $existing_rating->komentar = $komentar;
+                    $existing_rating->update();
+                } else {
+                    Rating::create([
+                        'user_id' => Auth::id(),
+                        'produk_id' => $produk_id,
+                        'rating' => $stars_rated,
+                        'komentar' => $komentar,
+                    ]);
+                }
+                Alert::success('Yeee', 'Terima Kasih Sudah menilai Produk kami');
+                return redirect()->back();
+            } else {
+                Alert::error('Maaf', 'Anda tidak bisa memberi penilaian karena belum membeli produk ini');
+                return redirect()->back();
+            }
+        } else {
+            return redirect()->back()->with('error', 'The you Followed was broken');
+        }
     }
+
+
+
 
     /**
      * Display the specified resource.

@@ -172,10 +172,11 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::get('/berikan-ulasan/{id}', [ReviewController::class, 'store'])->name('berikan.ulasan');
     Route::post('/berikan-ulasan-process/{id}', [ReviewController::class, 'storeReviewProcess'])->name('berikan.ulasan.process');
 
-    Route::post('add-rating', [UserRatingController::class, 'store']);
+    Route::post('/add-rating', [UserRatingController::class, 'store']);
     Route::get('logout', [LoginController::class, 'logout']);
 
     Route::get('/', [BerandaPembeliController::class, 'index'])->name('pembeli.beranda');
 
     Auth::routes();
+
 }); //prevent-back-history

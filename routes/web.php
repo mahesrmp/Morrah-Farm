@@ -1,18 +1,21 @@
 <?php
 
-use App\Http\Controllers\AboutController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\PesanController;
 use App\Http\Controllers\KerbauController;
+use App\Http\Controllers\OngkirController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\HomeSliderController;
+use App\Http\Controllers\UserRatingController;
 use App\Http\Controllers\AkunPembeliController;
 use App\Http\Controllers\BerandaManagerController;
 use App\Http\Controllers\BerandaPembeliController;
@@ -21,8 +24,6 @@ use App\Http\Controllers\ProduksiProdukController;
 use App\Http\Controllers\BerandaPeternakController;
 use App\Http\Controllers\BerandaProduksiController;
 use App\Http\Controllers\AdminAkunSettingController;
-use App\Http\Controllers\HomeSliderController;
-use App\Http\Controllers\UserRatingController;
 
 
 /*
@@ -87,6 +88,13 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         Route::get('laporan', [BerandaManagerController::class, 'laporan'])->name('manager.laporan');
         Route::get('cetak-laporan', [BerandaManagerController::class, 'cetakLaporan'])->name('cetak-laporan');
         Route::get('/cetak-laporan-form', [BerandaManagerController::class, 'cetakForm'])->name('cetak-laporan-form');
+
+        Route::get('/ongkir', [OngkirController::class, 'index'])->name('ongkir.manager');
+        Route::get('/ongkir/create', [OngkirController::class, 'create'])->name('ongkir.create');
+        Route::post('/ongkir/post', [OngkirController::class, 'store'])->name('ongkir.store');
+        Route::get('/ongkir/edit/{id}', [OngkirController::class, 'edit'])->name('ongkir.edit');
+        Route::put('/ongkir/update/{id}', [OngkirController::class, 'update'])->name('ongkir.update');
+        Route::delete('/ongkir/delete/{id}', [OngkirController::class, 'destroy'])->name('ongkir.delete');
     });
 
 

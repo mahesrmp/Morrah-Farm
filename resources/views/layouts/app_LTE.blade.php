@@ -303,6 +303,16 @@
                             </ul>
                         </li>
                         <li class="nav-item">
+                            <a href="{{ route('ongkir.manager') }}"
+                                class="nav-link {{ \Route::is('ongkos-kirim') ? 'active' : '' }}">
+                                <i class="fa-solid fa-dollar"></i>
+                                <p>
+                                    Ongkos Kirim
+
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('logout') }}" class="nav-link">
 
                                 <i class=" nav-icon fa-solid fa-right-from-bracket"></i>

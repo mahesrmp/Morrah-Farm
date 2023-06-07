@@ -68,6 +68,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         Route::get('/order-details', [PesanController::class, 'orderDetails'])->name('order.detail');
         Route::get('/confirm-order-process/{id}', [PesanController::class, 'confirmOrdersProcess'])->name('order.confirm.process');
         Route::get('/result-file/{id}', [PesanController::class, 'resultFile'])->name('result.file');
+        Route::get('/detail-pembelian/{id}', [PesanController::class, 'detailPembelian'])->name('detail.pembelian');
 
         Route::get('/confirm-photo', [PesanController::class, 'confirmPhoto'])->name('confirm.photo');
         Route::post('/confirm-photo-process/{id}', [PesanController::class, 'confirmPhotoProcess'])->name('confirm.photo.process');

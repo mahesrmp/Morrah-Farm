@@ -14,7 +14,6 @@ class Rating extends Model
         'produk_id',
         'rating',
         'komentar',
-        'image',
     ];
 
     public function user()

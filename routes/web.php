@@ -96,11 +96,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         //ini route khusus untuk produksi
         Route::get('beranda', [BerandaProduksiController::class, 'index'])->name('produksi.beranda');
         Route::get('customer', [BerandaProduksiController::class, 'customer'])->name('produksi.customer');
-<<<<<<< HEAD
-     //   Route::resource('produk', ProduksiProdukController::class);
-=======
         //   Route::resource('produk', ProduksiProdukController::class);
->>>>>>> a6a4e9056533d47960c7298a2b957e66475ec8e8
         Route::resource('produksiproduk', ProduksiProdukController::class);
         Route::get('/akun-produksi/{id}/edit', [AdminAkunSettingController::class, 'edit'])->name('akun-produksi.edit');
         Route::put('/akun-produksi/{id}', [AdminAkunSettingController::class, 'update'])->name('akun-produksi.update');
@@ -110,11 +106,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::prefix('peternak')->middleware(['auth', 'auth.peternak'])->group(function () {
         //ini route khusus untuk peternak
         Route::get('beranda', [BerandaPeternakController::class, 'index'])->name('peternak.beranda');
-<<<<<<< HEAD
-         //Route::get('peternak', [KerbauController::class, 'index'])->name('peternak.kerbau.blade');
-=======
         //Route::get('peternak', [KerbauController::class, 'index'])->name('peternak.kerbau.blade');
->>>>>>> a6a4e9056533d47960c7298a2b957e66475ec8e8
         // Route::get('peternak', [SusuPeternakController::class, 'index'])->name('peternak.susu.blade');
         Route::resource('kerbau', KerbauController::class);
         Route::resource('susu', SusuController::class);
@@ -171,10 +163,11 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::get('/berikan-ulasan/{id}', [ReviewController::class, 'store'])->name('berikan.ulasan');
     Route::post('/berikan-ulasan-process/{id}', [ReviewController::class, 'storeReviewProcess'])->name('berikan.ulasan.process');
 
-    Route::post('add-rating', [UserRatingController::class, 'store']);
+    Route::post('/add-rating', [UserRatingController::class, 'store']);
     Route::get('logout', [LoginController::class, 'logout']);
 
     Route::get('/', [BerandaPembeliController::class, 'index'])->name('pembeli.beranda');
 
     Auth::routes();
+
 }); //prevent-back-history

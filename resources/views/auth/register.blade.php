@@ -1,123 +1,163 @@
-@extends('layouts.app')
-{{-- @extends('layouts.pembeli2') --}}
+<!DOCTYPE html>
+<html lang="en">
 
-@section('content')
-    <div class="container mt-4">
-        <h2>Register</h2>
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
-            <div class="form-group">
-                <label for="name">Name:</label>
-                <input type="text" class="form-control" id="name" name="name" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <div class="input-group">
-                    <input type="password" class="form-control" id="password" name="password" required>
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button" id="togglePassword">Show</button>
-                    </div>
-                </div>
-                <div id="password-strength" class="mt-2"></div>
-                @error('password')
-                    <div class="text-danger">{{ $message }}</div>
-                @enderror
-            </div>
-            <div class="form-group">
-                <label for="password_confirmation">Confirm Password:</label>
-                <input type="password" class="form-control" id="password_confirmation" name="password_confirmation"
-                    required>
-            </div>
-            <button type="submit" class="btn btn-primary">Register</button>
-        </form>
-    </div>
-    {{-- <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">{{ __('Register') }}</div>
+<head>
 
-                    <div class="card-body">
-                        <form method="POST" action="{{ route('register') }}">
-                            @csrf
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-                            <div class="row mb-3">
-                                <label for="name"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
+    <title>Daftar</title>
+    <link rel="icon" type="image/png" href="assetuser/images/logo2.png" />
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
 
-                                <div class="col-md-6">
-                                    <input id="name" type="text"
-                                        class="form-control @error('name') is-invalid @enderror" name="name"
-                                        value="{{ old('name') }}" required autocomplete="name" autofocus>
+    <!-- Custom styles for this template-->
+    <link href="loginasset/css/sb-admin-2.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+    </style>
 
-                                    @error('name')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
+</head>
+
+<body class="bg-gradient">
+    <div class="container">
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                    <div class="col-lg-7">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <a href="{{ route('pembeli.beranda') }}">
+                                    <img height="110px" src="assetuser/images/logo2.png" alt="Logo"
+                                        class="logo-img">
+                                </a>
+                                <h1 class="h2 text-gray-900 mb-5">Create an Account!</h1>
                             </div>
+                            <form class="user" method="POST" action="{{ route('register') }}">
+                                @csrf
 
-                            <div class="row mb-3">
-                                <label for="email"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="email" type="email"
-                                        class="form-control @error('email') is-invalid @enderror" name="email"
-                                        value="{{ old('email') }}" required autocomplete="email">
-
-                                    @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-user" id="name"
+                                        name="name" required placeholder="Nama Lengkap">
                                 </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="password"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="password" type="password"
-                                        class="form-control @error('password') is-invalid @enderror" name="password"
-                                        required autocomplete="new-password">
-                                    <span id="password-error" class="invalid-feedback" role="alert"></span>
-                                    @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                                <div class="form-group">
+                                    <input type="email" class="form-control form-control-user" id="email"
+                                        name="email" required placeholder="Email Address">
                                 </div>
-                            </div>
 
-                            <div class="row mb-3">
-                                <label for="password-confirm"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
+                                <div class="form-group">
+                                    <input type="password" class="form-control form-control-user" id="password"
+                                        name="password" required placeholder="Password">
 
-                                <div class="col-md-6">
-                                    <input id="password-confirm" type="password" class="form-control"
-                                        name="password_confirmation" required autocomplete="new-password">
-                                    <span id="password-error" class="invalid-feedback" role="alert"></span>
                                 </div>
-                            </div>
 
-                            <div class="row mb-0">
-                                <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        {{ __('Register') }}
-                                    </button>
+
+                                <div id="password-strength" class="mt-2"></div>
+                                @error('password')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+
+                                <div class="form-group">
+                                    <input type="password" class="form-control form-control-user"
+                                        id="password_confirmation" name="password_confirmation" required
+                                        placeholder="Confirmation Password">
                                 </div>
+                                <hr>
+                                <button type="submit" class="btn btn-primary btn-user btn-block">Register</button>
+                            </form>
+                            <div class="text-center">
+                                @if (Route::has('password.request'))
+                                    <a class="small" href="{{ route('password.request') }}">
+                                        {{ __('Forgot Your Password?') }}
+                                    </a>
+                                @endif
                             </div>
-                        </form>
+                            <div class="text-center">
+                                <a class="small" href="{{ route('login') }}">Already have an account? Login!</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div> --}}
-@endsection
+
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="loginasset/assetuser/vendor/jquery/jquery.min.js"></script>
+    <script src="loginasset/assetuser/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="loginasset/assetuser/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="loginasset/js/sb-admin-2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>
+    <script>
+        document.getElementById('password').addEventListener('input', function() {
+            var password = document.getElementById('password').value;
+            var result = zxcvbn(password);
+            var strengthMeter = document.getElementById('password-strength');
+
+            var strength = {
+                0: 'Very Weak',
+                1: 'Weak',
+                2: 'Fair',
+                3: 'Strong',
+                4: 'Very Strong'
+            };
+
+            var score = result.score;
+            var feedback = result.feedback.warning || '';
+
+            strengthMeter.innerHTML = '<div class="progress">' +
+                '<div class="progress-bar bg-' + getProgressBarColor(score) +
+                '" role="progressbar" style="width: ' + (score * 20) + '%" aria-valuenow="' + (score * 20) +
+                '" aria-valuemin="0" aria-valuemax="100"></div>' +
+                '</div>' +
+                '<div class="mt-1">' + strength[score] + '</div>' +
+                '<div class="mt-1">' + feedback + '</div>';
+        });
+
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            var passwordInput = document.getElementById('password');
+            var toggleButton = document.getElementById('togglePassword');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleButton.innerHTML = '<i class="fa fa-eye-slash" aria-hidden="true"></i>';
+            } else {
+                passwordInput.type = 'password';
+                toggleButton.innerHTML = '<i class="fa fa-eye" aria-hidden="true"></i>';
+            }
+        });
+
+        function getProgressBarColor(score) {
+            if (score <= 1) {
+                return 'danger';
+            } else if (score <= 2) {
+                return 'warning';
+            } else if (score <= 3) {
+                return 'info';
+            } else {
+                return 'success';
+            }
+        }
+    </script>
+
+</body>
+
+</html>

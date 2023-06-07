@@ -337,6 +337,7 @@
                             </div>
                         @endif
                         @yield('content')
+                        @include('sweetalert::alert')
                     </div>
                 </div>
             </section>
@@ -427,8 +428,7 @@
     <!-- include summernote css/js-->
     {{-- <script src="assets/sm/summernote.js"></script> --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2/dist/sweetalert2.min.css">
-
-    @include('sweetalert::alert')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @yield('script')
 </body>
 

@@ -186,21 +186,26 @@
                             </div>
                             <div class="block2-txt flex-w flex-t p-t-14">
                                 <div class="block2-txt-child1 flex-col-l ">
-                                    <a href="{{ url('pembeli/keranjang') }}/{{ $produk->id }}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                                    <a href="{{ url('pembeli/keranjang') }}/{{ $produk->id }}"
+                                        class="stext-104 cl3 hov-cl1 trans-04 js-name-b2 p-b-6">
                                         {{ $produk->nama_produk }}
                                     </a>
                                     <span class="stext-105 cl3">
                                         {{ formatRupiah($produk->harga) }}
                                     </span>
-                                </div>
-                                <div class="block2-txt-child2 flex-r p-t-3">
-                                    <a href="{{ url('pembeli/keranjang') }}/{{ $produk->id }}"
-                                        class="dis-block pos-relative">
-                                        <img height="25" width="22" class="icon-heart1 dis-block trans-04"
-                                            src="assetuser/images/icons/cart.png" alt="ICON">
-                                        <img height="25" width="22" class="icon-heart2 dis-block trans-04 ab-t-l"
-                                            src="assetuser/images/icons/cart.png" alt="ICON">
-                                    </a>
+
+                                    <div class="flex-w flex-sb-m">
+                                        <span class="fs-18 cl11">
+                                            <i class="zmdi zmdi-star"></i>
+                                            <i class="zmdi zmdi-star"></i>
+                                            <i class="zmdi zmdi-star"></i>
+                                            <i class="zmdi zmdi-star"></i>
+                                            <i class="zmdi zmdi-star-half"></i>
+                                        </span> <span class="ml-3"> | </span>
+                                        <span class="flex-w flex-sb-m ml-2">
+                                            <p>20 Terjual </p>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>

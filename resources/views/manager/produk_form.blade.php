@@ -27,8 +27,8 @@
                             {!! Form::textarea('keterangan', null, [
                                 'class' => 'form-control',
                                 'placeholder' => 'Masukkan Keterangan',
-                                'rows' => 5
-                                ]) !!}
+                                'rows' => 5,
+                            ]) !!}
                             <span class="text-danger">{{ $errors->first('keterangan') }}</span>
                         </div>
 
@@ -38,26 +38,25 @@
                             <span class="text-danger">{{ $errors->first('stok') }}</span>
                         </div>
 
-
-
-
-                        <label for="gambar">Gambar Produk (*ukuran gambar harus 768x1024 pixel)</label>
-                        <div>
+                        <div class="form-group">
+                            <label for="gambar">Gambar Produk (*ukuran gambar harus 768x1024 pixel)</label>
                             <div class="custom-file">
                                 <input type="file" name="gambar" class="custom-file-input" id="exampleInputFile">
                                 <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-
                             </div>
+                            <span class="text-danger">{{ $errors->first('gambar') }}</span>
                         </div>
-                        <span class="text-danger">{{ $errors->first('gambar') }}</span>
                     </div>
                     <div class="card-footer">
-                        {!! Form::submit($button, ['class' => 'btn btn-primary btn-sm']) !!}
-                        {!! Form::close() !!}
+                        {!! Form::submit($button, ['class' => 'btn btn-primary btn-sm',]) !!}
                     </div>
+                    {!! Form::close() !!}
+
                 </div>
             </div>
-            <div class="col-md-6"></div>
         </div>
+        <div class="col-md-6"></div>
+    </div>
     </div>
 @endsection
+

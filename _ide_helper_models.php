@@ -14,9 +14,21 @@ namespace App\Models{
 /**
  * App\Models\About
  *
+ * @property int $id
+ * @property string $judul
+ * @property string $isi
+ * @property string|null $gambar
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|About newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|About newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|About query()
+ * @method static \Illuminate\Database\Eloquent\Builder|About whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|About whereGambar($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|About whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|About whereIsi($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|About whereJudul($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|About whereUpdatedAt($value)
  */
 	class About extends \Eloquent {}
 }
@@ -72,6 +84,40 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * App\Models\Kerbau
+ *
+ * @property int $id
+ * @property string $pelapor
+ * @property string $tanggal
+ * @property int $jumlah_kerbau
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Kerbau newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Kerbau newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Kerbau query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Kerbau whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Kerbau whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Kerbau whereJumlahKerbau($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Kerbau wherePelapor($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Kerbau whereTanggal($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Kerbau whereUpdatedAt($value)
+ */
+	class Kerbau extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\Laporan
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|Laporan newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Laporan newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Laporan query()
+ */
+	class Laporan extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\Peanan
  *
  * @method static \Illuminate\Database\Eloquent\Builder|Peanan newModelQuery()
@@ -106,6 +152,7 @@ namespace App\Models{
  * @property string $review
  * @property string $img2
  * @property string $video
+ * @property int $read
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\PesananDetail[] $pesanan_detail
@@ -130,6 +177,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Pesanan whereNamaPengirim($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Pesanan wherePlat($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Pesanan whereProdukId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Pesanan whereRead($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Pesanan whereResi($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Pesanan whereReview($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Pesanan whereStatus($value)
@@ -196,6 +244,56 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Produk whereUpdatedAt($value)
  */
 	class Produk extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\Rating
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property int $produk_id
+ * @property string $komentar
+ * @property string $rating
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Produk|null $product
+ * @property-read \App\Models\User|null $user
+ * @method static \Illuminate\Database\Eloquent\Builder|Rating newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Rating newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Rating query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Rating whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Rating whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Rating whereKomentar($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Rating whereProdukId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Rating whereRating($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Rating whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Rating whereUserId($value)
+ */
+	class Rating extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\Susu
+ *
+ * @property int $id
+ * @property string $pelapor
+ * @property string $tanggal
+ * @property string $jumlah_susu
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Susu newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Susu newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Susu query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Susu whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Susu whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Susu whereJumlahSusu($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Susu wherePelapor($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Susu whereTanggal($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Susu whereUpdatedAt($value)
+ */
+	class Susu extends \Eloquent {}
 }
 
 namespace App\Models{

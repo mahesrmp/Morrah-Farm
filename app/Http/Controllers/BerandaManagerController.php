@@ -101,15 +101,6 @@ class BerandaManagerController extends Controller
         ]);
     }
 
-<<<<<<< HEAD
-    return view('manager.kerbau', [
-        'title' => 'Laporan Data Kerbau',
-        'kerbaus' => $kerbaus
-    ]);
-}
-
-=======
->>>>>>> a6a4e9056533d47960c7298a2b957e66475ec8e8
     public function laporan(Request $request)
     {
 

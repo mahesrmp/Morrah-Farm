@@ -297,6 +297,16 @@
                             </ul>
                         </li>
                         <li class="nav-item">
+                            <a href="{{ route('ongkir.manager') }}"
+                                class="nav-link {{ \Route::is('ongkos-kirim') ? 'active' : '' }}">
+                                <i class="fa-solid fa-dollar"></i>
+                                <p>
+                                    Ongkos Kirim
+
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('logout') }}" class="nav-link">
 
                                 <i class=" nav-icon fa-solid fa-right-from-bracket"></i>
@@ -339,6 +349,7 @@
                             </div>
                         @endif
                         @yield('content')
+                        @include('sweetalert::alert')
                     </div>
                 </div>
             </section>
@@ -429,8 +440,7 @@
     <!-- include summernote css/js-->
     {{-- <script src="assets/sm/summernote.js"></script> --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2/dist/sweetalert2.min.css">
-
-    @include('sweetalert::alert')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @yield('script')
 </body>
 

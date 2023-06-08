@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pesanan;
+use App\Models\PesananDetail;
 use Illuminate\Http\Request;
 
 class PesanController extends Controller
@@ -55,6 +56,17 @@ class PesanController extends Controller
         return view('manager.orders.result-file', [
             "title" => 'Hasil File'
         ], compact('dataResultFile'));
+    }
+
+    public function detailPembelian($id)
+    {
+        $pesanan = Pesanan::find($id);
+        $detailPesanan = PesananDetail::where('pesanan_id', $pesanan->id)->get();
+
+        // dd($pesanan);
+        return view('manager.orders.detail-pembelian', [
+            "title" => 'Detail Pembelian'
+        ], compact('pesanan', 'detailPesanan'));
     }
 
     public function orderResultUpload($id)

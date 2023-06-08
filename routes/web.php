@@ -1,18 +1,21 @@
 <?php
 
-use App\Http\Controllers\AboutController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\PesanController;
 use App\Http\Controllers\KerbauController;
+use App\Http\Controllers\OngkirController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\HomeSliderController;
+use App\Http\Controllers\UserRatingController;
 use App\Http\Controllers\AkunPembeliController;
 use App\Http\Controllers\BerandaManagerController;
 use App\Http\Controllers\BerandaPembeliController;
@@ -21,9 +24,6 @@ use App\Http\Controllers\ProduksiProdukController;
 use App\Http\Controllers\BerandaPeternakController;
 use App\Http\Controllers\BerandaProduksiController;
 use App\Http\Controllers\AdminAkunSettingController;
-use App\Http\Controllers\HomeSliderController;
-use App\Http\Controllers\UserRatingController;
-use App\Http\Controllers\LaporanInventoriProduksiController;
 
 
 /*
@@ -68,6 +68,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         Route::get('/order-details', [PesanController::class, 'orderDetails'])->name('order.detail');
         Route::get('/confirm-order-process/{id}', [PesanController::class, 'confirmOrdersProcess'])->name('order.confirm.process');
         Route::get('/result-file/{id}', [PesanController::class, 'resultFile'])->name('result.file');
+        Route::get('/detail-pembelian/{id}', [PesanController::class, 'detailPembelian'])->name('detail.pembelian');
 
         Route::get('/confirm-photo', [PesanController::class, 'confirmPhoto'])->name('confirm.photo');
         Route::post('/confirm-photo-process/{id}', [PesanController::class, 'confirmPhotoProcess'])->name('confirm.photo.process');
@@ -91,6 +92,13 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         Route::get('laporan', [BerandaManagerController::class, 'laporan'])->name('manager.laporan');
         Route::get('cetak-laporan', [BerandaManagerController::class, 'cetakLaporan'])->name('cetak-laporan');
         Route::get('/cetak-laporan-form', [BerandaManagerController::class, 'cetakForm'])->name('cetak-laporan-form');
+
+        Route::get('/ongkir', [OngkirController::class, 'index'])->name('ongkir.manager');
+        Route::get('/ongkir/create', [OngkirController::class, 'create'])->name('ongkir.create');
+        Route::post('/ongkir/post', [OngkirController::class, 'store'])->name('ongkir.store');
+        Route::get('/ongkir/edit/{id}', [OngkirController::class, 'edit'])->name('ongkir.edit');
+        Route::put('/ongkir/update/{id}', [OngkirController::class, 'update'])->name('ongkir.update');
+        Route::delete('/ongkir/delete/{id}', [OngkirController::class, 'destroy'])->name('ongkir.delete');
     });
 
 
@@ -100,9 +108,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         //ini route khusus untuk produksi
         Route::get('beranda', [BerandaProduksiController::class, 'index'])->name('produksi.beranda');
         Route::get('customer', [BerandaProduksiController::class, 'customer'])->name('produksi.customer');
-
-     //   Route::resource('produk', ProduksiProdukController::class);
-        //   Route::resource('produk', ProduksiProdukController::class);>>>> 
+        //   Route::resource('produk', ProduksiProdukController::class);
         Route::resource('produksiproduk', ProduksiProdukController::class);
         Route::get('/akun-produksi/{id}/edit', [AdminAkunSettingController::class, 'edit'])->name('akun-produksi.edit');
         Route::put('/akun-produksi/{id}', [AdminAkunSettingController::class, 'update'])->name('akun-produksi.update');
@@ -119,8 +125,6 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::prefix('peternak')->middleware(['auth', 'auth.peternak'])->group(function () {
         //ini route khusus untuk peternak
         Route::get('beranda', [BerandaPeternakController::class, 'index'])->name('peternak.beranda');
-         //Route::get('peternak', [KerbauController::class, 'index'])->name('peternak.kerbau.blade');
-
         //Route::get('peternak', [KerbauController::class, 'index'])->name('peternak.kerbau.blade');
         // Route::get('peternak', [SusuPeternakController::class, 'index'])->name('peternak.susu.blade');
         Route::resource('kerbau', KerbauController::class);
@@ -178,10 +182,11 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::get('/berikan-ulasan/{id}', [ReviewController::class, 'store'])->name('berikan.ulasan');
     Route::post('/berikan-ulasan-process/{id}', [ReviewController::class, 'storeReviewProcess'])->name('berikan.ulasan.process');
 
-    Route::post('add-rating', [UserRatingController::class, 'store']);
+    Route::post('/add-rating', [UserRatingController::class, 'store']);
     Route::get('logout', [LoginController::class, 'logout']);
 
     Route::get('/', [BerandaPembeliController::class, 'index'])->name('pembeli.beranda');
 
     Auth::routes();
+
 }); //prevent-back-history

@@ -20,7 +20,8 @@
                                     <th>Jumlah Harga</th>
                                     <th>Tanggal</th>
                                     <th>Alamat Penerima</th>
-                                    <th>Lihat Produk</th>
+                                    <th>Bukti Pembayaran</th>
+                                    <th>Detail Pembelian</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -41,6 +42,11 @@
                                         <td>{{ $data->address }}</td>
                                         <td>
                                             <a href="{{ route('result.file', $data->id) }}" class="nav-link">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('detail.pembelian', $data->id) }}" class="nav-link">
                                                 <i class="fas fa-eye"></i>
                                             </a>
                                         </td>

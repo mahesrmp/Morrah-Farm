@@ -17777,6 +17777,22 @@
                         $instance->alert($title, $text, $icon);
         }
                     /**
+         * Show confirm alert before deleting data.
+         *
+         * @param string $title
+         * @param string $text
+         * @param string $deleteUrl
+         * @param string $deleteMethod
+         * @return void 
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static 
+         */ 
+        public static function confirmDelete($title, $text = null)
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        $instance->confirmDelete($title, $text);
+        }
+                    /**
          * Display a success typed alert message with a text and a title.
          *
          * @param string $title
@@ -18163,10 +18179,10 @@
          * @author Rashid Ali <realrashid05@gmail.com>
          * @static 
          */ 
-        public static function flash()
+        public static function flash($type = 'config')
         {
                         /** @var \RealRashid\SweetAlert\Toaster $instance */
-                        return $instance->flash();
+                        return $instance->flash($type);
         }
                     /**
          * Build Flash config options for flashing.

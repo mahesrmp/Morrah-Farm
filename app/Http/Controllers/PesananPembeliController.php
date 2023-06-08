@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use Auth;
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Ongkir;
 use App\Models\Produk;
+use App\Models\Rating;
 use App\Models\Pesanan;
 use Illuminate\Http\Request;
 use App\Models\PesananDetail;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PesananPembeliController extends Controller
 {
@@ -16,11 +19,22 @@ class PesananPembeliController extends Controller
     public function index($id)
     {
         $produk = Produk::where('id', $id)->first();
+        $ongkirs = Ongkir::all();
+        $ratings = Rating::where('produk_id', $produk->id)->get();
+        $rating_sum = Rating::where('produk_id', $produk->id)->sum('rating');
+        if ($ratings->count() > 0)
+        {
+            $rating_value =  $rating_sum / $ratings->count();
+        }else{
+            $rating_value = 0;
+        }
         $jumlah = PesananDetail::all();
 
         return view('pembeli.produk_detail', [
-            'title' => 'Detail Pemesanan Produk'
-        ], compact('produk', 'jumlah'));
+            'title' => 'Detail Pemesanan Produk',
+            'ratings' => $ratings,
+            'rating_value' => $rating_value,
+        ], compact('produk', 'jumlah', 'ongkirs'));
     }
 
 
@@ -57,7 +71,6 @@ class PesananPembeliController extends Controller
             $pesanan->status = 0;
             $pesanan->jumlah_harga = 0;
             $pesanan->kode = mt_rand(1000, 9999);
-            $pesanan->address = $request->address;
             $pesanan->produk_id = $produk->id;
             $pesanan->jumlah_pesan = $request->jumlah_pesan;
             $pesanan->save();
@@ -91,8 +104,9 @@ class PesananPembeliController extends Controller
         $pesanan = Pesanan::where('user_id', Auth::user()->id)->where('status', 0)->first();
         $pesanan->jumlah_harga = $pesanan->jumlah_harga + $produk->harga * $request->jumlah_pesan;
         $pesanan->update();
+        Alert::success('Success', 'Berhasil Memasukkan Keranjang');
 
-        return redirect('keranjang')->with('toast_success', 'Berhasil Menambah Keranjang');
+        return redirect('keranjang');
     }
 
     public function cart()
@@ -114,7 +128,7 @@ class PesananPembeliController extends Controller
         $pesanan_detail = PesananDetail::where('id', $id)->first();
 
         $pesanan = Pesanan::where('id', $pesanan_detail->pesanan_id)->first();
-        $pesanan->jumlah_harga = $pesanan->jumlah_harga-$pesanan_detail->jumlah_harga;
+        $pesanan->jumlah_harga = $pesanan->jumlah_harga - $pesanan_detail->jumlah_harga;
         $pesanan->update();
 
 
@@ -128,17 +142,15 @@ class PesananPembeliController extends Controller
     {
         $user = User::where('id', Auth::user()->id)->first();
 
-        if(empty($user->alamat))
-        {
+        if (empty($user->alamat)) {
             return redirect()->route('akun-pembeli.edit', $user)->with('toast_error', 'Lengkapi Alamat Anda');
         }
 
-        if(empty($user->nohp))
-        {
+        if (empty($user->nohp)) {
             return redirect()->route('akun-pembeli.edit', $user)->with('toast_error', 'Lengkapi No Hp Anda');
         }
 
-        $pesanan = Pesanan::where('user_id', Auth::user()->id)->where('status',0)->first();
+        $pesanan = Pesanan::where('user_id', Auth::user()->id)->where('status', 0)->first();
         $pesanan_id = $pesanan->id;
         $pesanan->status = 1;
         $pesanan->update();
@@ -146,11 +158,11 @@ class PesananPembeliController extends Controller
         $pesanan_details = PesananDetail::where('pesanan_id', $pesanan_id)->get();
         foreach ($pesanan_details as $pesanan_detail) {
             $produk = Produk::where('id', $pesanan_detail->produk_id)->first();
-            $produk->stok = $produk->stok-$pesanan_detail->jumlah;
+            $produk->stok = $produk->stok - $pesanan_detail->jumlah;
             $produk->update();
         }
 
 
-        return redirect('history/'.$pesanan_id)->with('success', 'CheckOut berhasil silahkan lakukan pembayaran');
+        return redirect('history/' . $pesanan_id)->with('success', 'CheckOut berhasil silahkan lakukan pembayaran');
     }
 }

@@ -111,27 +111,6 @@ class BerandaManagerController extends Controller
         ]);
     }
 
-    public function laporanProduksiSearch(Request $request)
-    {
-        $date = $request->input('date');
-
-        if ($date) {
-            $production_reports = production_report::whereDate('tanggal', $date)
-                ->get(['nama_pelapor', 'tanggal', 'nama_produk', 'jumlah']);
-        } else {
-            $production_reports = LaporanInventori::all(['nama_pelapor', 'tanggal', 'nama_produk', 'jumlah']);
-        }
-
-        return view('manager.hasilProduksi', [
-            'title' => 'Laporan Data Hasil Produksi',
-            'production reports' => $production_reports
-        ]);
-    }
-
-
-
-
-
     public function laporan(Request $request)
     {
 

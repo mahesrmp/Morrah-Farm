@@ -148,13 +148,11 @@
                                     {{ $about->judul }}
                                 </h3>
 
-                                <p class="stext-113 cl6 p-b-26">
+                                <p class="stext-110 cl6 p-b-26">
                                     {{ $about->isi }}
                                 </p>
 
                                 <div class="bor16 p-l-29 p-b-9 m-t-22">
-
-
                                     <span class="stext-111 cl8">
 
                                     </span>

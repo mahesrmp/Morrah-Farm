@@ -18,7 +18,6 @@ return new class extends Migration
             $table->integer('user_id');
             $table->unsignedBigInteger('produk_id');
             $table->text('komentar');
-            $table->string('image');
             $table->string('rating');
             $table->timestamps();
         });

@@ -7,8 +7,10 @@ use App\Models\Blog;
 use App\Models\Cart;
 use App\Models\HomeSlider;
 use App\Models\Produk;
+use App\Models\Rating;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 
 class BerandaPembeliController extends Controller
 
@@ -28,11 +30,13 @@ class BerandaPembeliController extends Controller
     /* ============== Khusus Produk ============== */
     public function product()
     {
-        $produks = Produk::paginate(10);
+        $produks = Produk::all();
         return view('pembeli.produk_index', [
-            'title' => 'Produk Morrah Farm'
-        ], compact('produks'));
+            'title' => 'Produk Morrah Farm',
+            'produks' => $produks,
+        ]);
     }
+
 
     /* ============== Khusus Blog ============== */
     public function blog()
@@ -63,20 +67,20 @@ class BerandaPembeliController extends Controller
         ]);
     }
 
-        /* ============== Khusus visi dan misi ============== */
-        public function visimisi()
-        {
-            return view('pembeli.visimisi', [
-                'title' => 'Visi dan Misi Morrah Farm'
-            ]);
-        }
+    /* ============== Khusus visi dan misi ============== */
+    public function visimisi()
+    {
+        return view('pembeli.visimisi', [
+            'title' => 'Visi dan Misi Morrah Farm'
+        ]);
+    }
 
-        public function galeri()
-        {
-            return view('pembeli.galeri', [
-                'title' => 'Galeri Morrah Farm'
-            ]);
-        }
+    public function galeri()
+    {
+        return view('pembeli.galeri', [
+            'title' => 'Galeri Morrah Farm'
+        ]);
+    }
 
 
 

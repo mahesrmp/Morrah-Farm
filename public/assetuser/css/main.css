@@ -2907,6 +2907,12 @@ input.num-product::-webkit-inner-spin-button {
   right: 10px;
 }
 
+.how-pos0 {
+    position: absolute;
+    top: 10px;
+    left: 66%;
+  }
+
 /*---------------------------------------------*/
 .how-pos2 {
   padding-left: 10.7%;

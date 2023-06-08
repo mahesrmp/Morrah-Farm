@@ -43,11 +43,17 @@
                                         {!! Form::open([
                                             'route' => ['produk.destroy', $produk->id],
                                             'method' => 'DELETE',
+                                            'id' => 'deleteproduk',
                                         ]) !!}
                                         <a href="{{ route('produk.edit', $produk->id) }}"
-                                            class="btn btn-success btn-sm text-center"><i class="fas fa-edit"></i></a>
-
-                                        {{ Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm text-center btndelete', 'id' => 'delete']) }}
+                                            class="btn btn-success btn-sm text-center">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        {{ Form::button('<i class="fa fa-trash"></i>', [
+                                            'type' => 'submit',
+                                            'class' => 'btn btn-danger btn-sm text-center btndelete',
+                                            'id' => 'delete',
+                                        ]) }}
                                         {!! Form::close() !!}
                                     </div>
                                 </div>
@@ -59,4 +65,51 @@
         </div>
     </section>
 @endsection
+@section('script')
+    <script type="text/javascript">
+        $(function() {
+            $(document).on('submit', '#deleteproduk', function(e) {
+                e.preventDefault();
+                var form = $(this);
+                var link = form.attr("action");
 
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: link,
+                            type: 'POST',
+                            data: {
+                                '_method': 'DELETE',
+                                '_token': '{{ csrf_token() }}'
+                            },
+                            success: function(response) {
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Your file has been deleted.',
+                                    'success'
+                                ).then(() => {
+                                    // Reload or redirect to another page
+                                });
+                            },
+                            error: function(xhr) {
+                                Swal.fire(
+                                    'Error!',
+                                    'An error occurred while deleting the file.',
+                                    'error'
+                                );
+                            }
+                        });
+                    }
+                })
+            });
+        });
+    </script>
+@endsection

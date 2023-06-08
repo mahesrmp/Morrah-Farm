@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use Auth;
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Ongkir;
 use App\Models\Produk;
+use App\Models\Rating;
 use App\Models\Pesanan;
 use Illuminate\Http\Request;
 use App\Models\PesananDetail;
-use App\Models\Rating;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class PesananPembeliController extends Controller
@@ -18,6 +19,7 @@ class PesananPembeliController extends Controller
     public function index($id)
     {
         $produk = Produk::where('id', $id)->first();
+        $ongkirs = Ongkir::all();
         $ratings = Rating::where('produk_id', $produk->id)->get();
         $rating_sum = Rating::where('produk_id', $produk->id)->sum('rating');
         if ($ratings->count() > 0)
@@ -32,7 +34,7 @@ class PesananPembeliController extends Controller
             'title' => 'Detail Pemesanan Produk',
             'ratings' => $ratings,
             'rating_value' => $rating_value,
-        ], compact('produk', 'jumlah'));
+        ], compact('produk', 'jumlah', 'ongkirs'));
     }
 
 
@@ -69,7 +71,6 @@ class PesananPembeliController extends Controller
             $pesanan->status = 0;
             $pesanan->jumlah_harga = 0;
             $pesanan->kode = mt_rand(1000, 9999);
-            $pesanan->address = $request->address;
             $pesanan->produk_id = $produk->id;
             $pesanan->jumlah_pesan = $request->jumlah_pesan;
             $pesanan->save();

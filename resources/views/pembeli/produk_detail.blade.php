@@ -332,17 +332,24 @@
                                     </div>
                                     <div class="size-204 respon6-next">
                                         <div class="rs1-select2 bor8 bg0">
-                                            <select class="js-select2" name="address" required>
-                                                <option>Ambil Ke Tempat</option>
-                                                <option>KBT Tarutung</option>
-                                                <option>KBT Medan</option>
-                                                <option>KBT Siantar</option>
-                                                <option>KBT Porsea</option>
-                                                <option>KBT Balige</option>
-                                                <option>KBT Silimbat</option>
+                                            <select class="js-select2" name="address" onchange="updateShippingCost(this)"
+                                                required>
+                                                <option value="">Pilih Alamat Pengiriman</option>
+                                                @foreach ($ongkirs as $ongkir)
+                                                    <option data-ongkos="{{ $ongkir->ongkos }}">{{ $ongkir->lokasi }}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                             <div class="dropDownSelect2"></div>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="flex-w flex-r-m p-b-10">
+                                    <div class="size-203 flex-c-m respon6">
+                                        Ongkos Kirim
+                                    </div>
+                                    <div class="size-204 respon6-next">
+                                        <p id="shipping-cost"><b>Rp0</b> </p>
                                     </div>
                                 </div>
                                 <div class="flex-w flex-r-m p-b-10">
@@ -510,4 +517,26 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function formatRupiah(angka) {
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR'
+            }).format(angka);
+        }
+
+        function updateShippingCost(select) {
+            var selectedOption = select.options[select.selectedIndex];
+            var shippingCost = selectedOption.getAttribute('data-ongkos');
+            var formattedShippingCost = formatRupiah(shippingCost);
+            document.getElementById('shipping-cost').innerHTML = '<strong>' + formattedShippingCost + '</strong>';
+        }
+    </script>
+
+    <style>
+        #shipping-cost strong {
+            font-weight: bold;
+        }
+    </style>
 @endsection

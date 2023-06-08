@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Morrah Farm | {{ $title }}</title>
+    <title>Morrah Farm | Produksi </title>
     <base href="/public">
     <!-- Google Font: Source Sans Pro -->
     <link rel="icon" type="image/png" href="assetuser/images/logo2.png" />
@@ -206,6 +206,16 @@
                                 <i class="fa fa-palette"></i>
                                 <p>
                                     Produk
+
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('laporan-inventori.index') }}"
+                                class="nav-link {{ \Route::is('laporan-inventori.index') ? 'active' : '' }}">
+                                <i class="fa fa-book"></i>
+                                <p>
+                                    Laporan Inventori Produksi 
 
                                 </p>
                             </a>

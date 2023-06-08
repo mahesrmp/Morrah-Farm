@@ -8,6 +8,7 @@ use App\Models\Produk;
 use App\Models\User;
 use App\Models\Kerbau;
 use App\Models\Susu;
+use App\Models\LaporanInventori;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -58,6 +59,15 @@ class BerandaManagerController extends Controller
             'kerbaus' => $kerbaus
         ]);
     }
+
+    public function laporanProduksi(){
+        $production_reports = LaporanInventori::all();
+        return view('manager/hasilProduksi', [
+            'title' => 'Laporan Data Hasil Produksi',
+            'production_report' => $production_reports
+        ]);
+    }
+
     public function susu()
     {
         $susus = Susu::all();
@@ -101,15 +111,27 @@ class BerandaManagerController extends Controller
         ]);
     }
 
-<<<<<<< HEAD
-    return view('manager.kerbau', [
-        'title' => 'Laporan Data Kerbau',
-        'kerbaus' => $kerbaus
-    ]);
-}
+    public function laporanProduksiSearch(Request $request)
+    {
+        $date = $request->input('date');
 
-=======
->>>>>>> a6a4e9056533d47960c7298a2b957e66475ec8e8
+        if ($date) {
+            $production_reports = production_report::whereDate('tanggal', $date)
+                ->get(['nama_pelapor', 'tanggal', 'nama_produk', 'jumlah']);
+        } else {
+            $production_reports = LaporanInventori::all(['nama_pelapor', 'tanggal', 'nama_produk', 'jumlah']);
+        }
+
+        return view('manager.hasilProduksi', [
+            'title' => 'Laporan Data Hasil Produksi',
+            'production reports' => $production_reports
+        ]);
+    }
+
+
+
+
+
     public function laporan(Request $request)
     {
 

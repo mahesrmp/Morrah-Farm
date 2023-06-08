@@ -82,8 +82,11 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
 
         Route::get('kerbau', [BerandaManagerController::class, 'kerbau'])->name('manager.kerbau');
         Route::get('susu', [BerandaManagerController::class, 'susu'])->name('manager.susu');
+        Route::get('laporan-produksi', [BerandaManagerController::class, 'laporanProduksi'])->name('manager.laporan-produksi');
         Route::get('/susu/search', 'BerandaManagerController@sususearch')->name('susu.search');
         Route::get('/kerbau/search', 'BerandaManagerController@kerbausearch')->name('kerbau.search');
+        Route::get('/laporan-produksi/search', 'BerandaManagerController@laporanProduksiSearch')->name('laporan-produksi.search');
+
 
         // Rute untuk laporan
         Route::get('laporan', [BerandaManagerController::class, 'laporan'])->name('manager.laporan');
@@ -109,6 +112,13 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         Route::resource('produksiproduk', ProduksiProdukController::class);
         Route::get('/akun-produksi/{id}/edit', [AdminAkunSettingController::class, 'edit'])->name('akun-produksi.edit');
         Route::put('/akun-produksi/{id}', [AdminAkunSettingController::class, 'update'])->name('akun-produksi.update');
+        Route::resource('laporan-inventori', LaporanInventoriProduksiController::class);
+        /*Route::get('beranda-laporan',[LaporanInventoriProduksiController::class, 'index'])->name('beranda-laporan');
+        Route::get('create-laporan',[LaporanInventoriProduksiController::class, 'create'])->name('create-laporan');
+        Route::post('simpan-laporan',[LaporanInventoriProduksiController::class, 'store'])->name('simpan-laporan');
+        Route::get('delete-laporan',[LaporanInventoriProduksiController::class, 'destroy'])->name('delete-laporan');
+        Route::get('/laporan/{nama_produk}/edit',[LaporanInventoriProduksiController::class, 'edit'])->name('laporan.edit');
+        Route::put('update-laporan',[LaporanInventoriProduksiController::class, 'update'])->name('update-laporan');*/
     });
 
     //PETERNAK

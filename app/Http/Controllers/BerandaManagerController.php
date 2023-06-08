@@ -119,7 +119,6 @@ class BerandaManagerController extends Controller
             ->where('pesanans.status', 5)
             ->groupBy('bulan', 'produks.nama_produk', 'produks.harga')
             ->orderBy('bulan');
-
         if ($bulan) {
             $query->where(DB::raw('DATE_FORMAT(pesanans.created_at, "%Y-%m-%d")'), '=', $bulan);
         }

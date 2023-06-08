@@ -15,6 +15,7 @@
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="loginasset/css/sb-admin-2.min.css" rel="stylesheet">
@@ -33,7 +34,7 @@
     <div class="container">
         <!-- Outer Row -->
         <div class="row justify-content-center">
-            <div class="col-xl-10 col-lg-12 col-md-10">
+            <div class="col-xl-12 col-lg-12 col-md-12">
                 <div class="card o-hidden border-0 shadow-lg my-5">
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
@@ -61,21 +62,23 @@
                                                 </span>
                                             @enderror
                                         </div>
-                                        <div class="form-group">
-                                            {{-- <input type="password" class="form-control form-control-user"
-                                                id="exampleInputPassword" placeholder="Password"> --}}
-
+                                        <div class="input-group">
                                             <input id="password" type="password"
                                                 class="form-control form-control-user @error('password') is-invalid @enderror"
                                                 name="password" required autocomplete="current-password"
                                                 placeholder="Password">
-
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">
+                                                    <i class="fas fa-eye-slash" id="togglePassword"></i>
+                                                </span>
+                                            </div>
                                             @error('password')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
                                         </div>
+
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
 
@@ -95,13 +98,13 @@
                                     <hr>
                                     <div class="text-center">
                                         @if (Route::has('password.request'))
-                                            <a class="small" href="{{ route('password.request') }}">
+                                            <a class="medium" href="{{ route('password.request') }}">
                                                 {{ __('Forgot Your Password?') }}
                                             </a>
                                         @endif
                                     </div>
                                     <div class="text-center">
-                                        Belum memiliki akun? <a class="small" href="{{ route('register') }}">Create an
+                                        Belum memiliki akun? <a class="medium" href="{{ route('register') }}">Create an
                                             Account!</a>
                                     </div>
                                 </div>
@@ -121,6 +124,17 @@
 
     <!-- Custom scripts for all pages-->
     <script src="loginasset/js/sb-admin-2.min.js"></script>
+    <script>
+        const togglePassword = document.querySelector('#togglePassword');
+        const password = document.querySelector('#password');
+
+        togglePassword.addEventListener('click', function() {
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            togglePassword.classList.toggle('fa-eye-slash');
+            togglePassword.classList.toggle('fa-eye');
+        });
+    </script>
 
 </body>
 

@@ -15,6 +15,11 @@ class PesananDetail extends Model
         return $this->belongsTo('App\Models\Produk', 'produk_id', 'id');
     }
 
+    public function ongkir()
+    {
+        return $this->belongsTo('App\Models\Ongkir', 'ongkir_id', 'id');
+    }
+
     public function pesanan()
     {
         return $this->belongsTo('App\Models\Pesanan', 'pesanan_id', 'id');

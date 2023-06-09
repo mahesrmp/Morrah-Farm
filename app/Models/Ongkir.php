@@ -16,7 +16,13 @@ class Ongkir extends Model
         'ongkos',
     ];
 
-    public function pesanan() {
+    public function pesanan()
+    {
         return $this->belongTo(Pesanan::class);
+    }
+
+    public function pesanan_detail()
+    {
+        return $this->hasMany(PesananDetail::class);
     }
 }

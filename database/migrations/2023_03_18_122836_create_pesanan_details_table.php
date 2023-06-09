@@ -17,6 +17,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->integer('produk_id');
             $table->integer('pesanan_id');
+            $table->integer('ongkir_id')->nullable();
             $table->integer('jumlah');
             $table->integer('jumlah_harga');
             $table->timestamps();

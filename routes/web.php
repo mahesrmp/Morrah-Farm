@@ -158,7 +158,8 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::post('pesan-process/{id}', [PesananPembeliController::class, 'pesan']);
     Route::get('keranjang', [PesananPembeliController::class, 'cart'])->name('pembeli.keranjang');
     Route::delete('check-out/{id}', [PesananPembeliController::class, 'delete'])->name('produk.delete');
-    Route::get('konfirmasi-check-out', [PesananPembeliController::class, 'konfirmasi']);
+    Route::post('konfirmasi-check-out', [PesananPembeliController::class, 'konfirmasi'])->name('check-out.update');
+    // Route::put('/blog/update/{id}', [BlogController::class, 'update'])->name('blog.update');
 
 
     Route::get('/history/{id}', [HistoryController::class, 'historyDetail'])->name('history');

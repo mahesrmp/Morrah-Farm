@@ -22,10 +22,9 @@ class PesananPembeliController extends Controller
         $ongkirs = Ongkir::all();
         $ratings = Rating::where('produk_id', $produk->id)->get();
         $rating_sum = Rating::where('produk_id', $produk->id)->sum('rating');
-        if ($ratings->count() > 0)
-        {
+        if ($ratings->count() > 0) {
             $rating_value =  $rating_sum / $ratings->count();
-        }else{
+        } else {
             $rating_value = 0;
         }
         $jumlah = PesananDetail::all();
@@ -69,6 +68,7 @@ class PesananPembeliController extends Controller
             $pesanan->user_id = Auth::user()->id;
             $pesanan->tanggal = $tanggal;
             $pesanan->status = 0;
+            $pesanan->ongkir_id = 0;
             $pesanan->jumlah_harga = 0;
             $pesanan->kode = mt_rand(1000, 9999);
             $pesanan->produk_id = $produk->id;
@@ -87,6 +87,7 @@ class PesananPembeliController extends Controller
             $pesanan_detail = new PesananDetail;
             $pesanan_detail->produk_id = $produk->id;
             $pesanan_detail->pesanan_id = $pesanan_baru->id;
+            $pesanan_detail->ongkir_id = 0;
             $pesanan_detail->jumlah = $request->jumlah_pesan;
             $pesanan_detail->jumlah_harga = $produk->harga * $request->jumlah_pesan;
             $pesanan_detail->save();
@@ -113,6 +114,7 @@ class PesananPembeliController extends Controller
     {
 
         $pesanan = Pesanan::where('user_id', Auth::user()->id)->where('status', 0)->first();
+        $ongkirs = Ongkir::all();
         $pesanan_details = [];
         if (!empty($pesanan)) {
             $pesanan_details = PesananDetail::where('pesanan_id', $pesanan->id)->get();
@@ -120,7 +122,7 @@ class PesananPembeliController extends Controller
 
         return view('pembeli.keranjang_index', [
             "title" => 'Check Out'
-        ], compact('pesanan', 'pesanan_details'));
+        ], compact('pesanan', 'pesanan_details', 'ongkirs'));
     }
 
     public function delete($id)
@@ -138,7 +140,7 @@ class PesananPembeliController extends Controller
         return redirect('keranjang')->with('toast_error', 'Berhasil Menghapus dari keranjang');;
     }
 
-    public function konfirmasi()
+    public function konfirmasi(Request $request)
     {
         $user = User::where('id', Auth::user()->id)->first();
 
@@ -152,7 +154,11 @@ class PesananPembeliController extends Controller
 
         $pesanan = Pesanan::where('user_id', Auth::user()->id)->where('status', 0)->first();
         $pesanan_id = $pesanan->id;
+        // Mengambil nilai ongkir_id dari form
+        $ongkirId = $request->input('ongkir_id');
+        $selectedOngkir = Ongkir::findOrFail($ongkirId);
         $pesanan->status = 1;
+        $pesanan->ongkir_id = $selectedOngkir->id;
         $pesanan->update();
 
         $pesanan_details = PesananDetail::where('pesanan_id', $pesanan_id)->get();
@@ -160,6 +166,9 @@ class PesananPembeliController extends Controller
             $produk = Produk::where('id', $pesanan_detail->produk_id)->first();
             $produk->stok = $produk->stok - $pesanan_detail->jumlah;
             $produk->update();
+
+            $pesanan_detail->ongkir_id = $selectedOngkir->id;
+            $pesanan_detail->save();
         }
 
 

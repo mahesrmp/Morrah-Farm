@@ -332,8 +332,7 @@
                                     </div>
                                     <div class="size-204 respon6-next">
                                         <div class="rs1-select2 bor8 bg0">
-                                            <select class="js-select2" name="address" onchange="updateShippingCost(this)"
-                                                required>
+                                            <select class="js-select2" name="address" onchange="updateShippingCost(this)">
                                                 <option value="">Pilih Alamat Pengiriman</option>
                                                 @foreach ($ongkirs as $ongkir)
                                                     <option data-ongkos="{{ $ongkir->ongkos }}">{{ $ongkir->lokasi }}

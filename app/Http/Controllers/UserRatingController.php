@@ -64,7 +64,7 @@ class UserRatingController extends Controller
                         'komentar' => $komentar,
                     ]);
                 }
-                Alert::success('Yeee', 'Terima Kasih Sudah menilai Produk kami');
+                Alert::success('Berhasil', 'Terima Kasih Sudah menilai Produk kami');
                 return redirect()->back();
             } else {
                 Alert::error('Maaf', 'Anda tidak bisa memberi penilaian karena belum membeli produk ini');

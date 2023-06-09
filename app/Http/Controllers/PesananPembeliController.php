@@ -16,13 +16,17 @@ use RealRashid\SweetAlert\Facades\Alert;
 class PesananPembeliController extends Controller
 {
 
+
     public function index($id)
     {
         $produk = Produk::where('id', $id)->first();
         $ongkirs = Ongkir::all();
         $ratings = Rating::where('produk_id', $produk->id)->get();
         $rating_sum = Rating::where('produk_id', $produk->id)->sum('rating');
-        if ($ratings->count() > 0) {
+        $user_rating = Rating::where('produk_id', $produk->id)->where('user_id', Auth::id())->first();
+        $reviews = Rating::where('produk_id', $produk->id)->get();
+        if ($ratings->count() > 0)
+        {
             $rating_value =  $rating_sum / $ratings->count();
         } else {
             $rating_value = 0;
@@ -33,6 +37,8 @@ class PesananPembeliController extends Controller
             'title' => 'Detail Pemesanan Produk',
             'ratings' => $ratings,
             'rating_value' => $rating_value,
+            'user_rating' => $user_rating,
+            'reviews' => $reviews
         ], compact('produk', 'jumlah', 'ongkirs'));
     }
 

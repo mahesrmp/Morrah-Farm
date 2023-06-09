@@ -23,7 +23,9 @@ use App\Http\Controllers\BerandaProduksiController;
 use App\Http\Controllers\AdminAkunSettingController;
 use App\Http\Controllers\HomeSliderController;
 use App\Http\Controllers\UserRatingController;
-
+use App\Http\Controllers\TugasController;
+use App\Http\Controllers\TaskKaryawanController;
+use App\Models\TaskKaryawan;
 
 /*
 |--------------------------------------------------------------------------
@@ -87,6 +89,23 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         Route::get('laporan', [BerandaManagerController::class, 'laporan'])->name('manager.laporan');
         Route::get('cetak-laporan', [BerandaManagerController::class, 'cetakLaporan'])->name('cetak-laporan');
         Route::get('/cetak-laporan-form', [BerandaManagerController::class, 'cetakForm'])->name('cetak-laporan-form');
+    
+
+        //TUGAS
+        Route::get('/tugas', [TugasController::class, 'index'])->name('tugas.manager');
+        Route::get('/tugas/create', [TugasController::class, 'create'])->name('tugas.create');
+        Route::post('/tugas/post', [TugasController::class, 'store'])->name('tugas.store');
+        // Route untuk menampilkan halaman edit blog
+        Route::get('/tugas/edit/{id}', [TugasController::class, 'edit'])->name('tugas.edit');
+
+        // Route untuk menghandle aksi update blog
+        Route::put('/tugas/update/{id}', [TugasController::class, 'update'])->name('tugas.update');
+
+        // Route untuk menghandle aksi hapus blog
+        Route::delete('/tugas/delete/{id}', [TugasController::class, 'destroy'])->name('tugas.destroy');
+
+        Route::get('/tugas/{id}', [TugasController::class, 'show'])->name('tugas.show');      
+          
     });
 
 
@@ -109,10 +128,22 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         //Route::get('peternak', [KerbauController::class, 'index'])->name('peternak.kerbau.blade');
         // Route::get('peternak', [SusuPeternakController::class, 'index'])->name('peternak.susu.blade');
         Route::resource('kerbau', KerbauController::class);
+        
         Route::resource('susu', SusuController::class);
 
         Route::get('/akun-peternak/{id}/edit', [AdminAkunSettingController::class, 'edit'])->name('akun-peternak.edit');
         Route::put('/akun-peternak/{id}', [AdminAkunSettingController::class, 'update'])->name('akun-peternak.update');
+    
+    
+       //TAKS
+       Route::get('/task', [TaskKaryawanController::class, 'index'])->name('task.peternak');
+       
+       Route::get('/task/create', [TaskKaryawanController::class, 'create'])->name('task.create');
+       Route::post('/task/post', [TaskKaryawanController::class, 'store'])->name('task.store');
+       
+
+       Route::get('/task/{id}', [TaskKaryawanController::class, 'show'])->name('task.show');  
+       Route::post('/task/{id} ', [TaskKaryawanController::class, 'updateStatus'])->name('index.selesai');
     });
 
 

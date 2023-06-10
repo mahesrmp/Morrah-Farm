@@ -6,6 +6,7 @@ use App\Models\About;
 use App\Models\Blog;
 use App\Models\Cart;
 use App\Models\HomeSlider;
+use App\Models\Pesanan;
 use App\Models\Produk;
 use App\Models\Rating;
 use Illuminate\Http\Request;
@@ -31,11 +32,35 @@ class BerandaPembeliController extends Controller
     public function product()
     {
         $produks = Produk::all();
+        $produkData = [];
+
+        foreach ($produks as $produk) {
+            $jumlahTerjual = Pesanan::where('produk_id', $produk->id)->where('status', '>', 5)->sum('jumlah_pesan');
+
+            $ratingSum = Rating::where('produk_id', $produk->id)->sum('rating');
+            $ratingCount = Rating::where('produk_id', $produk->id)->count();
+            $ratingValue = $ratingCount > 0 ? $ratingSum / $ratingCount : 0;
+
+            $produkData[] = [
+                'produk' => $produk,
+                'jumlahTerjual' => $jumlahTerjual,
+                'ratingValue' => $ratingValue,
+            ];
+        }
+
         return view('pembeli.produk_index', [
             'title' => 'Produk Morrah Farm',
-            'produks' => $produks,
+            'produkData' => $produkData,
         ]);
     }
+    // public function product()
+    // {
+    //     $produks = Produk::all();
+    //     return view('pembeli.produk_index', [
+    //         'title' => 'Produk Morrah Farm',
+    //         'produks' => $produks,
+    //     ]);
+    // }
 
 
     /* ============== Khusus Blog ============== */

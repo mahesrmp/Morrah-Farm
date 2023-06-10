@@ -165,7 +165,7 @@
 @endsection --}}
 
 
-@extends('layouts.app_Coza')
+{{-- @extends('layouts.app_Coza')
 @section('content')
     <div class="bg0 m-t-15 p-b-50"></div>
     <!-- Product -->
@@ -203,7 +203,63 @@
                                             <i class="zmdi zmdi-star-half"></i>
                                         </span> <span class="ml-3"> | </span>
                                         <span class="flex-w flex-sb-m ml-2">
-                                            <p>20 Terjual </p>
+                                            <p>0 Terjual</p>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+@endsection --}}
+@extends('layouts.app_Coza')
+@section('content')
+    <div class="bg0 m-t-15 p-b-50"></div>
+    <!-- Product -->
+    <div class="bg0 m-t-23 p-b-140">
+        <div class="container">
+            <div class="row isotope-grid">
+                @foreach ($produkData as $data)
+                    @php
+                        $produk = $data['produk'];
+                        $jumlahTerjual = $data['jumlahTerjual'];
+                        $ratingValue = $data['ratingValue'];
+                    @endphp
+                    <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
+                        <!-- Block2 -->
+                        <div class="block2">
+                            <div class="block2-pic hov-img0">
+                                <img src="{{ url('productimage') }}/{{ $produk->gambar }}" alt="IMG-PRODUCT">
+                                <a href="{{ url('pembeli/keranjang') }}/{{ $produk->id }}"
+                                    class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04"
+                                    data-target="#myModal{{ $produk->id }}">
+                                    Detail Produk
+                                </a>
+                            </div>
+                            <div class="block2-txt flex-w flex-t p-t-14">
+                                <div class="block2-txt-child1 flex-col-l ">
+                                    <a href="{{ url('pembeli/keranjang') }}/{{ $produk->id }}"
+                                        class="stext-104 cl3 hov-cl1 trans-04 js-name-b2 p-b-6">
+                                        {{ $produk->nama_produk }}
+                                    </a>
+                                    <span class="stext-105 cl3">
+                                        {{ formatRupiah($produk->harga) }}
+                                    </span>
+
+                                    <div class="flex-w flex-sb-m">
+                                        <span class="fs-18 cl11">
+                                            @for ($i = 1; $i <= $ratingValue; $i++)
+                                                <i class="zmdi zmdi-star"></i>
+                                            @endfor
+                                            @for ($j = $ratingValue + 1; $j <= 5; $j++)
+                                                <i class="zmdi zmdi-star-outline"></i>
+                                            @endfor
+                                        </span>
+                                        <span class="flex-w flex-sb-m ml-2">
+                                            <p>{{ $jumlahTerjual }} Terjual</p>
                                         </span>
                                     </div>
                                 </div>

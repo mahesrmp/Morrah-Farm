@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\Pesanan;
+use App\Models\PesananDetail;
 use Illuminate\Http\Request;
 use \App\Models\Produk as Model;
 use App\Models\Produk;
 use App\Models\Rating;
+use Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 use Redirect;
 
@@ -35,7 +37,6 @@ class ProdukController extends Controller
             'routePrefix'   => $this->routePrefix,
             'title'         => 'Produk Morrah Farm',
         ]);
-
     }
 
     /**
@@ -48,7 +49,7 @@ class ProdukController extends Controller
         $data = [
             'model'     => new Model(),
             'method'    => 'POST',
-            'route'     => $this->routePrefix .'.store',
+            'route'     => $this->routePrefix . '.store',
             'button'    => 'SIMPAN',
             'title'     => 'Form tambah data pegawai',
         ];
@@ -80,8 +81,8 @@ class ProdukController extends Controller
             'keterangan' => $request->keterangan
         ]);
 
-        if($request->hasFile('gambar')) {
-            $request->file('gambar')->move('productimage',$request->file('gambar')->getClientOriginalName());
+        if ($request->hasFile('gambar')) {
+            $request->file('gambar')->move('productimage', $request->file('gambar')->getClientOriginalName());
             $produks->gambar = $request->file('gambar')->getClientOriginalName();
             $produks->save();
         }
@@ -98,17 +99,31 @@ class ProdukController extends Controller
      */
     public function show($id)
     {
-        $ratings = Rating::where('produk_id')->get();
-        $rating_sum = Rating::where('produk_id')->sum('rating');
-        $rating_value = $rating_sum/$ratings->count();
+        $produk = Produk::where('id', $id)->first();
+        $ratings = Rating::where('produk_id', $produk->id)->get();
+        $rating_sum = Rating::where('produk_id', $produk->id)->sum('rating');
+        $user_rating = Rating::where('produk_id', $produk->id)->where('user_id', Auth::id())->first();
+        $reviews = Rating::where('produk_id', $produk->id)->get();
+
+        // Menghitung jumlah produk yang terjual
+        $jumlahTerjual = Pesanan::where('produk_id', $produk->id)
+            ->where('status', '>', 5)
+            ->sum('jumlah_pesan');
+
+        // Menghitung rata-rata rating
+        $ratingValue = $ratings->avg('rating');
+
         return view('manager.' . $this->viewShow, [
-            'model' => Model::findOrFail($id),
+            'produk' => $produk,
             'title' => 'Detail Data Produk',
             'ratings' => $ratings,
             'rating_sum' => $rating_sum,
-            'rating_value' => $rating_value
+            'rating_value' => $ratingValue,
+            'reviews' => $reviews,
+            'jumlahTerjual' => $jumlahTerjual
         ]);
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -121,7 +136,7 @@ class ProdukController extends Controller
         $produks = [
             'model'     => Model::findOrFail($id),
             'method'    => 'PUT',
-            'route'     => [$this->routePrefix .'.update', $id,],
+            'route'     => [$this->routePrefix . '.update', $id,],
             'button'    => 'UPDATE',
             'title'     => 'Form Update data Produk',
         ];
@@ -152,12 +167,12 @@ class ProdukController extends Controller
         $product->harga = $request->harga;
         $product->stok = $request->stok;
         $product->keterangan = $request->keterangan;
-        if($request->hasFile('gambar')) {
-            $request->file('gambar')->move('productimage',$request->file('gambar')->getClientOriginalName());
+        if ($request->hasFile('gambar')) {
+            $request->file('gambar')->move('productimage', $request->file('gambar')->getClientOriginalName());
             $product->gambar = $request->file('gambar')->getClientOriginalName();
             $product->update();
         }
-        return redirect()->route('produk.index')->with('success','Data Produk Berhasil di Ubah');
+        return redirect()->route('produk.index')->with('success', 'Data Produk Berhasil di Ubah');
     }
 
     /**

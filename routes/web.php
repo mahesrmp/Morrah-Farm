@@ -1,18 +1,21 @@
 <?php
 
-use App\Http\Controllers\AboutController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\PesanController;
 use App\Http\Controllers\KerbauController;
+use App\Http\Controllers\OngkirController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\HomeSliderController;
+use App\Http\Controllers\UserRatingController;
 use App\Http\Controllers\AkunPembeliController;
 use App\Http\Controllers\BerandaManagerController;
 use App\Http\Controllers\BerandaPembeliController;
@@ -21,11 +24,7 @@ use App\Http\Controllers\ProduksiProdukController;
 use App\Http\Controllers\BerandaPeternakController;
 use App\Http\Controllers\BerandaProduksiController;
 use App\Http\Controllers\AdminAkunSettingController;
-use App\Http\Controllers\HomeSliderController;
-use App\Http\Controllers\UserRatingController;
-use App\Http\Controllers\TugasController;
-use App\Http\Controllers\TaskKaryawanController;
-use App\Models\TaskKaryawan;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -69,6 +68,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         Route::get('/order-details', [PesanController::class, 'orderDetails'])->name('order.detail');
         Route::get('/confirm-order-process/{id}', [PesanController::class, 'confirmOrdersProcess'])->name('order.confirm.process');
         Route::get('/result-file/{id}', [PesanController::class, 'resultFile'])->name('result.file');
+        Route::get('/detail-pembelian/{id}', [PesanController::class, 'detailPembelian'])->name('detail.pembelian');
 
         Route::get('/confirm-photo', [PesanController::class, 'confirmPhoto'])->name('confirm.photo');
         Route::post('/confirm-photo-process/{id}', [PesanController::class, 'confirmPhotoProcess'])->name('confirm.photo.process');
@@ -82,30 +82,16 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
 
         Route::get('kerbau', [BerandaManagerController::class, 'kerbau'])->name('manager.kerbau');
         Route::get('susu', [BerandaManagerController::class, 'susu'])->name('manager.susu');
+        Route::get('laporan-produksi', [BerandaManagerController::class, 'laporanProduksi'])->name('manager.laporan-produksi');
         Route::get('/susu/search', 'BerandaManagerController@sususearch')->name('susu.search');
         Route::get('/kerbau/search', 'BerandaManagerController@kerbausearch')->name('kerbau.search');
+        Route::get('/laporan-produksi/search', 'BerandaManagerController@laporanProduksiSearch')->name('laporan-produksi.search');
+
 
         // Rute untuk laporan
         Route::get('laporan', [BerandaManagerController::class, 'laporan'])->name('manager.laporan');
         Route::get('cetak-laporan', [BerandaManagerController::class, 'cetakLaporan'])->name('cetak-laporan');
         Route::get('/cetak-laporan-form', [BerandaManagerController::class, 'cetakForm'])->name('cetak-laporan-form');
-    
-
-        //TUGAS
-        Route::get('/tugas', [TugasController::class, 'index'])->name('tugas.manager');
-        Route::get('/tugas/create', [TugasController::class, 'create'])->name('tugas.create');
-        Route::post('/tugas/post', [TugasController::class, 'store'])->name('tugas.store');
-        // Route untuk menampilkan halaman edit blog
-        Route::get('/tugas/edit/{id}', [TugasController::class, 'edit'])->name('tugas.edit');
-
-        // Route untuk menghandle aksi update blog
-        Route::put('/tugas/update/{id}', [TugasController::class, 'update'])->name('tugas.update');
-
-        // Route untuk menghandle aksi hapus blog
-        Route::delete('/tugas/delete/{id}', [TugasController::class, 'destroy'])->name('tugas.destroy');
-
-        Route::get('/tugas/{id}', [TugasController::class, 'show'])->name('tugas.show');      
-          
     });
 
 
@@ -119,6 +105,13 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         Route::resource('produksiproduk', ProduksiProdukController::class);
         Route::get('/akun-produksi/{id}/edit', [AdminAkunSettingController::class, 'edit'])->name('akun-produksi.edit');
         Route::put('/akun-produksi/{id}', [AdminAkunSettingController::class, 'update'])->name('akun-produksi.update');
+        Route::resource('laporan-inventori', LaporanInventoriProduksiController::class);
+        /*Route::get('beranda-laporan',[LaporanInventoriProduksiController::class, 'index'])->name('beranda-laporan');
+        Route::get('create-laporan',[LaporanInventoriProduksiController::class, 'create'])->name('create-laporan');
+        Route::post('simpan-laporan',[LaporanInventoriProduksiController::class, 'store'])->name('simpan-laporan');
+        Route::get('delete-laporan',[LaporanInventoriProduksiController::class, 'destroy'])->name('delete-laporan');
+        Route::get('/laporan/{nama_produk}/edit',[LaporanInventoriProduksiController::class, 'edit'])->name('laporan.edit');
+        Route::put('update-laporan',[LaporanInventoriProduksiController::class, 'update'])->name('update-laporan');*/
     });
 
     //PETERNAK
@@ -180,7 +173,8 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::post('pesan-process/{id}', [PesananPembeliController::class, 'pesan']);
     Route::get('keranjang', [PesananPembeliController::class, 'cart'])->name('pembeli.keranjang');
     Route::delete('check-out/{id}', [PesananPembeliController::class, 'delete'])->name('produk.delete');
-    Route::get('konfirmasi-check-out', [PesananPembeliController::class, 'konfirmasi']);
+    Route::post('konfirmasi-check-out', [PesananPembeliController::class, 'konfirmasi'])->name('check-out.update');
+    // Route::put('/blog/update/{id}', [BlogController::class, 'update'])->name('blog.update');
 
 
     Route::get('/history/{id}', [HistoryController::class, 'historyDetail'])->name('history');

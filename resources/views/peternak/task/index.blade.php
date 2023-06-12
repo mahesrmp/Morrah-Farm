@@ -62,7 +62,6 @@
                         </tbody>
 
                     </table>
-
                     <table class="table table-hover" style="width: fit-content;">
                         <thead>
                             <tr class="text-center">

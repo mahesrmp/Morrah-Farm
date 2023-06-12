@@ -9,13 +9,15 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Daftar</title>
+    <title>Daftar sekarang juga dan nikmati susu Morrah Farm</title>
     <link rel="icon" type="image/png" href="assetuser/images/logo2.png" />
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
 
     <!-- Custom styles for this template-->
     <link href="loginasset/css/sb-admin-2.min.css" rel="stylesheet">
@@ -53,47 +55,64 @@
                                     <input type="text" class="form-control form-control-user" id="name"
                                         name="name" required placeholder="Nama Lengkap">
                                 </div>
+
                                 <div class="form-group">
                                     <input type="email" class="form-control form-control-user" id="email"
                                         name="email" required placeholder="Email Address">
                                 </div>
 
+
+                                <!--  kode berikut untuk input password -->
                                 <div class="form-group">
-                                    <input type="password" class="form-control form-control-user" id="password"
-                                        name="password" required placeholder="Password">
-
+                                    <div class="input-group">
+                                        <input id="password" type="password" class="form-control form-control-user"
+                                            name="password" required placeholder="Password">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text toggle-password">
+                                                <i class="fas fa-eye-slash"></i>
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
-
 
                                 <div id="password-strength" class="mt-2"></div>
                                 @error('password')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
 
+
+                                <!-- Tambahkan kode berikut pada input confirm password -->
                                 <div class="form-group">
-                                    <input type="password" class="form-control form-control-user"
-                                        id="password_confirmation" name="password_confirmation" required
-                                        placeholder="Confirmation Password">
+                                    <div class="input-group">
+                                        <input id="password_confirmation" type="password"
+                                            class="form-control form-control-user" name="password_confirmation" required
+                                            placeholder="Confirm Password">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text toggle-confirm-password">
+                                                <i class="fas fa-eye-slash"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div id="confirm-password-message" class="text-danger mt-2"></div>
                                 </div>
-                                <hr>
                                 <button type="submit" class="btn btn-primary btn-user btn-block">Register</button>
                             </form>
-                            <div class="text-center">
+                            <hr>
+                            <div class="text-center mt-2">
                                 @if (Route::has('password.request'))
-                                    <a class="small" href="{{ route('password.request') }}">
+                                    <a class="medium" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                 @endif
                             </div>
                             <div class="text-center">
-                                <a class="small" href="{{ route('login') }}">Already have an account? Login!</a>
+                                <a class="medium" href="{{ route('login') }}">Already have an account? Login!</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 
     <!-- Bootstrap core JavaScript-->
@@ -156,6 +175,38 @@
                 return 'success';
             }
         }
+    </script>
+    <script>
+        const togglePassword = document.querySelector('.toggle-password');
+        const password = document.querySelector('#password');
+
+        togglePassword.addEventListener('click', function() {
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            togglePassword.querySelector('i').classList.toggle('fa-eye-slash');
+            togglePassword.querySelector('i').classList.toggle('fa-eye');
+        });
+
+        const toggleConfirmPassword = document.querySelector('.toggle-confirm-password');
+        const confirmPassword = document.querySelector('#password_confirmation');
+        const confirmPasswordMessage = document.querySelector('#confirm-password-message');
+
+        toggleConfirmPassword.addEventListener('click', function() {
+            const type = confirmPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+            confirmPassword.setAttribute('type', type);
+            toggleConfirmPassword.querySelector('i').classList.toggle('fa-eye-slash');
+            toggleConfirmPassword.querySelector('i').classList.toggle('fa-eye');
+        });
+
+        confirmPassword.addEventListener('input', function() {
+            const confirm = confirmPassword.value;
+
+            if (password.value === confirm) {
+                confirmPasswordMessage.textContent = 'Confirm password sudah sesuai';
+            } else {
+                confirmPasswordMessage.textContent = 'Confirm password belum sesuai';
+            }
+        });
     </script>
 
 </body>

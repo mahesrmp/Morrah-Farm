@@ -8,6 +8,7 @@ use App\Models\Produk;
 use App\Models\User;
 use App\Models\Kerbau;
 use App\Models\Susu;
+use App\Models\LaporanInventori;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -58,6 +59,15 @@ class BerandaManagerController extends Controller
             'kerbaus' => $kerbaus
         ]);
     }
+
+    public function laporanProduksi(){
+        $production_reports = LaporanInventori::all();
+        return view('manager/hasilProduksi', [
+            'title' => 'Laporan Data Hasil Produksi',
+            'production_report' => $production_reports
+        ]);
+    }
+
     public function susu()
     {
         $susus = Susu::all();
@@ -119,7 +129,6 @@ class BerandaManagerController extends Controller
             ->where('pesanans.status', 5)
             ->groupBy('bulan', 'produks.nama_produk', 'produks.harga')
             ->orderBy('bulan');
-
         if ($bulan) {
             $query->where(DB::raw('DATE_FORMAT(pesanans.created_at, "%Y-%m-%d")'), '=', $bulan);
         }

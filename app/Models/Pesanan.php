@@ -25,4 +25,8 @@ class Pesanan extends Model
     public function produk() {
         return $this->hasOne(Produk::class, 'id', 'produk_id');
     }
+
+    public function ongkir() {
+        return $this->hasOne(Ongkir::class, 'id', 'ongkir_id');
+    }
 }

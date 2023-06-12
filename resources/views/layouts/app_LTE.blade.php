@@ -303,7 +303,19 @@
                             <ul class="nav nav-treeview">
                                 <li class="nav-item"><a class="nav-link" href="{{ route('manager.kerbau')}}">Laporan Kerbau Jantan</a></li>
                                 <li class="nav-item"><a class="nav-link" href="{{ route('manager.susu') }}">Laporan Susu</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ route('manager.laporan-produksi') }}">Laporan Hasil Produksi</a></li>
+
                             </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('ongkir.manager') }}"
+                                class="nav-link {{ \Route::is('ongkos-kirim') ? 'active' : '' }}">
+                                <i class="fa-solid fa-dollar"></i>
+                                <p>
+                                    Ongkos Kirim
+
+                                </p>
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('logout') }}" class="nav-link">

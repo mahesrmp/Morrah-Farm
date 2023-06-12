@@ -38,7 +38,7 @@
                                 </tr>
                                 <tr>
                                     <th>Jumlah Pembayaran</th>
-                                    <td><strong>Rp. {{ number_format($historyPesanan->jumlah_harga) }}</strong></td>
+                                    <td><strong>Rp. {{ number_format($historyPesanan->jumlah_harga + $historyPesanan->ongkir->ongkos) }}</strong></td>
                                 </tr>
                                 <tr>
                                     <th>Kode pemesanan anda</th>
@@ -67,7 +67,7 @@
                                     <th>Nama Barang</th>
                                     <th>Jumlah</th>
                                     <th>Harga</th>
-                                    <th>Alamat</th>
+                                    <th>Ongkos Kirim</th>
                                     <th style="width: 120px">Total Harga</th>
                                     <th>Action</th>
                                 </tr>
@@ -85,22 +85,22 @@
                                         <td>{{ $pesanan_detail->produk->nama_produk }}</td>
                                         <td>{{ $pesanan_detail->jumlah }} buah</td>
                                         <td>Rp. {{ number_format($pesanan_detail->produk->harga) }}</td>
-                                        <td>{{ $pesanan_detail->pesanan->address }}</td>
-                                        <td>Rp. {{ number_format($pesanan_detail->jumlah_harga) }}</td>
+                                        <td>Rp. {{ number_format($pesanan_detail->ongkir->ongkos) }}</td>
+                                        <td>Rp. {{ number_format($pesanan_detail->jumlah_harga + $historyPesanan->ongkir->ongkos) }}</td>
                                     </tr>
                                 @endforeach
-                                <tr>
-                                    <td colspan="6" class="text-end" colspan="5"><strong>Total Pesanan:</strong></td>
-                                    <td><strong>Rp. {{ number_format($historyPesanan->jumlah_harga) }}</strong></td>
-                                </tr>
                                 <tr>
                                     <td colspan="6" class="text-end" colspan="5"><strong>Kode Pesanan :</strong></td>
                                     <td><strong>{{ $historyPesanan->kode }}</strong></td>
                                 </tr>
                                 <tr>
+                                    <td colspan="6" class="text-end" colspan="5"><strong>Total Harga Pesanan:</strong></td>
+                                    <td><strong>Rp. {{ number_format($historyPesanan->jumlah_harga) }}</strong></td>
+                                </tr>
+                                <tr>
                                     <td colspan="6" class="text-end" colspan="5"><strong>Total Pembayaran :</strong>
                                     </td>
-                                    <td><strong>Rp. {{ number_format($historyPesanan->jumlah_harga) }}</strong></td>
+                                    <td><strong>Rp. {{ number_format($historyPesanan->jumlah_harga + $historyPesanan->ongkir->ongkos) }}</strong></td>
                                     @if ($historyPesanan->status == 1)
                                         <td><strong><a href="{{ url('/upload/' . $historyPesanan->id) }}"><button
                                                         class="btn btn-secondary">Upload</button></a></strong></td>

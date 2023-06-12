@@ -21,8 +21,8 @@ return new class extends Migration
             $table->integer('kode');
             $table->integer('jumlah_harga');
             $table->string('gambar')->default('');
-            $table->text('address');
             $table->integer('produk_id');
+            $table->integer('ongkir_id')->nullable();
             $table->integer('jumlah_pesan');
             $table->string('img')->default('');
             $table->string('nama_pengirim')->default('');

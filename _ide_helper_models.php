@@ -118,6 +118,27 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * App\Models\Ongkir
+ *
+ * @property int $id
+ * @property string $lokasi
+ * @property int $ongkos
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Ongkir newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Ongkir newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Ongkir query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Ongkir whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Ongkir whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Ongkir whereLokasi($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Ongkir whereOngkos($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Ongkir whereUpdatedAt($value)
+ */
+	class Ongkir extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\Peanan
  *
  * @method static \Illuminate\Database\Eloquent\Builder|Peanan newModelQuery()
@@ -155,6 +176,7 @@ namespace App\Models{
  * @property int $read
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Ongkir|null $ongkir
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\PesananDetail[] $pesanan_detail
  * @property-read int|null $pesanan_detail_count
  * @property-read \App\Models\Produk|null $produk
@@ -254,11 +276,12 @@ namespace App\Models{
  * @property int $user_id
  * @property int $produk_id
  * @property string $komentar
- * @property string $rating
+ * @property Rating|null $rating
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Produk|null $product
  * @property-read \App\Models\User|null $user
+ * @property-read \App\Models\User|null $users
  * @method static \Illuminate\Database\Eloquent\Builder|Rating newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Rating newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Rating query()

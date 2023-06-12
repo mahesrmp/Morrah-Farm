@@ -201,7 +201,7 @@
                                 <a href="{{ route('pembeli.about') }}">About</a>
                                 <ul class="sub-menu">
                                     <li><a href="{{ route('pembeli.visimisi') }}">Visi & Misi</a></li>
-                                    <li><a href="home-02.html">Penilaian</a></li>
+                                    <li><a href="{{ route('review') }}">Penilaian</a></li>
                                     <li><a href="">Galeri</a></li>
                                 </ul>
                             </li>

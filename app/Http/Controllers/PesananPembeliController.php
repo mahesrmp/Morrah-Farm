@@ -15,8 +15,6 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class PesananPembeliController extends Controller
 {
-
-
     public function index($id)
     {
         $produk = Produk::where('id', $id)->first();
@@ -25,23 +23,24 @@ class PesananPembeliController extends Controller
         $rating_sum = Rating::where('produk_id', $produk->id)->sum('rating');
         $user_rating = Rating::where('produk_id', $produk->id)->where('user_id', Auth::id())->first();
         $reviews = Rating::where('produk_id', $produk->id)->get();
-        if ($ratings->count() > 0)
-        {
+
+        if ($ratings->count() > 0) {
             $rating_value =  $rating_sum / $ratings->count();
         } else {
             $rating_value = 0;
         }
-        $jumlah = PesananDetail::all();
+
+        $jumlahTerjual = Pesanan::where('produk_id', $produk->id)->where('status', '>', 5)->sum('jumlah_pesan');
 
         return view('pembeli.produk_detail', [
             'title' => 'Detail Pemesanan Produk',
             'ratings' => $ratings,
             'rating_value' => $rating_value,
             'user_rating' => $user_rating,
-            'reviews' => $reviews
-        ], compact('produk', 'jumlah', 'ongkirs'));
+            'reviews' => $reviews,
+            'jumlahTerjual' => $jumlahTerjual
+        ], compact('produk', 'ongkirs'));
     }
-
 
     public function pesan(Request $request, $id)
     {
@@ -51,9 +50,7 @@ class PesananPembeliController extends Controller
 
         $cek_pesanan = Pesanan::where('user_id', Auth::user()->id)->where('status', 0)->first();
 
-        //cek order detail
 
-        // Validate whether it exceeds the stock quantity
         if ($request->jumlah_pesan > $produk->stok) {
             return redirect('pembeli/keranjang/' . $id)->with('toast_error', 'Anda sudah melebihi batas stok');
         } elseif (!empty($cek_pesanan)) {
@@ -65,10 +62,8 @@ class PesananPembeliController extends Controller
             }
         }
 
-        // Cek Validation
         $cek_order = Pesanan::where('user_id', Auth::user()->id)->where('status', 0)->first();
 
-        // Save to database pesanan
         if (empty($cek_order)) {
             $pesanan = new Pesanan;
             $pesanan->user_id = Auth::user()->id;
@@ -82,11 +77,8 @@ class PesananPembeliController extends Controller
             $pesanan->save();
         }
 
-        // Save to database pesanan_detail
 
         $pesanan_baru = Pesanan::where('user_id', Auth::user()->id)->where('status', 0)->first();
-
-        //cek order detail
         $cek_pesanan_detail   = PesananDetail::where('produk_id', $produk->id)->where('pesanan_id', $pesanan_baru->id)->first();
 
         if (empty($cek_pesanan_detail)) {

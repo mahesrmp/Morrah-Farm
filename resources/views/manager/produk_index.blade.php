@@ -45,6 +45,9 @@
                                             'method' => 'DELETE',
                                             'id' => 'deleteproduk',
                                         ]) !!}
+                                        <a class="btn btn-primary btn-sm"
+                                            href="{{ route($routePrefix . '.show', $produk->id) }}">
+                                            <i class="fa-solid fa-eye"></i></a>
                                         <a href="{{ route('produk.edit', $produk->id) }}"
                                             class="btn btn-success btn-sm text-center">
                                             <i class="fas fa-edit"></i>

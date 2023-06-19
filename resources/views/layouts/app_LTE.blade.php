@@ -192,6 +192,17 @@
                         </li>
 
                         <li class="nav-item">
+                            <a href="{{ route('tugas.manager') }}"
+                                class="nav-link {{ \Route::is('tugas.manager') ? 'active' : '' }}">
+                                <i class="fa-solid fa-tasks"></i>
+                                <p>
+                                    Tugas
+
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
                             <a href="{{ route('manager.customer') }}"
                                 class="nav-link {{ \Route::is('manager.customer') ? 'active' : '' }}">
                                 <i class="fa-solid fa-user-plus"></i>

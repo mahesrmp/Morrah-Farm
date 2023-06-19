@@ -120,6 +120,17 @@
                                 </p>
                             </a>
                         </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route('task.peternak') }}"
+                                class="nav-link {{ \Route::is('task.peternak') ? 'active' : '' }}">
+                                <i class="fa-solid fa-tasks"></i>
+                                <p>
+                                    Tugas
+                                </p>
+                            </a>
+                        </li>
+
                         <li class="nav-item">
                             <a href="{{ route('kerbau.index') }}"
                                 class="nav-link {{ \Route::is('peternak.*') ? '' : '' }}">

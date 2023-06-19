@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Mail\SendEmail;
 use App\Models\About;
 use App\Models\Blog;
-use App\Models\Cart;
 use App\Models\HomeSlider;
 use App\Models\Pesanan;
 use App\Models\Produk;
 use App\Models\Rating;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Mail;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class BerandaPembeliController extends Controller
 
@@ -20,10 +22,13 @@ class BerandaPembeliController extends Controller
 {
     public function index()
     {
+
         $slidershome = HomeSlider::all();
+        $reviews = Rating::all();
         return view('pembeli.beranda_index', [
             'title' => 'Selamat Datang Di Morrah Farm',
-            'sliders' => $slidershome
+            'sliders' => $slidershome,
+            'reviews' => $reviews,
         ]);
     }
 
@@ -100,6 +105,14 @@ class BerandaPembeliController extends Controller
         ]);
     }
 
+    /* ============== Khusus Penilain ============== */
+    public function review()
+    {
+        return view('pembeli.rivew_pembeli', [
+            'title' => 'Review Pembeli'
+        ]);
+    }
+
     public function galeri()
     {
         return view('pembeli.galeri', [
@@ -107,14 +120,47 @@ class BerandaPembeliController extends Controller
         ]);
     }
 
-
-
-
     /* ============== Khusus Kontak ============== */
     public function contact()
     {
         return view('pembeli.contact_index', [
             'title' => 'Contact Us by Email'
         ]);
+    }
+
+    public function kirimemail(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'pesan' => 'required'
+        ]);
+
+        if ($this->isOnline()) {
+            $mail_data = [
+                'recipient' => 'otnielkalit25@gmail.com',
+                'fromEmail' => $request->email,
+                'fromMessage' => $request->pesan
+            ];
+
+            Mail::send([], $mail_data, function ($message) use ($mail_data) {
+                $message->to($mail_data['recipient'])
+                    ->subject('Customer Morrah Farm')
+                    ->setBody($mail_data['fromMessage']);
+            });
+
+            Alert::success('Berhasil', 'Pesan Anda Berhasil Terkirim Ke email kami');
+            return redirect()->back();
+        } else {
+            Alert::error('Gagal', 'Cek Koneksi Internet Anda');
+            return redirect()->back();
+        }
+    }
+    public function isOnline($site = "https://youtube.com/")
+    {
+        if (@fopen($site, "r")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

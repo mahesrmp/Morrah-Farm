@@ -1,7 +1,8 @@
 @extends('layouts.app_LTE')
 @section('content')
+
     <div class="col-md-12">
-        <form method="GET" action="">
+        <form method="GET" action="" id="searchForm">
             <div class="card card-primary">
                 <div class="card-header">
                     <h3 class="card-title">Cari Tanggal Penjualan</h3>
@@ -9,15 +10,13 @@
                 <div class="card-body">
                     <!-- Date -->
                     <div class="form-group">
-                        <label>Date:</label>
+                        <label>Tanggal</label>
                         <div class="input-group date" id="reservationdate" data-target-input="nearest">
                             <input type="date" id="bulan" name="bulan" class="form-control">
-
                         </div>
                     </div>
-
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Cari</button>
+                        <button type="button" class="btn btn-primary" onclick="validateForm()">Cari</button>
                     </div>
                 </div>
             </div>
@@ -27,9 +26,9 @@
         <div class="card">
             <div class="card-header">
                 <h1 class="card-title">Laporan Penjualan</h1>
+                <a href="{{ route('manager.cetaklaporan.index') }}" class="btn btn-primary float-right" target="_blank"><i class="fa-solid fa-print"></i>Download Laporan</a>
             </div>
-            <div class="card-body p-0">
-
+            <div class="card-body p-0 table-responsive">
                 <table class="table">
                     <thead>
                         <tr class="text-center">
@@ -52,7 +51,7 @@
                         @empty
                             <tr>
                                 <td colspan="4" class="text-center">
-                                    <h1>Tidak Ada Data Penjualan di Bulan ini</h1>
+                                    <h2>Tidak Ada Data Penjualan </h2>
                                 </td>
                             </tr>
                         @endforelse
@@ -60,4 +59,16 @@
                 </table>
             </div>
         </div>
+    @endsection
+    @section('script')
+        <script>
+            function validateForm() {
+                var dateInput = document.getElementById('bulan').value;
+                if (dateInput === '') {
+                    alert('Masukkan tanggal terlebih dahulu pada bagian Tanggal');
+                } else {
+                    document.getElementById('searchForm').submit();
+                }
+            }
+        </script>
     @endsection

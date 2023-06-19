@@ -11,12 +11,6 @@
                     {!! Form::model($model, ['route' => $route, 'method' => $method, 'files' => true], ) !!}
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="pelapor">Pelapor</label>
-                            {!! Form::text('pelapor', null, ['class' => 'form-control', 'autofocus']) !!}
-                            <span class="text-danger">{{ $errors->first('pelapor') }}</span>
-                        </div>
-
-                        <div class="form-group">
                             <label for="tanggal">Tanggal Melapor</label>
                             {!! Form::date('tanggal', null, ['class' => 'form-control']) !!}
                             <span class="text-danger">{{ $errors->first('tanggal') }}</span>

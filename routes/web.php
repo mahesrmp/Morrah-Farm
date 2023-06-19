@@ -24,7 +24,8 @@ use App\Http\Controllers\ProduksiProdukController;
 use App\Http\Controllers\BerandaPeternakController;
 use App\Http\Controllers\BerandaProduksiController;
 use App\Http\Controllers\AdminAkunSettingController;
-
+use App\Http\Controllers\LaporanPenjualanController;
+use App\Mail\KirimPesan;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +52,8 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         Route::resource('home-sliders', HomeSliderController::class);
         Route::get('/akun-manager/{id}/edit', [AdminAkunSettingController::class, 'edit'])->name('akun-manager.edit');
         Route::put('/akun-manager/{id}', [AdminAkunSettingController::class, 'update'])->name('akun-manager.update');
+        Route::resource('cetaklaporan', LaporanPenjualanController::class);
+
 
         //BLOGS
         Route::get('/blog', [BlogController::class, 'index'])->name('blog.manager');
@@ -107,8 +110,8 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::prefix('produksi')->middleware(['auth', 'auth.produksi'])->group(function () {
         //ini route khusus untuk produksi
         Route::get('beranda', [BerandaProduksiController::class, 'index'])->name('produksi.beranda');
-        Route::get('customer', [BerandaProduksiController::class, 'customer'])->name('produksi.customer');
-        //   Route::resource('produk', ProduksiProdukController::class);
+        // Route::get('customer', [BerandaProduksiController::class, 'customer'])->name('produksi.customer');
+        Route::resource('produksiproduk', ProduksiProdukController::class);
         Route::resource('produksiproduk', ProduksiProdukController::class);
         Route::get('/akun-produksi/{id}/edit', [AdminAkunSettingController::class, 'edit'])->name('akun-produksi.edit');
         Route::put('/akun-produksi/{id}', [AdminAkunSettingController::class, 'update'])->name('akun-produksi.update');
@@ -169,25 +172,18 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::get('keranjang', [PesananPembeliController::class, 'cart'])->name('pembeli.keranjang');
     Route::delete('check-out/{id}', [PesananPembeliController::class, 'delete'])->name('produk.delete');
     Route::post('konfirmasi-check-out', [PesananPembeliController::class, 'konfirmasi'])->name('check-out.update');
-    // Route::put('/blog/update/{id}', [BlogController::class, 'update'])->name('blog.update');
-
-
     Route::get('/history/{id}', [HistoryController::class, 'historyDetail'])->name('history');
     Route::get('pesanan', [HistoryController::class, 'index'])->name('history.detail');
     Route::get('pesanan/{id}', [HistoryController::class, 'detail']);
-
     Route::get('/upload/{id}', [HomeController::class, 'upload'])->name('upload');
     Route::post('/upload-process/{id}', [HomeController::class, 'uploadProcess'])->name('upload.process');
-
     Route::get('/review', [ReviewController::class, 'index'])->name('review');
     Route::get('/berikan-ulasan/{id}', [ReviewController::class, 'store'])->name('berikan.ulasan');
     Route::post('/berikan-ulasan-process/{id}', [ReviewController::class, 'storeReviewProcess'])->name('berikan.ulasan.process');
-
     Route::post('/add-rating', [UserRatingController::class, 'store']);
-    Route::get('logout', [LoginController::class, 'logout']);
-
     Route::get('/', [BerandaPembeliController::class, 'index'])->name('pembeli.beranda');
-
+    Route::get('/reviewpembeli', [BerandaPembeliController::class, 'review'])->name('review.pembeli');
+    Route::post('kirim-emal', [BerandaPembeliController::class, 'kirimemail'])->name('kirim.email');
     Auth::routes();
-
+    Route::get('logout', [LoginController::class, 'logout']);
 }); //prevent-back-history

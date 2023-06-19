@@ -185,70 +185,47 @@
                     Testimoni
                 </h3>
             </div>
-            {{-- Testimoni --}}
-            <div class="flex-w flex-t p-b-68">
-                <div class="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6">
-                    <img src="assetuser/images/avatar-01.jpg" alt="AVATAR">
-                </div>
-                <div class="size-207">
-                    <div class="flex-w flex-sb-m">
-                        <span class="mtext-107 cl2 p-r-20">
-                            Ariana Grande
-                        </span>
+            <!-- Review -->
+            @foreach ($reviews as $review)
+                <div class="flex-w flex-t p-b-68">
+                    <div class="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-3">
+                        <img src="{{ asset('profileFoto/' . ($review->user->foto ?? 'images/noimage.jpeg')) }}"
+                            alt="AVATAR">
                     </div>
-                    <div class="flex-w flex-sb-m">
-                        <span class="fs-18 cl11">
-                            <i class="zmdi zmdi-star"></i>
-                            <i class="zmdi zmdi-star"></i>
-                            <i class="zmdi zmdi-star"></i>
-                            <i class="zmdi zmdi-star"></i>
-                            <i class="zmdi zmdi-star-half"></i>
-                        </span>
-                    </div>
-                    <div>
-                        <p>dinilai tanggal : 21 April 2022</p>
-                    </div>
-                    <p class="stext-102 cl6 mt-3">
-                        Quod autem in homine praestantissimum atque optimum est, id deseruit.
-                        Apud ceteros autem philosophos
-                    </p>
-                    <div class="mt-3 col-md-1">
-                        <img width="80px" height="80px" src="assetuser/images/avatar-01.jpg" alt="review">
-                    </div>
-                </div>
-            </div>
-            {{-- Testimoni --}}
-            <div class="flex-w flex-t p-b-68">
-                <div class="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6">
-                    <img src="assetuser/images/avatar-01.jpg" alt="AVATAR">
-                </div>
-                <div class="size-207">
-                    <div class="flex-w flex-sb-m">
-                        <span class="mtext-107 cl2 p-r-20">
-                            Ariana Grande
-                        </span>
-                    </div>
-                    <div class="flex-w flex-sb-m">
-                        <span class="fs-18 cl11">
-                            <i class="zmdi zmdi-star"></i>
-                            <i class="zmdi zmdi-star"></i>
-                            <i class="zmdi zmdi-star"></i>
-                            <i class="zmdi zmdi-star"></i>
-                            <i class="zmdi zmdi-star-half"></i>
-                        </span>
-                    </div>
-                    <div>
-                        <p>dinilai tanggal : 21 April 2022</p>
-                    </div>
-                    <p class="stext-102 cl6 mt-3">
-                        Quod autem in homine praestantissimum atque optimum est, id deseruit.
-                        Apud ceteros autem philosophos
-                    </p>
-                    <div class="mt-3 col-md-1">
-                        <img width="80px" height="80px" src="assetuser/images/avatar-01.jpg" alt="review">
+                    <div class="size-207">
+                        <div class="flex-w flex-sb-m">
+                            <span class="mtext-107 cl2 p-r-20">
+                                {{ $review->user->name }}
+                                @if ($review->user_id == Auth::id())
+                                    | <a href="" class="js-show-modal1">edit</a>
+                                @endif
+                            </span>
+                        </div>
+                        <div class="flex-w">
+                            <span class="fs-18 cl11">
+                                @if ($review->rating)
+                                    @php
+                                        $user_rated = $review->rating;
+                                    @endphp
+                                    @for ($i = 1; $i <= $user_rated; $i++)
+                                        <i class="zmdi zmdi-star"></i>
+                                    @endfor
+                                    @for ($j = $user_rated + 1; $j <= 5; $j++)
+                                        <i class="zmdi zmdi-star-outline"></i>
+                                    @endfor
+                                @endif
+                            </span>
+                        </div>
+                        <div>
+                            <p>dinilai tanggal : {{ $review->created_at->format('d M Y') }} Jam
+                                {{ $review->created_at->format('H:i:s') }}</p>
+                        </div>
+                        <p class="stext-102 cl5 mt-1">
+                            {{ $review->komentar }}
+                        </p>
                     </div>
                 </div>
-            </div>
+            @endforeach
         </div>
     </section>
 @endsection

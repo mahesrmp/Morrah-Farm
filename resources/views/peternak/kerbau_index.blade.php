@@ -30,7 +30,7 @@
                                             <p class="text-muted text-sm"><b>Pelapor: </b>{{ $kerbau->pelapor }}</p>
                                             <p class="text-muted text-sm"><b>Tanggal: </b>{{ $kerbau->tanggal }}</p>
                                             <p class="text-muted text-sm"><b>Jumlah Kerbau: </b>{{ $kerbau->jumlah_kerbau }}
-                                            </p>
+                                                Ekor</p>
 
                                         </div>
                                     </div>

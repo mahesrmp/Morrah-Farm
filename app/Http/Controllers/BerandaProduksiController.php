@@ -13,14 +13,4 @@ class BerandaProduksiController extends Controller
         ]);
     }
 
-    public function customer(){
-
-        $data = User::where('role', 'pembeli')->latest()->paginate(15);
-        $models = User::with('pembeli', 'user')->latest()->paginate(20);
-        return view('produksi.customer',[
-            'models' => $models,
-            'data' => $data,
-            'title' => 'Daftar Customer Morrah Farm'
-        ]);
-    }
 }

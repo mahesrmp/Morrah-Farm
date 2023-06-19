@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kerbau;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class KerbauController extends Controller
 {
@@ -37,7 +38,7 @@ class KerbauController extends Controller
         $data = [
             'model'     => new Kerbau(),
             'method'    => 'POST',
-            'route'     => $this->routePrefix .'.store',
+            'route'     => $this->routePrefix . '.store',
             'button'    => 'SIMPAN',
             'title'     => 'Form tambah data kerbau',
         ];
@@ -45,20 +46,38 @@ class KerbauController extends Controller
         return view('peternak.' . $this->viewCreate, $data);
     }
 
+    // public function store(Request $request)
+    // {
+    //     $request->validate([
+    //         'pelapor' => 'required',
+    //         'tanggal' => 'required',
+    //         'jumlah_kerbau' => 'required|numeric',
+    //     ]);
+
+    //     $kerbaus = Kerbau::create([
+    //         'pelapor' => $request->pelapor,
+    //         'tanggal' => $request->tanggal,
+    //         'jumlah_kerbau' => $request->jumlah_kerbau,
+    //     ]);
+
+    //     return redirect()->route('kerbau.index')->with('success', 'Kerbau berhasil ditambahkan');
+    // }
     public function store(Request $request)
-    {   
+    {
         $request->validate([
-            'pelapor' => 'required',
-            'tanggal' => 'required',
-            'jumlah_kerbau' => 'required|numeric',
+            'jumlah_kerbau' => 'required',
+            'tanggal' => 'required|date',
         ]);
 
-        $kerbaus = Kerbau::create([
-            'pelapor' => $request->pelapor,
-            'tanggal' => $request->tanggal,
+        $user = Auth::user();
+        $pelapor = $user->name;
+
+        Kerbau::create([
+            'pelapor' => $pelapor,
             'jumlah_kerbau' => $request->jumlah_kerbau,
+            'tanggal' => $request->tanggal,
         ]);
-        
+
         return redirect()->route('kerbau.index')->with('success', 'Kerbau berhasil ditambahkan');
     }
 
@@ -88,7 +107,7 @@ class KerbauController extends Controller
         $kerbaus = [
             'model'     => Kerbau::findOrFail($id),
             'method'    => 'PUT',
-            'route'     => [$this->routePrefix .'.update', $id,],
+            'route'     => [$this->routePrefix . '.update', $id,],
             'button'    => 'UPDATE',
             'title'     => 'Form Update data Kerbau',
         ];
@@ -96,27 +115,20 @@ class KerbauController extends Controller
         return view('peternak.' . $this->viewEdit, $kerbaus);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+
+    public function update(Request $request, Kerbau $kerbau)
     {
-        // dd($request->all());
         $request->validate([
-            'pelapor' => 'required',
-            'tanggal' => 'required',
-            'jumlah_kerbau' => 'required|numeric',
+            'jumlah_kerbau' => 'required',
+            'tanggal' => 'required|date',
         ]);
 
-        $kerbaus = Kerbau::where('id', $id)->first();
-        $kerbaus->pelapor = $request->pelapor;
-        $kerbaus->tanggal = $request->tanggal;
-        $kerbaus->jumlah_kerbau = $request->jumlah_kerbau;
-        return redirect()->route('kerbau.index')->with('success','Data Kerbau Berhasil di Ubah');
+        $kerbau->update([
+            'jumlah_kerbau' => $request->jumlah_kerbau,
+            'tanggal' => $request->tanggal,
+        ]);
+
+        return redirect()->route('kerbau.index')->with('success', 'Data Kerbau Berhasil di Ubah');
     }
 
     /**
@@ -129,7 +141,7 @@ class KerbauController extends Controller
     {
         $kerbaus = Kerbau::findOrFail($id);
         $kerbaus->delete();
-        return back()->with('success','Data Kerbau Berhasil dihapus');
+        return back()->with('success', 'Data Kerbau Berhasil dihapus');
     }
 
     // public function filter(Request $request){

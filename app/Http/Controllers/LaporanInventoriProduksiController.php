@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\LaporanInventori;
+use Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -13,7 +14,7 @@ class LaporanInventoriProduksiController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
-     * 
+     *
      */
     private $viewIndex = 'beranda_laporan';
     private $viewCreate = 'create_laporan';
@@ -26,7 +27,7 @@ class LaporanInventoriProduksiController extends Controller
         $production_reports = LaporanInventori::paginate(20);
         return view('produksi.laporan.beranda-laporan',[
             'production_reports' => $production_reports,
-            'routePrefix    => $this->routePrefix', 
+            'routePrefix    => $this->routePrefix',
             'title'          => 'Laporan Data Hasil Produksi'
         ]);
     }
@@ -39,11 +40,11 @@ class LaporanInventoriProduksiController extends Controller
     public function create()
     {
         $data = [
-            'model' =>new LaporanInventori(), 
-            'method' => 'POST', 
-            'route' => $this->routePrefix. '.store', 
+            'model' =>new LaporanInventori(),
+            'method' => 'POST',
+            'route' => $this->routePrefix. '.store',
             'button' => 'SIMPAN',
-            'title' => 'Form tambah Data Laporan Produksi', 
+            'title' => 'Form tambah Data Laporan Produksi',
         ];
         return view('produksi.laporan.create-laporan', $data);
     }
@@ -57,20 +58,22 @@ class LaporanInventoriProduksiController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_pelapor' => 'required',
             'tanggal' => 'required',
             'nama_produk' => 'required',
             'jumlah' => 'required|numeric',
         ]);
 
+        $user = Auth::user();
+        $pelapor = $user->name;
+
         $production_reports = LaporanInventori::create([
-            'nama_pelapor' => $request->nama_pelapor,
+            'nama_pelapor' => $pelapor,
             'tanggal' => $request->tanggal,
             'nama_produk' => $request-> nama_produk,
             'jumlah' => $request->jumlah,
 
         ]);
-        
+
         return redirect()->route('laporan-inventori.index')->with('success', 'Hasil Produksi berhasil ditambahkan');
     }
 
@@ -83,7 +86,7 @@ class LaporanInventoriProduksiController extends Controller
     public function show($id)
     {
         return view('produksi.laporan.'. $this->viewShow, [
-            'model' => LaporanInventori::findOrFail($id), 
+            'model' => LaporanInventori::findOrFail($id),
             'title' => 'Detail Data Produk'
         ]);
     }
@@ -114,21 +117,25 @@ class LaporanInventoriProduksiController extends Controller
      * @param  App\LaporanInventori  $production_reports
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, LaporanInventori $laporanInventori)
     {
         // dd($request->all());
         $request->validate([
             'nama_produk' => 'required',
             'tanggal' => 'required',
-            'jumlah' => 'required|numeric',
-            'nama_pelapor' => 'required'
+            'jumlah' => 'required|numeric'
         ]);
 
-        $production_reports = LaporanInventori::where('id', $id)->first();
-        $production_reports->nama_produk = $request->pelapor;
-        $production_reports->tanggal = $request->tanggal;
-        $production_reports->jumlah = $request->jumlah;
-        $production_reports->nama_pelapor = $request->nama_pelapor;
+        // $production_reports = LaporanInventori::where('id', $id)->first();
+        // $production_reports->nama_produk = $request->pelapor;
+        // $production_reports->tanggal = $request->tanggal;
+        // $production_reports->jumlah = $request->jumlah;
+
+        $laporanInventori->update([
+            'nama_produk' => $request->nama_produk,
+            'jumlah' => $request->jumlah,
+            'tanggal' => $request->tanggal,
+        ]);
         return redirect()->route('laporan-inventori.index')->with('success','Data Kerbau Berhasil di Ubah');
     }
 
@@ -140,7 +147,7 @@ class LaporanInventoriProduksiController extends Controller
      */
     public function destroy($id)
     {
-        $production_reports = LaporanInventori::findOrFail($id); 
+        $production_reports = LaporanInventori::findOrFail($id);
         $production_reports->delete();
         return back()->with('success', 'Data Laporan Hasil Produksi Berhasil Dihapus');
        /* $nama_produk = $production_reports->nama_produk;

@@ -46,7 +46,7 @@
                                     <img height="110px" src="assetuser/images/logo2.png" alt="Logo"
                                         class="logo-img">
                                 </a>
-                                <h1 class="h2 text-gray-900 mb-5">Create an Account!</h1>
+                                <h1 class="h2 text-gray-900 mb-5">Daftar Akun Baru!</h1>
                             </div>
                             <form class="user" method="POST" action="{{ route('register') }}">
                                 @csrf
@@ -58,7 +58,7 @@
 
                                 <div class="form-group">
                                     <input type="email" class="form-control form-control-user" id="email"
-                                        name="email" required placeholder="Email Address">
+                                        name="email" required placeholder="Alamat Email">
                                 </div>
 
 
@@ -86,7 +86,7 @@
                                     <div class="input-group">
                                         <input id="password_confirmation" type="password"
                                             class="form-control form-control-user" name="password_confirmation" required
-                                            placeholder="Confirm Password">
+                                            placeholder="Konfirmasi Password">
                                         <div class="input-group-append">
                                             <span class="input-group-text toggle-confirm-password">
                                                 <i class="fas fa-eye-slash"></i>
@@ -95,18 +95,18 @@
                                     </div>
                                     <div id="confirm-password-message" class="text-danger mt-2"></div>
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-user btn-block">Register</button>
+                                <button type="submit" class="btn btn-primary btn-user btn-block">Daftar</button>
                             </form>
                             <hr>
-                            <div class="text-center mt-2">
+                            {{-- <div class="text-center mt-2">
                                 @if (Route::has('password.request'))
                                     <a class="medium" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                 @endif
-                            </div>
+                            </div> --}}
                             <div class="text-center">
-                                <a class="medium" href="{{ route('login') }}">Already have an account? Login!</a>
+                                <a class="medium" href="{{ route('login') }}">Sudah memiliki akun? Login!</a>
                             </div>
                         </div>
                     </div>

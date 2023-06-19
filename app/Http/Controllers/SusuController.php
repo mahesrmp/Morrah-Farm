@@ -46,40 +46,60 @@ class SusuController extends Controller
         return view('peternak.' . $this->viewCreate, $data);
     }
 
+    // public function store(Request $request)
+    // {
+
+    //     $request->validate([
+    //         'tanggal' => 'required',
+    //         'jumlah_susu' => 'required',
+    //     ]);
+
+    //     // Mendapatkan pengguna yang sedang login
+    //     $user = Auth::user();
+
+    //     // Mendapatkan nama pengguna yang sedang login
+    //     $pelapor = $user->name;
+
+    //     $susus = Susu::create([
+    //         'pelapor' => $pelapor,
+    //         'tanggal' => $request->tanggal,
+    //         'jumlah_susu' => $request->jumlah_susu,
+    //     ]);
+
+    //     $request->validate([
+    //         'pelapor' => 'required',
+    //         'tanggal' => 'required',
+    //         'jumlah_susu' => 'required',
+    //     ]);
+
+    //     $susus = Susu::create([
+    //         'pelapor' => $request->pelapor,
+    //         'tanggal' => $request->tanggal,
+    //         'jumlah_susu' => $request->jumlah_susu,
+    //     ]);
+
+    //     return redirect()->route('susu.index')->with('success', 'Laporan berhasil ditambahkan');
+    // }
+
     public function store(Request $request)
     {
-
         $request->validate([
-            'tanggal' => 'required',
             'jumlah_susu' => 'required',
+            'tanggal' => 'required|date',
         ]);
 
-        // Mendapatkan pengguna yang sedang login
         $user = Auth::user();
-
-        // Mendapatkan nama pengguna yang sedang login
         $pelapor = $user->name;
 
-        $susus = Susu::create([
+        Susu::create([
             'pelapor' => $pelapor,
-            'tanggal' => $request->tanggal,
             'jumlah_susu' => $request->jumlah_susu,
-        ]);
-
-        $request->validate([
-            'pelapor' => 'required',
-            'tanggal' => 'required',
-            'jumlah_susu' => 'required',
-        ]);
-
-        $susus = Susu::create([
-            'pelapor' => $request->pelapor,
             'tanggal' => $request->tanggal,
-            'jumlah_susu' => $request->jumlah_susu,
         ]);
 
         return redirect()->route('susu.index')->with('success', 'Laporan berhasil ditambahkan');
     }
+
 
 
     /**
@@ -122,21 +142,34 @@ class SusuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    // public function update(Request $request, $id)
+    // {
+    //     // dd($request->all());
+    //     $request->validate([
+    //         'tanggal' => 'required',
+    //         'jumlah_susu' => 'required',
+    //     ]);
+
+    //     $susus = Susu::where('id', $id)->first();
+    //     $susus->tanggal = $request->tanggal;
+    //     $susus->jumlah_susu = $request->jumlah_susu;
+    //     return redirect()->route('susu.index')->with('success', 'Laporan Data Susu Berhasil di Ubah');
+    // }
+    public function update(Request $request, Susu $susu)
     {
-        // dd($request->all());
         $request->validate([
-            'pelapor' => 'required',
-            'tanggal' => 'required',
             'jumlah_susu' => 'required',
+            'tanggal' => 'required|date',
         ]);
 
-        $susus = Susu::where('id', $id)->first();
-        $susus->pelapor = $request->pelapor;
-        $susus->tanggal = $request->tanggal;
-        $susus->jumlah_susu = $request->jumlah_susu;
+        $susu->update([
+            'jumlah_susu' => $request->jumlah_susu,
+            'tanggal' => $request->tanggal,
+        ]);
+
         return redirect()->route('susu.index')->with('success', 'Laporan Data Susu Berhasil di Ubah');
     }
+
 
     /**
      * Remove the specified resource from storage.

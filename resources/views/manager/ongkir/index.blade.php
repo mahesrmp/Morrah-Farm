@@ -12,7 +12,7 @@
                                     <div class="card-title">
                                         <a href="{{ route('ongkir.create') }}"><button type="button"
                                                 class="btn btn-primary btn-block btn-sm">
-                                                <i class="fa-solid fa-user-plus"></i>Tambah Ongkos</button></a>
+                                                <i class="fa-solid fa-plus"></i>Tambah Ongkos</button></a>
                                     </div>
                                     <div class="card-tools">
                                     </div>
@@ -56,7 +56,9 @@
                                                 </tr>
                                             @empty
                                                 <tr>
-                                                    <td colspan="4">Data User Tidak ada</td>
+                                                    <td colspan="4">
+                                                        <h3>Data ongkos kirim Tidak ada</h3>
+                                                    </td>
                                                 </tr>
                                             @endforelse
                                         </tbody>

@@ -10,11 +10,11 @@
                     <div class="col-12 col-sm-6">
                         <h3 class="d-inline-block d-sm-none">{{ $produk->nama_produk }}</h3>
                         <div class="col-12">
-                            <img src="{{ url('productimage') }}/{{ $produk->gambar }}" class="product-image"
+                            <img src="{{ url('productimage') }}/{{ $produk->gambar }}" height="600px"
                                 alt="Product Image">
                         </div>
                         <div class="col-12 product-image-thumbs">
-                            <div class="product-image-thumb active">
+                            {{-- <div class="product-image-thumb active">
                                 <img src="{{ url('productimage') }}/{{ $produk->gambar }}" alt="Product Image">
                             </div>
                             <div class="product-image-thumb">
@@ -28,7 +28,7 @@
                             </div>
                             <div class="product-image-thumb">
                                 <img src="assets/dist/img/prod-5.jpg" alt="Product Image">
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                     <div class="col-12 col-sm-6">

@@ -16,18 +16,6 @@
                                                 class="btn btn-primary btn-block btn-sm">
                                                 <i class="fa-solid fa-user-plus"></i>Tambah Pegawai</button></a>
                                     </div>
-                                    <div class="card-tools">
-                                        <div class="input-group input-group-sm" style="width: 200px;">
-                                            <input type="text" name="table_search" class="form-control float-right"
-                                                placeholder="Search">
-
-                                            <div class="input-group-append">
-                                                <button type="submit" class="btn btn-default">
-                                                    <i class="fas fa-search"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body table-responsive p-0">
@@ -64,7 +52,7 @@
                                                         {{ Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm text-center btndelete', 'id' => 'delete']) }}
                                                         {!! Form::close() !!}
                                                     </td>
-                                                
+
                                                 </tr>
                                             @empty
                                                 <tr>

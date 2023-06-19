@@ -25,10 +25,11 @@ class PesananPembeliController extends Controller
         $reviews = Rating::where('produk_id', $produk->id)->get();
 
         if ($ratings->count() > 0) {
-            $rating_value =  $rating_sum / $ratings->count();
+            $rating_value = number_format($rating_sum / $ratings->count(), 1);
         } else {
             $rating_value = 0;
         }
+
 
         $jumlahTerjual = Pesanan::where('produk_id', $produk->id)->where('status', '>', 5)->sum('jumlah_pesan');
 
@@ -142,9 +143,9 @@ class PesananPembeliController extends Controller
     {
         $user = User::where('id', Auth::user()->id)->first();
 
-        if (empty($user->alamat)) {
-            return redirect()->route('akun-pembeli.edit', $user)->with('toast_error', 'Lengkapi Alamat Anda');
-        }
+        // if (empty($user->alamat)) {
+        //     return redirect()->route('akun-pembeli.edit', $user)->with('toast_error', 'Lengkapi Alamat Anda');
+        // }
 
         if (empty($user->nohp)) {
             return redirect()->route('akun-pembeli.edit', $user)->with('toast_error', 'Lengkapi No Hp Anda');

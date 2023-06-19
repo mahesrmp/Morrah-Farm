@@ -61,7 +61,7 @@
                                     </small>
                                 </td>
                                 <td>
-                                    <img alt="Avatar" class="table-avatar" src="assets/dist/img/avatar.png">
+                                    <img alt="Avatar" class="table-avatar" src="{{ asset('profileFoto/') }}/{{ $data->foto }}">
 
                                 </td>
                                 <td class="project_progress">

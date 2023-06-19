@@ -193,23 +193,22 @@
                     <div class="menu-desktop">
                         <ul class="main-menu">
                             <li><a href="{{ route('pembeli.beranda') }}"
-                                    class="{{ \Route::is('pembeli.beranda') ? 'active' : '' }}">Home</a></li>
+                                    class="{{ \Route::is('pembeli.beranda') ? 'active' : '' }}">Beranda</a></li>
                             <li>
-                                <a href="{{ route('pembeli.produk') }}">Shop</a>
+                                <a href="{{ route('pembeli.produk') }}">Produk</a>
                             </li>
                             <li>
-                                <a href="{{ route('pembeli.about') }}">About</a>
+                                <a href="{{ route('pembeli.about') }}">Tentang</a>
                                 <ul class="sub-menu">
                                     <li><a href="{{ route('pembeli.visimisi') }}">Visi & Misi</a></li>
-                                    <li><a href="{{ route('review') }}">Penilaian</a></li>
-                                    <li><a href="">Galeri</a></li>
+                                    <li><a href="{{ route('review.pembeli') }}">Penilaian</a></li>
                                 </ul>
                             </li>
                             <li>
                                 <a href="{{ route('pembeli.blog') }}">Blog</a>
                             </li>
                             <li>
-                                <a href="{{ route('pembeli.contact') }}">Contact</a>
+                                <a href="{{ route('pembeli.contact') }}">Kontak</a>
                             </li>
                         </ul>
                     </div>
@@ -505,7 +504,7 @@
                     <ul class="sub-menu">
                         <li><a href="{{ route('pembeli.visimisi') }}">Visi & Misi</a></li>
                         <li><a href="">Galeri</a></li>
-                        <li><a href="home-02.html">Penilaian</a></li>
+                        <li><a href="{{ route('review.pembeli') }}">Penilaian</a></li>
                     </ul>
                 </li>
                 <li>

@@ -9,9 +9,13 @@ use App\Models\User;
 use App\Models\Kerbau;
 use App\Models\Susu;
 use App\Models\LaporanInventori;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use App\Exports\LaporanPenjualanExport;
+use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\UsersExport;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class BerandaManagerController extends Controller
 {
@@ -60,7 +64,8 @@ class BerandaManagerController extends Controller
         ]);
     }
 
-    public function laporanProduksi(){
+    public function laporanProduksi()
+    {
         $production_reports = LaporanInventori::all();
         return view('manager/hasilProduksi', [
             'title' => 'Laporan Data Hasil Produksi',
@@ -113,7 +118,6 @@ class BerandaManagerController extends Controller
 
     public function laporan(Request $request)
     {
-
         $bulan = $request->input('bulan');
 
         $query = DB::table('pesanan_details')
@@ -124,19 +128,24 @@ class BerandaManagerController extends Controller
                 'produks.nama_produk',
                 'produks.harga',
                 DB::raw('SUM(pesanan_details.jumlah) as jumlah_terjual'),
-                DB::raw('SUM(pesanan_details.jumlah * pesanan_details.jumlah_harga) as pendapatan')
+                DB::raw('SUM(pesanan_details.jumlah * produks.harga) as pendapatan')
             )
-            ->where('pesanans.status', 5)
+            ->where('pesanans.status', '>=', 5)
             ->groupBy('bulan', 'produks.nama_produk', 'produks.harga')
             ->orderBy('bulan');
+
         if ($bulan) {
             $query->where(DB::raw('DATE_FORMAT(pesanans.created_at, "%Y-%m-%d")'), '=', $bulan);
         }
-
         $laporan = $query->get();
 
+        if (request('output') == 'pdf') {
+            $pdf = Pdf::loadView('laporan_pdf');
+            return $pdf->download('laporan_pdf');
+        }
         return view('manager.laporan', [
-            'title' => 'Laporan Penjualan'
-        ])->with('laporan', $laporan);
+            'title' => 'Laporan Penjualan',
+            'laporan' => $laporan
+        ]);
     }
 }

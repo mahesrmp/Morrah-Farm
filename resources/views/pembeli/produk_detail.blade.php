@@ -29,7 +29,7 @@
                         </h4>
                         <div class="flex-w">
                             <span class="fs-25 cl11">
-                               <a href="" class="cl11">{{ $rating_value }}</a>
+                                <a href="" class="cl11">{{ $rating_value }}</a>
                                 @php $ratenum = number_format($rating_value) @endphp
                                 @for ($i = 1; $i <= $ratenum; $i++)
                                     <i class="zmdi zmdi-star"></i>

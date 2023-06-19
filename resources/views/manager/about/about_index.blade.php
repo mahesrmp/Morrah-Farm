@@ -5,17 +5,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <a href="{{ route('about.create') }}" class="btn btn-primary">Tambah About</a>
-                    <div class="card-tools">
-                        <div class="input-group input-group-sm" style="width: 150px;">
-                            <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-default">
-                                    <i class="fas fa-search"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                    <a href="{{ route('about.create') }}" class="btn btn-primary">Tambah Tentang</a>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive p-0">
@@ -26,7 +16,7 @@
                                 <th>Judul</th>
                                 <th>Isi</th>
                                 <th>Gambar</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -55,12 +45,9 @@
                                 </tr>
                             @endforeach
                         </tbody>
-
                     </table>
                 </div>
-                <!-- /.card-body -->
             </div>
-            <!-- /.card -->
         </div>
     </div>
 @endsection

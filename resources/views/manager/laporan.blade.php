@@ -26,7 +26,7 @@
         <div class="card">
             <div class="card-header">
                 <h1 class="card-title">Laporan Penjualan</h1>
-                <a href="{{ route('manager.cetaklaporan.index') }}" class="btn btn-primary float-right" target="_blank"><i class="fa-solid fa-print"></i>Download Laporan</a>
+                {{-- <a href="{{ route('manager.cetaklaporan.index') }}" class="btn btn-primary float-right" target="_blank"><i class="fa-solid fa-print"></i>Download Laporan</a> --}}
             </div>
             <div class="card-body p-0 table-responsive">
                 <table class="table">

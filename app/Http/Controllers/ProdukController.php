@@ -162,16 +162,19 @@ class ProdukController extends Controller
             'keterangan' => 'required'
         ]);
 
-        $product = Produk::where('id', $id)->first();
+        $product = Produk::findOrFail($id); // Menggunakan findOrFail agar memberikan 404 Not Found jika produk tidak ditemukan
         $product->nama_produk = $request->nama_produk;
         $product->harga = $request->harga;
         $product->stok = $request->stok;
         $product->keterangan = $request->keterangan;
+
         if ($request->hasFile('gambar')) {
             $request->file('gambar')->move('productimage', $request->file('gambar')->getClientOriginalName());
             $product->gambar = $request->file('gambar')->getClientOriginalName();
-            $product->update();
         }
+
+        $product->save(); // Menggunakan save() untuk menyimpan perubahan pada model
+
         return redirect()->route('produk.index')->with('success', 'Data Produk Berhasil di Ubah');
     }
 

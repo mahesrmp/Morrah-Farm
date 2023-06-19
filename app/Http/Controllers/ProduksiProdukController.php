@@ -95,26 +95,7 @@ class ProduksiProdukController extends Controller
         return redirect()->route('produksiproduk.index');
     }
 
-    // public function tambahGambar(Request $request, Produk $produk)
-    // {
-    //     // Validasi request
-    //     $request->validate([
-    //         'gambar_produk_detail' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
-    //     ]);
 
-    //     // Simpan gambar
-    //     $gambar = $request->file('gambar_produk_detail');
-    //     $gambarPath = $gambar->store('public/gambar_produk');
-
-    //     // Tambahkan gambar ke dalam tabel "gambar_produk_detail"
-    //     // $imageDetail = new ImageDetail();
-    //     $imageDetail->produk_id = $produk->id;
-    //     $imageDetail->gambar = $gambarPath;
-    //     $imageDetail->save();
-
-    //     Alert::success('Success', 'Berhasil Menambahkan gambar');
-    //     return redirect()->back();
-    // }
 
     /**
      * Display the specified resource.
@@ -183,16 +164,23 @@ class ProduksiProdukController extends Controller
             'keterangan' => 'required'
         ]);
 
-        $product = Produk::where('id', $id)->first();
+        $product = Produk::findOrFail($id); // Menggunakan findOrFail agar memberikan 404 Not Found jika produk tidak ditemukan
         $product->nama_produk = $request->nama_produk;
         $product->harga = $request->harga;
-        $product->stok = $request->stok;
         $product->keterangan = $request->keterangan;
+
         if ($request->hasFile('gambar')) {
             $request->file('gambar')->move('productimage', $request->file('gambar')->getClientOriginalName());
             $product->gambar = $request->file('gambar')->getClientOriginalName();
-            $product->update();
         }
+
+        // Perbarui stok hanya jika ada perubahan pada input stok
+        if ($product->stok != $request->stok) {
+            $product->stok = $request->stok;
+        }
+
+        $product->save(); // Menggunakan save() untuk menyimpan perubahan pada model
+
         return redirect()->route('produksiproduk.index')->with('success', 'Data Produk Berhasil di Ubah');
     }
 

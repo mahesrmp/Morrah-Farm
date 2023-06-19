@@ -215,9 +215,7 @@
 
                     <!-- Icon header -->
                     <div class="wrap-icon-header flex-w flex-r-m">
-                        <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
-                            <i class="zmdi zmdi-search"></i>
-                        </div>
+
                         @if (Auth::user())
                             <?php
                             $pesanan_utama = App\Models\Pesanan::where('user_id', Auth::user()->id)
@@ -632,9 +630,7 @@
                     Copyright &copy;
                     <script>
                         document.write(new Date().getFullYear());
-                    </script> All rights reserved | Made with <i class="fa fa-heart-o"
-                        aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> &amp;
-                    distributed by <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
+                    </script>  Morrah Farm
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 
                 </p>

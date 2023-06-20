@@ -17,7 +17,7 @@
                                     <th>Pesanan</th>
                                     <th>Jumlah</th>
                                     <th>Kode</th>
-                                    <th>Jumlah Harga</th>
+                                    <th>Jumlah Harga + Ongkir</th>
                                     <th>Tanggal</th>
                                     <th>Alamat Penerima</th>
                                     <th>Bukti Pembayaran</th>
@@ -37,9 +37,9 @@
                                         <td>{{ $data->produk->nama_produk ?? 'Produk tidak tersedia' }}</td>
                                         <td>{{ $data->jumlah_pesan }} Buah</td>
                                         <td>{{ $data->kode }}</td>
-                                        <td>Rp{{ number_format($data->jumlah_harga, 0, ',', '.') }}</td>
+                                        <td>Rp{{ number_format($data->jumlah_harga + $data->ongkir->ongkos, 0, ',', '.') }}</td>
                                         <td>{{ $data->updated_at->isoFormat('dddd, D MMM Y') }}</td>
-                                        <td>{{ $data->address }}</td>
+                                        <td>{{ $data->ongkir->lokasi ?? 'lokasi tidak tersedia'}}</td>
                                         <td>
                                             <a href="{{ route('result.file', $data->id) }}" class="nav-link">
                                                 <i class="fas fa-eye"></i>

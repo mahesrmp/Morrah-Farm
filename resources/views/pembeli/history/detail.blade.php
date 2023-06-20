@@ -67,7 +67,7 @@
                             @if ($pesanan->status == 4)
                                 <div class="card text-bold" style="box-shadow: inset 3px 3px 4px rgba(0,0,0,0.4);
                                 border: 1px solid grey;">
-                                    <h6 class="card-body">Lihat Gambar :
+                                    <h6 class="card-body">Produk sudah dipacking :
                                         <a href="productimage/{{ $pesanan->img }}" data-sub-html="Demo Description">
                                             <img class="img-responsive thumbnail" src="productimage/{{ $pesanan->img }}"
                                                 alt="{{ $pesanan->img }}">
@@ -151,9 +151,7 @@
                                     <th>Nama Produk</th>
                                     <th>Jumlah</th>
                                     <th>Harga</th>
-                                    <th>Alamat</th>
                                     <th style="width: 120px">Total Harga</th>
-                                    <th>Action</th>
                                 </tr>
                                 <?php
                                 $no = 1;
@@ -162,30 +160,33 @@
                                     <tr>
                                         <td>{{ $no++ }}</td>
                                         <td>
-                                            <img src="{{ url('productimage') }}/{{ $pesanan_detail->produk->gambar }}"
+                                            <img src="{{ url('productimage') }}/{{ optional($pesanan_detail->produk)->gambar }}"
                                                 style="width: 100px; height:100px;" class="card-img-top"
                                                 alt="product image" />
                                         </td>
-                                        <td>{{ $pesanan_detail->produk->nama_produk }}</td>
+                                        <td>{{ optional($pesanan_detail->produk)->nama_produk }}</td>
                                         <td>{{ $pesanan_detail->jumlah }} buah</td>
-                                        <td>Rp. {{ number_format($pesanan_detail->produk->harga) }}</td>
-                                        <td>{{ $pesanan_detail->pesanan->address }}</td>
+                                        <td>Rp. {{ number_format(optional($pesanan_detail->produk)->harga) }}</td>
                                         <td>Rp. {{ number_format($pesanan_detail->jumlah_harga) }}</td>
                                     </tr>
                                 @endforeach
-                                <tr>
-                                    <td colspan="6" class="text-end" colspan="5"><strong>Total Pesanan:</strong></td>
-                                    <td><strong>Rp. {{ number_format($pesanan->jumlah_harga) }}</strong></td>
-                                </tr>
                                 <tr>
                                     <td colspan="6" class="text-end" colspan="5"><strong>Kode Pesanan :</strong>
                                     </td>
                                     <td><strong>{{ $pesanan->kode }}</strong></td>
                                 </tr>
                                 <tr>
+                                    <td colspan="6" class="text-end" colspan="5"><strong>Total semua harga:</strong></td>
+                                    <td><strong>Rp. {{ number_format($pesanan->jumlah_harga) }}</strong></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="6" class="text-end" colspan="5"><strong>Alamat Pengiriman (Ongkos Kirim):</strong></td>
+                                    <td><strong> {{ $pesanan->ongkir->lokasi }} (Rp. {{ number_format($pesanan->ongkir->ongkos) }})</strong></td>
+                                </tr>
+                                <tr>
                                     <td colspan="6" class="text-end" colspan="5"><strong>Total Pembayaran
                                             :</strong></td>
-                                    <td><strong>Rp. {{ number_format($pesanan->jumlah_harga) }}</strong></td>
+                                    <td><strong>Rp. {{ number_format($pesanan->jumlah_harga + $pesanan->ongkir->ongkos) }}</strong></td>
                                     @if ($pesanan->status == 1)
                                         <td><strong><a href="{{ url('/upload/' . $pesanan->id) }}"><button
                                                         class="btn btn-secondary">Upload</button></a></strong></td>

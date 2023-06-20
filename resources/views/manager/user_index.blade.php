@@ -39,18 +39,19 @@
                                                     <td>{{ $item->email }}</td>
                                                     <td>{{ $item->role }}</td>
                                                     <td class="text-center">
-                                                        {!! Form::open([
-                                                            'route' => ['user.destroy', $item->id],
-                                                            'method' => 'DELETE',
-                                                        ]) !!}
-                                                        <a href="{{ route('user.edit', $item->id) }}"
-                                                            class="btn btn-success btn-sm text-center"><i class="fas fa-edit"></i></a>
-                                                        <a class="btn btn-primary btn-sm text-center" href="#">
-                                                            <i class="fas fa-eye">
-                                                            </i></a>
+                                                        @if ($item->role == 'manager')
+                                                        @else
+                                                            {!! Form::open([
+                                                                'route' => ['user.destroy', $item->id],
+                                                                'method' => 'DELETE',
+                                                            ]) !!}
+                                                            <a href="{{ route('user.edit', $item->id) }}"
+                                                                class="btn btn-success btn-sm text-center"><i
+                                                                    class="fas fa-edit"></i></a>
 
-                                                        {{ Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm text-center btndelete', 'id' => 'delete']) }}
-                                                        {!! Form::close() !!}
+                                                            {{ Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm text-center btndelete', 'id' => 'delete']) }}
+                                                            {!! Form::close() !!}
+                                                        @endif
                                                     </td>
 
                                                 </tr>

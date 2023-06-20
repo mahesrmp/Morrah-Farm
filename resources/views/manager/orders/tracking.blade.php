@@ -17,7 +17,7 @@
                                     <th>Kode</th>
                                     <th>Jumlah Harga</th>
                                     <th>Tanggal</th>
-                                    <th>Alamat Penerima</th>
+                                    <th>Lokasi Penerima</th>
                                     <th>Isi form</th>
                                 </tr>
                             </thead>
@@ -29,7 +29,7 @@
                                         <td>{{ $data->kode }}</td>
                                         <td>Rp{{ number_format($data->jumlah_harga, 0, ',', '.') }}</td>
                                         <td>{{ $data->updated_at->isoFormat('dddd, D MMM Y') }}</td>
-                                        <td>{{ $data->address }}</td>
+                                        <td>{{ $data->ongkir->lokasi }}</td>
                                         <td>
                                             <a href="{{ route('form.tracking', $data->id) }}"><button type="button"
                                                     class="btn btn-primary">Form Tracking</button></a>

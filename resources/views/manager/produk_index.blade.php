@@ -28,7 +28,18 @@
                                         <div class="col-7">
                                             <h2 class="lead"><b>{{ $produk->nama_produk }}</b></h2>
                                             <p class="text-muted text-sm"><b>Deskripsi: </b>{{ $produk->keterangan }}</p>
-                                            <p class="text-muted text-sm"><b>Stok: </b>{{ $produk->stok }}</p>
+                                            <p class="text-muted text-sm"><b>Stok: </b>{{ $produk->stok->jumlah }}</p>
+                                            @if ($selisiTanggal[$produk->id] < 3)
+                                                <p class="text-danger text-sm">
+                                                    <b>Kadaluwarsa: </b>{{ $produk->stok->kadaluwarsa }}
+                                                    ({{ $selisiTanggal[$produk->id] }} Hari)
+                                                </p>
+                                            @else
+                                                <p class="text-muted text-sm">
+                                                    <b>Kadaluwarsa: </b>{{ $produk->stok->kadaluwarsa }}
+                                                    ({{ $selisiTanggal[$produk->id] }} Hari)
+                                                </p>
+                                            @endif
                                             <p class="text-muted text-sm"><b>Harga: </b>{{ $produk->formatRupiah('harga') }}
                                             </p>
                                         </div>
@@ -99,7 +110,7 @@
                                     'Your file has been deleted.',
                                     'success'
                                 ).then(() => {
-                                    // Reload or redirect to another page
+                                    location.reload();
                                 });
                             },
                             error: function(xhr) {

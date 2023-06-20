@@ -48,6 +48,8 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         Route::get('customer', [BerandaManagerController::class, 'customer'])->name('manager.customer');
         Route::resource('user', UserController::class);
         Route::resource('produk', ProdukController::class);
+        Route::get('produk-edit-stok/{id}', [ProdukController::class, 'editStok'])->name('produk.edit.stok');
+        Route::get('produk-edit-kadaluwarsa/{id}', [ProdukController::class, 'editKadaluwarsa'])->name('produk.edit.kadaluwarsa');
         Route::resource('about', AboutController::class);
         Route::resource('home-sliders', HomeSliderController::class);
         Route::get('/akun-manager/{id}/edit', [AdminAkunSettingController::class, 'edit'])->name('akun-manager.edit');
@@ -73,8 +75,8 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         Route::get('/result-file/{id}', [PesanController::class, 'resultFile'])->name('result.file');
         Route::get('/detail-pembelian/{id}', [PesanController::class, 'detailPembelian'])->name('detail.pembelian');
 
-        Route::get('/confirm-photo', [PesanController::class, 'confirmPhoto'])->name('confirm.photo');
-        Route::post('/confirm-photo-process/{id}', [PesanController::class, 'confirmPhotoProcess'])->name('confirm.photo.process');
+        // Route::get('/confirm-photo', [PesanController::class, 'confirmPhoto'])->name('confirm.photo');
+        // Route::post('/confirm-photo-process/{id}', [PesanController::class, 'confirmPhotoProcess'])->name('confirm.photo.process');
 
         Route::get('/tracking', [PesanController::class, 'tracking'])->name('order.tracking');
         Route::get('/form-tracking/{id}', [PesanController::class, 'formTracking'])->name('form.tracking');
@@ -95,6 +97,13 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         Route::get('laporan', [BerandaManagerController::class, 'laporan'])->name('manager.laporan');
         Route::get('cetak-laporan', [BerandaManagerController::class, 'cetakLaporan'])->name('cetak-laporan');
         Route::get('/cetak-laporan-form', [BerandaManagerController::class, 'cetakForm'])->name('cetak-laporan-form');
+
+        Route::get('/ongkir', [OngkirController::class, 'index'])->name('ongkir.manager');
+        Route::get('/ongkir/create', [OngkirController::class, 'create'])->name('ongkir.create');
+        Route::post('/ongkir/post', [OngkirController::class, 'store'])->name('ongkir.store');
+        Route::get('/ongkir/edit/{id}', [OngkirController::class, 'edit'])->name('ongkir.edit');
+        Route::put('/ongkir/update/{id}', [OngkirController::class, 'update'])->name('ongkir.update');
+        Route::delete('/ongkir/delete/{id}', [OngkirController::class, 'destroy'])->name('ongkir.delete');
     });
 
 
@@ -105,10 +114,17 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         Route::get('beranda', [BerandaProduksiController::class, 'index'])->name('produksi.beranda');
         // Route::get('customer', [BerandaProduksiController::class, 'customer'])->name('produksi.customer');
         Route::resource('produksiproduk', ProduksiProdukController::class);
-        Route::resource('produksiproduk', ProduksiProdukController::class);
+        Route::get('produksi-edit-stok/{id}', [ProduksiProdukController::class, 'editStok'])->name('produksi.edit.stok');
+        Route::get('produksi-edit-kadaluwarsa/{id}', [ProduksiProdukController::class, 'editKadaluwarsa'])->name('produksi.edit.kadaluwarsa');
+        Route::put('produksi-update-kadaluwarsa/{id}', 'ProduksiProdukController@updateKadaluwarsa')->name('produksi.update.kadaluwarsa');
+        Route::delete('produk-delete-kadaluwarsa/{id}', 'ProdukController@deleteKadaluwarsa')->name('produksi.delete.kadaluwarsa');
         Route::get('/akun-produksi/{id}/edit', [AdminAkunSettingController::class, 'edit'])->name('akun-produksi.edit');
         Route::put('/akun-produksi/{id}', [AdminAkunSettingController::class, 'update'])->name('akun-produksi.update');
         Route::resource('laporan-inventori', LaporanInventoriProduksiController::class);
+        // Route::get('packing-pesanan', [ProduksiProdukController::class, 'packing']);
+        Route::get('/confirm-photo', [PesanController::class, 'confirmPhoto'])->name('confirm.photo');
+        Route::post('/confirm-photo-process/{id}', [PesanController::class, 'confirmPhotoProcess'])->name('confirm.photo.process');
+        Route::get('/produksi-detail-pembelian/{id}', [PesanController::class, 'produksidetailPembelian'])->name('produksi.detail.pembelian');
         /*Route::get('beranda-laporan',[LaporanInventoriProduksiController::class, 'index'])->name('beranda-laporan');
         Route::get('create-laporan',[LaporanInventoriProduksiController::class, 'create'])->name('create-laporan');
         Route::post('simpan-laporan',[LaporanInventoriProduksiController::class, 'store'])->name('simpan-laporan');
@@ -175,7 +191,8 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::get('/pembeli/keranjang/{id}', [PesananPembeliController::class, 'index'])->name('pembeli.pesan.produk');
     Route::post('pesan-process/{id}', [PesananPembeliController::class, 'pesan']);
     Route::get('keranjang', [PesananPembeliController::class, 'cart'])->name('pembeli.keranjang');
-    Route::delete('check-out/{id}', [PesananPembeliController::class, 'delete'])->name('produk.delete');
+    // Route::delete('check-out/{id}', [PesananPembeliController::class, 'delete'])->name('produk.delete');
+    Route::post('/produk/delete/{id}', 'PesananPembeliController@delete')->name('produk.delete');
     Route::post('konfirmasi-check-out', [PesananPembeliController::class, 'konfirmasi'])->name('check-out.update');
     Route::get('/history/{id}', [HistoryController::class, 'historyDetail'])->name('history');
     Route::get('pesanan', [HistoryController::class, 'index'])->name('history.detail');

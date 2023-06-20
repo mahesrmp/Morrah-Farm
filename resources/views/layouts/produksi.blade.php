@@ -53,6 +53,63 @@
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
                 <!-- Navbar Search -->
+                @php
+                    $stocks = \DB::select('SELECT s.jumlah, p.* FROM stok AS s JOIN produks AS p ON p.stok_id = s.id WHERE s.jumlah <= 5');
+                    $orders = \DB::select('SELECT * from pesanans where status = 3');
+                    $produkKadaluwarsa = \DB::select('SELECT p.nama_produk, p.id, s.kadaluwarsa, s.jumlah FROM produks AS p JOIN stok s ON p.stok_id = s.id WHERE s.kadaluwarsa < DATE_ADD(CURDATE(), INTERVAL 3 DAY)');
+                @endphp
+                <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
+                        class="nav-link nav-link-lg message-toggle"><i class="far fa-bell"></i>
+                        <span class="badge headerBadge1 bg-danger">{{ count($stocks) + count($orders) + count($produkKadaluwarsa) }}</span> </a>
+                    <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
+                        <div class="dropdown-header">
+                            Messages
+                        </div>
+                        <div class="dropdown-list-content dropdown-list-message">
+                            @foreach ($stocks as $stock)
+                                <a href="{{ route('produksi.edit.stok', $stock->id) }}"
+                                    class="dropdown-item dropdown-item-unread">
+                                    <span class="dropdown-item-icon bg-danger text-white">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </span>
+                                    <span class="dropdown-item-desc">
+                                        {{ 'Stock ' . $stock->nama_produk . ' tersisa ' . $stock->jumlah }} <br>
+                                        <span class="time text-dark">-- {{ $stock->updated_at }} --</span>
+                                        <i class="text-danger">*silahkan lakukan pengisian stok!</i>
+                                    </span>
+                                </a>
+                            @endforeach
+                            @foreach ($orders as $order)
+                                <a href="{{ route('result.file', $order->id) }}" {{-- <a href="{{ route('order.detail') }}" --}}
+                                    class="dropdown-item dropdown-item-unread">
+                                    <span class="dropdown-item-icon bg-success text-white">
+                                        <i class="fas fa-check"></i>
+                                    </span>
+                                    <span class="dropdown-item-desc">
+                                        {{ 'Pesanan dengan kode ' . $order->kode . ' sudah dikonfirmasi' }} <br>
+                                        <span class="time text-dark">{{ $order->updated_at }}</span>
+                                        <i class="text-danger">*Tolong packing pesanan tersebut</i>
+                                    </span>
+                                </a>
+                            @endforeach
+                            @foreach ($produkKadaluwarsa as $kadaluwarsa)
+                                <a href="{{ route('produksi.edit.kadaluwarsa', $kadaluwarsa->id) }}" {{-- <a href="{{ route('order.detail') }}" --}}
+                                    class="dropdown-item dropdown-item-unread">
+                                    <span class="dropdown-item-icon bg-danger text-white">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </span>
+                                    <span class="dropdown-item-desc">
+                                        {{ 'Produk dengan nama ' . $kadaluwarsa->nama_produk . ' sudah mau kadaluwarsa' }}
+                                        <br>
+                                        <span class="time text-dark">tanggal kadaluwarsa :
+                                            {{ $kadaluwarsa->kadaluwarsa }}</span>
+                                        <i class="text-danger">*silahkan update produk</i>
+                                    </span>
+                                </a>
+                            @endforeach
+                        </div>
+                    </div>
+                </li>
                 <!-- Notifications Dropdown Menu -->
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
@@ -118,6 +175,16 @@
                                 <i class="fa fa-book"></i>
                                 <p>
                                     Laporan Inventori Produksi
+
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('confirm.photo') }}"
+                                class="nav-link {{ \Route::is('confirm.photo') ? 'active' : '' }}">
+                                <i class="fa fa-box"></i>
+                                <p>
+                                    Packing Pesanan
 
                                 </p>
                             </a>

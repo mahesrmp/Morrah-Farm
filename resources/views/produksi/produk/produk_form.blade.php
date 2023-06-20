@@ -34,8 +34,14 @@
 
                         <div class="form-group">
                             <label for="stok">Stok</label>
-                            {!! Form::number('stok', null, ['class' => 'form-control']) !!}
+                            {!! Form::number('stok', $model->stok->jumlah ?? null, ['class' => 'form-control']) !!}
                             <span class="text-danger">{{ $errors->first('stok') }}</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="kadaluwarsa">Tanggal Kadaluwarsa</label>
+                            {!! Form::date('kadaluwarsa', $model->stok->kadaluwarsa ?? null, ['class' => 'form-control']) !!}
+                            <span class="text-danger">{{ $errors->first('kadaluwarsa') }}</span>
                         </div>
 
                         <div class="form-group">

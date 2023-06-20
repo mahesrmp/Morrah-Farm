@@ -1,4 +1,4 @@
-@extends('layouts.app_LTE')
+@extends('layouts.produksi')
 
 @section('content')
     <div class="card-body">
@@ -17,8 +17,8 @@
                 @foreach ($detailPesanan as $pesananDetails)
                     <tr>
                         <td>{{ $no++ }}</td>
-                        <td>{{ $pesananDetails->produk->nama_produk }}</td>
-                        <td><img style="width: 200px" src="productimage/{{ $pesananDetails->produk->gambar }}"
+                        <td>{{ optional($pesananDetails->produk)->nama_produk }}</td>
+                        <td><img style="width: 200px" src="productimage/{{ optional($pesananDetails->produk)->gambar }}"
                                 alt="Foto Produk"></td>
 
                         <td>{{ $pesananDetails->jumlah }}</td>

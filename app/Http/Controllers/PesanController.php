@@ -25,7 +25,7 @@ class PesanController extends Controller
     public function confirmPhoto()
     {
         $dataConfirmPhoto = Pesanan::where('status', '3')->paginate(10);
-        return view('manager.orders.confirm-photo', [
+        return view('produksi.confirm-product-packing', [
             'title' => 'Confirm Photo'
         ], compact('dataConfirmPhoto'));
     }
@@ -69,6 +69,17 @@ class PesanController extends Controller
         ], compact('pesanan', 'detailPesanan'));
     }
 
+    public function produksidetailPembelian($id)
+    {
+        $pesanan = Pesanan::find($id);
+        $detailPesanan = PesananDetail::where('pesanan_id', $pesanan->id)->get();
+
+        // dd($detailPesanan);
+        return view('produksi.detail-pembelian', [
+            "title" => 'Detail Pembelian'
+        ], compact('pesanan', 'detailPesanan'));
+    }
+
     public function orderResultUpload($id)
     {
         $orderResultUpload = Pesanan::find($id);
@@ -81,6 +92,7 @@ class PesanController extends Controller
     {
         $dataConfirmProcess = Pesanan::where('id', $id)->first();
         $dataConfirmProcess->status = 3;
+        // $dataConfirmProcess->status = 7;
         $dataConfirmProcess->update();
         return redirect()->route('order.detail')->with('toast_success', 'Data has been confirmed');
     }

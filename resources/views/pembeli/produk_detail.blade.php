@@ -54,7 +54,10 @@
                             {{ formatRupiah($produk->harga) }}
                         </span> <br>
                         <span class="mtext-102 cl3 p-t-23">
-                            Stok:{{ $produk->stok }}
+                            Stok : {{ $produk->stok->jumlah }}
+                        </span> <br>
+                        <span class="mtext-102 cl3 p-t-23">
+                            Tanggal Kadaluwarsa : {{ $produk->stok->kadaluwarsa }}
                         </span>
                         <!--  -->
                         <form action="{{ url('/pesan-process/' . $produk->id) }}" method="POST">

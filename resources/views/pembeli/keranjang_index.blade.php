@@ -132,15 +132,33 @@
                                                     {{ formatRupiah($pesanan_detail->jumlah_harga) }}
                                                 </td>
                                                 <td class="text-center">
-                                                    <form action="{{ url('check-out') }}/{{ $pesanan_detail->id }}"
+                                                    <form action="{{ route('produk.delete', $pesanan_detail->id) }}"
                                                         method="post">
                                                         @csrf
                                                         {{ method_field('DELETE') }}
-                                                        <button type="submit" class="btn btn-danger btn-sm"
-                                                            onclick="return confirm('Yakin Ingin Menghapus Produk?');">
+                                                        <button type="button"
+                                                            class="btn btn-danger btn-sm text-center btndelete"
+                                                            onclick="deleteData({{ $pesanan_detail->id }})">
                                                             <i class="fa fa-trash"></i>
                                                         </button>
                                                     </form>
+                                                    {{-- {!! Form::open([
+                                                        'route' => ['produk.delete', $pesanan_detail->id],
+                                                        'method' => 'DELETE',
+                                                    ]) !!}
+
+                                                    {{ Form::button('<i class="fa fa-trash"></i>', [
+                                                        'type' => 'submit',
+                                                        'class' => 'btn btn-danger btn-sm text-center btndelete',
+                                                        'id' => 'delete',
+                                                        'onclick' => "return confirm('Yakin ingin menghapus data ini?');",
+                                                    ]) }}
+                                                    {!! Form::close() !!} --}}
+                                                    {{-- <button type="button"
+                                                        class="btn btn-danger btn-sm text-center btndelete"
+                                                        onclick="deleteData({{ $pesanan_detail->id }})">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button> --}}
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -185,7 +203,7 @@
                                                 <div class="rs1-select2 bor8 bg0" style="width: 230px;">
                                                     <select class="js-select2" name="ongkir_id"
                                                         onchange="updateShippingCost(this)" required>
-                                                        <option>Alamat Pengiriman</option>
+                                                        <option value="">Alamat Pengiriman</option>
                                                         @foreach ($ongkirs as $ongkir)
                                                             <option value="{{ $ongkir->id }}"
                                                                 data-ongkos="{{ $ongkir->ongkos }}">
@@ -255,6 +273,41 @@
             margin-top: 10px;
         }
     </style>
+    <script>
+        function deleteData(id) {
+            if (confirm('Yakin ingin menghapus data ini?')) {
+                // Kirim permintaan hapus menggunakan Ajax
+                fetch(`/produk/delete/${id}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}' // Ganti dengan cara mendapatkan token CSRF di framework Anda
+                        },
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Tampilkan pesan berhasil dan lakukan tindakan lain jika diperlukan
+                        alert(data.message);
+                        window.location.reload(); // Contoh: Segarkan halaman setelah penghapusan
+                    })
+                    .catch(error => {
+                        // Tangani kesalahan jika ada
+                        console.error(error);
+                        alert('Terjadi kesalahan saat menghapus data.');
+                    });
+            }
+        }
+    </script>
+    <script>
+        function validateForm() {
+            var selectedAlamat = document.querySelector('select[name="ongkir_id"]').value;
+            if (selectedAlamat === "") {
+                alert("Alamat harus diisi");
+                return false;
+            }
+            return true;
+        }
+    </script>
     <script>
         function formatRupiah(angka) {
             return new Intl.NumberFormat('id-ID', {

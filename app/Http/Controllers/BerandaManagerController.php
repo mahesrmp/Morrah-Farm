@@ -130,7 +130,7 @@ class BerandaManagerController extends Controller
                 DB::raw('SUM(pesanan_details.jumlah) as jumlah_terjual'),
                 DB::raw('SUM(pesanan_details.jumlah * produks.harga) as pendapatan')
             )
-            ->where('pesanans.status', '>=', 5)
+            ->whereIn('pesanans.status', [5, 6])
             ->groupBy('bulan', 'produks.nama_produk', 'produks.harga')
             ->orderBy('bulan');
 

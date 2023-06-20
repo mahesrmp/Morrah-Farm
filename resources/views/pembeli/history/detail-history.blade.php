@@ -67,9 +67,7 @@
                                     <th>Nama Barang</th>
                                     <th>Jumlah</th>
                                     <th>Harga</th>
-                                    <th>Ongkos Kirim</th>
                                     <th style="width: 120px">Total Harga</th>
-                                    <th>Action</th>
                                 </tr>
                                 <?php
                                 $no = 1;
@@ -85,13 +83,12 @@
                                         <td>{{ $pesanan_detail->produk->nama_produk }}</td>
                                         <td>{{ $pesanan_detail->jumlah }} buah</td>
                                         <td>Rp. {{ number_format($pesanan_detail->produk->harga) }}</td>
-                                        <td>Rp. {{ number_format($pesanan_detail->ongkir->ongkos) }}</td>
                                         <td>Rp. {{ number_format($pesanan_detail->jumlah_harga + $historyPesanan->ongkir->ongkos) }}</td>
                                     </tr>
                                 @endforeach
                                 <tr>
-                                    <td colspan="6" class="text-end" colspan="5"><strong>Kode Pesanan :</strong></td>
-                                    <td><strong>{{ $historyPesanan->kode }}</strong></td>
+                                    <td colspan="6" class="text-end" colspan="5"><strong>Ongkos Kirim :</strong></td>
+                                    <td><strong>Rp. {{ number_format($pesanan_detail->ongkir->ongkos) }}</strong></td>
                                 </tr>
                                 <tr>
                                     <td colspan="6" class="text-end" colspan="5"><strong>Total Harga Pesanan:</strong></td>

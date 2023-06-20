@@ -9,6 +9,13 @@ use RealRashid\SweetAlert\Facades\Alert;
 class PesananDetail extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'produk_id',
+        'pesanan_id',
+        'ongkir_id',
+        'jumlah',
+        'jumlah_harga',
+    ];
 
     public function produk()
     {

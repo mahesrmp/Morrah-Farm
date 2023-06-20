@@ -75,25 +75,28 @@
                 </li>
 
                 @php
-                    $stocks = \DB::select('SELECT * from produks where stok = 0');
+                    // $stocks = \DB::select('SELECT * from produks where stok < 5');
+                    $stocks = \DB::select('SELECT s.jumlah, p.* FROM stok AS s JOIN produks AS p ON p.stok_id = s.id WHERE s.jumlah <= 5');
                     $orders = \DB::select('SELECT * from pesanans where status = 2');
+                    $produkKadaluwarsa = \DB::select('SELECT p.nama_produk, s.id, s.kadaluwarsa, s.jumlah FROM produks AS p JOIN stok s ON p.stok_id = s.id WHERE s.kadaluwarsa < DATE_ADD(CURDATE(), INTERVAL 3 DAY)');
+                    $produkpackings = \DB::select('SELECT * from pesanans where status = 4');
                 @endphp
                 <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
                         class="nav-link nav-link-lg message-toggle"><i class="far fa-bell"></i>
-                        <span class="badge headerBadge1 bg-danger">{{ count($stocks) + count($orders) }}</span> </a>
+                        <span class="badge headerBadge1 bg-danger">{{ count($stocks) + count($orders) + count($produkKadaluwarsa) + count($produkpackings) }}</span> </a>
                     <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
                         <div class="dropdown-header">
                             Messages
                         </div>
                         <div class="dropdown-list-content dropdown-list-message">
                             @foreach ($stocks as $stock)
-                                <a href="{{ route('produk.edit', $stock->id) }}"
+                                <a href="{{ route('produk.edit.stok', $stock->id) }}"
                                     class="dropdown-item dropdown-item-unread">
                                     <span class="dropdown-item-icon bg-danger text-white">
                                         <i class="fas fa-exclamation-triangle"></i>
                                     </span>
                                     <span class="dropdown-item-desc">
-                                        {{ 'Stock ' . $stock->nama_produk . ' sudah habis' }} <br>
+                                        {{ 'Stock ' . $stock->nama_produk . ' tersisa ' . $stock->jumlah }} <br>
                                         <span class="time text-dark">-- {{ $stock->updated_at }} --</span>
                                         <i class="text-danger">*silahkan lakukan pengisian stok!</i>
                                     </span>
@@ -109,6 +112,33 @@
                                         {{ 'Pesanan dengan kode ' . $order->kode . ' sudah dibayar' }} <br>
                                         <span class="time text-dark">{{ $order->updated_at }}</span>
                                         <i class="text-danger">*silahkan cek foto disini</i>
+                                    </span>
+                                </a>
+                            @endforeach
+                            @foreach ($produkKadaluwarsa as $kadaluwarsa)
+                                <a href="{{ route('produk.edit.kadaluwarsa', $kadaluwarsa->id) }}" {{-- <a href="{{ route('order.detail') }}" --}}
+                                    class="dropdown-item dropdown-item-unread">
+                                    <span class="dropdown-item-icon bg-danger text-white">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </span>
+                                    <span class="dropdown-item-desc">
+                                        {{ 'Produk dengan nama ' . $kadaluwarsa->nama_produk . ' sudah mau kadaluwarsa' }}
+                                        <br>
+                                        <span class="time text-dark">tanggal kadaluwarsa : {{ $kadaluwarsa->kadaluwarsa }}</span>
+                                        <i class="text-danger">*silahkan update produk</i>
+                                    </span>
+                                </a>
+                            @endforeach
+                            @foreach ($produkpackings as $produkpacking)
+                                <a href="{{ route('order.tracking') }}" {{-- <a href="{{ route('order.detail') }}" --}}
+                                    class="dropdown-item dropdown-item-unread">
+                                    <span class="dropdown-item-icon bg-success text-white">
+                                        <i class="fas fa-check"></i>
+                                    </span>
+                                    <span class="dropdown-item-desc">
+                                        {{ 'Pesanan dengan kode ' . $produkpacking->kode . ' sudah dipacking' }} <br>
+                                        <span class="time text-dark">{{ $produkpacking->updated_at }}</span>
+                                        <i class="text-danger">*silahkan isi form tracking</i>
                                     </span>
                                 </a>
                             @endforeach
@@ -190,7 +220,7 @@
                                 </p>
                             </a>
                         </li>
-
+                        {{-- 
                         <li class="nav-item">
                             <a href="{{ route('tugas.manager') }}"
                                 class="nav-link {{ \Route::is('tugas.manager') ? 'active' : '' }}">
@@ -200,7 +230,7 @@
 
                                 </p>
                             </a>
-                        </li>
+                        </li> --}}
 
                         <li class="nav-item">
                             <a href="{{ route('manager.customer') }}"
@@ -275,8 +305,8 @@
                             <ul class="nav nav-treeview">
                                 <li class="nav-item"><a class="nav-link" href="{{ route('order.detail') }}">New
                                         order</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{ route('confirm.photo') }}">Confirm
-                                        Photo</a></li>
+                                {{-- <li class="nav-item"><a class="nav-link" href="{{ route('confirm.photo') }}">Confirm
+                                        Photo</a></li> --}}
                                 <li class="nav-item"><a class="nav-link"
                                         href="{{ route('order.tracking') }}">Tracking </a></li>
                                 <li class="nav-item"><a class="nav-link" href="{{ route('order.finish') }}">Order
@@ -285,16 +315,19 @@
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                            <i class="fa-solid fa-book"></i>
+                                <i class="fa-solid fa-book"></i>
                                 <p>
                                     <span>Data Inventory</span>
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
-                                <li class="nav-item"><a class="nav-link" href="{{ route('manager.kerbau')}}">Laporan Kerbau Jantan</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{ route('manager.susu') }}">Laporan Susu</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{ route('manager.laporan-produksi') }}">Laporan Hasil Produksi</a></li>
+                                <li class="nav-item"><a class="nav-link"
+                                        href="{{ route('manager.kerbau') }}">Laporan Kerbau Jantan</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ route('manager.susu') }}">Laporan
+                                        Susu</a></li>
+                                <li class="nav-item"><a class="nav-link"
+                                        href="{{ route('manager.laporan-produksi') }}">Laporan Hasil Produksi</a></li>
 
                             </ul>
                         </li>

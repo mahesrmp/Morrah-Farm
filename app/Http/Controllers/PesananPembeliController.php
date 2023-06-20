@@ -126,18 +126,39 @@ class PesananPembeliController extends Controller
 
     public function delete($id)
     {
-        $pesanan_detail = PesananDetail::where('id', $id)->first();
+        try {
+            $pesanan_detail = PesananDetail::find($id);
 
-        $pesanan = Pesanan::where('id', $pesanan_detail->pesanan_id)->first();
-        $pesanan->jumlah_harga = $pesanan->jumlah_harga - $pesanan_detail->jumlah_harga;
-        $pesanan->update();
+            if (!$pesanan_detail) {
+                throw new \Exception('Data not found');
+            }
 
+            $pesanan = Pesanan::where('id', $pesanan_detail->pesanan_id)->first();
 
-        $pesanan_detail->delete();
+            if (!$pesanan) {
+                throw new \Exception('Pesanan not found');
+            }
 
-        // Alert::error('Pesanan Sukses Dihapus', 'Hapus');
-        return redirect('keranjang')->with('toast_error', 'Berhasil Menghapus dari keranjang');;
+            $pesanan->jumlah_harga = $pesanan->jumlah_harga - $pesanan_detail->jumlah_harga;
+            $pesanan->update();
+
+            // Hapus data pesanan_detail
+            $pesanan_detail->delete();
+
+            // Cek apakah masih ada pesanan_detail terkait dengan pesanan
+            $remainingDetails = PesananDetail::where('pesanan_id', $pesanan->id)->exists();
+
+            if (!$remainingDetails) {
+                // Jika tidak ada pesanan_detail lagi terkait dengan pesanan, hapus data pesanan
+                $pesanan->delete();
+            }
+
+            return response()->json(['message' => 'Berhasil Menghapus dari keranjang']);
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 500);
+        }
     }
+
 
     public function konfirmasi(Request $request)
     {
@@ -163,13 +184,13 @@ class PesananPembeliController extends Controller
         $pesanan_details = PesananDetail::where('pesanan_id', $pesanan_id)->get();
         foreach ($pesanan_details as $pesanan_detail) {
             $produk = Produk::where('id', $pesanan_detail->produk_id)->first();
-            $produk->stok = $produk->stok - $pesanan_detail->jumlah;
-            $produk->update();
+            $stok = $produk->stok;
+            $stok->jumlah = $stok->jumlah - $pesanan_detail->jumlah;
+            $stok->update();
 
             $pesanan_detail->ongkir_id = $selectedOngkir->id;
             $pesanan_detail->save();
         }
-
 
         return redirect('history/' . $pesanan_id)->with('success', 'CheckOut berhasil silahkan lakukan pembayaran');
     }

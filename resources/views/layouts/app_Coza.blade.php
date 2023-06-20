@@ -531,7 +531,7 @@
     <div class="wrap-header-cart js-panel-cart">
         <div class="s-full js-hide-cart"></div>
         @if (Auth::user())
-            <div class="header-cart flex-col-l p-l-65 p-r-25">
+            <div class="header-cart flex-col-l p-l-65 p-r-25" style="width: auto">
                 <div class="header-cart-title flex-w flex-sb-m p-b-8">
                     <span class="mtext-103 cl2">
                         Notifikasi
@@ -630,7 +630,7 @@
                     Copyright &copy;
                     <script>
                         document.write(new Date().getFullYear());
-                    </script>  Morrah Farm
+                    </script> Morrah Farm
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 
                 </p>

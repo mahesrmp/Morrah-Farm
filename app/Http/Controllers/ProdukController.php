@@ -282,4 +282,12 @@ class ProdukController extends Controller
 
         return redirect()->route('produk.index')->with('success', 'Data Produk Berhasil di Ubah');
     }
+
+    // public function destroy($id)
+    // {
+    //     $produk = Produk::find($id);
+
+    //     Alert::success('Yeee', 'Berhasil Menghapus Produk');
+    //     return back();
+    // }
 }

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('gambar');
             $table->integer('harga');
             $table->longText('keterangan');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

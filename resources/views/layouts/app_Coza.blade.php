@@ -39,6 +39,18 @@
     <link rel="stylesheet" type="text/css" href="assetuser/css/util.css">
     <link rel="stylesheet" type="text/css" href="assetuser/css/main.css">
     <!--===============================================================================================-->
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800,900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Unna:400,700&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    {{-- <link rel="stylesheet" href="assetuser/css2/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="assetuser/css2/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="assetuser/css2/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="assetuser/css2/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="assetuser/css2/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="assetuser/css2/style.css" type="text/css"> --}}
     <style>
         /* CSS untuk membuat peta responsif */
         #map-container {
@@ -600,12 +612,8 @@
             <i class="zmdi zmdi-chevron-up"></i>
         </span>
     </div>
-
-
     @yield('content')
     @include('sweetalert::alert')
-
-
     <!-- Footer -->
     <footer class="bg3 layout-footer-fixed">
         <div class="container">
@@ -632,14 +640,10 @@
                         document.write(new Date().getFullYear());
                     </script> Morrah Farm
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-
                 </p>
             </div>
         </div>
     </footer>
-
-
-
     <!--===============================================================================================-->
     <script src="assetuser/vendor/jquery/jquery-3.2.1.min.js"></script>
     <!--===============================================================================================-->
@@ -670,6 +674,12 @@
     </script>
     <!--===============================================================================================-->
     <script src="assetuser/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
+    <!-- ===============================================================================================-->
+    {{-- <script src="assetuser/js2/jquery-3.3.1.min.js"></script>
+    <script src="assetuser/js2/bootstrap.min.js"></script>
+    <script src="assetuser/js2/jquery.slicknav.js"></script>
+    <script src="assetuser/js2/owl.carousel.min.js"></script>
+    <script src="assetuser/js2/main.js"></script> --}}
     <script>
         $('.gallery-lb').each(function() { // the containers for all your galleries
             $(this).magnificPopup({

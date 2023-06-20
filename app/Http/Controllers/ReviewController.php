@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pesanan;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ReviewController extends Controller
 {
@@ -46,6 +47,7 @@ class ReviewController extends Controller
         $reviewers->review = $request->review;
         $reviewers->status = 6;
         $reviewers->save();
-        return redirect()->route('review')->with('toast_success', 'Your review has been saved');
+        Alert::success('Terima kasih', 'Review anda berhasil di tambahkan');
+        return redirect()->route('review');
     }
 }

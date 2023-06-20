@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pesanan;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class HomeController extends Controller
 {
@@ -58,6 +59,7 @@ class HomeController extends Controller
             $dataPesanan->update();
         }
 
-        return redirect()->route('history.detail')->with('toast_success', 'Gambar sudah berhasil dikirim');
+        Alert::success('Success', 'Berhasil mengirim Bukti Bayar');
+        return redirect()->route('history.detail');
     }
 }

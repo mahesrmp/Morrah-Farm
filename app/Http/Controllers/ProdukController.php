@@ -9,6 +9,7 @@ use \App\Models\Produk as Model;
 use App\Models\Produk;
 use App\Models\Rating;
 use Auth;
+use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 use Redirect;
 
@@ -191,4 +192,12 @@ class ProdukController extends Controller
         Alert::success('Yeee', 'Berhasil Menghapus Produk');
         return back();
     }
+
+    // public function destroy($id)
+    // {
+    //     $produk = Produk::find($id);
+
+    //     Alert::success('Yeee', 'Berhasil Menghapus Produk');
+    //     return back();
+    // }
 }

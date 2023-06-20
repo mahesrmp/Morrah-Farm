@@ -90,6 +90,13 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         Route::get('/kerbau/search', 'BerandaManagerController@kerbausearch')->name('kerbau.search');
         Route::get('/laporan-produksi/search', 'BerandaManagerController@laporanProduksiSearch')->name('laporan-produksi.search');
 
+        Route::get('/ongkir', [OngkirController::class, 'index'])->name('ongkir.manager');
+        Route::get('/ongkir/create', [OngkirController::class, 'create'])->name('ongkir.create');
+        Route::post('/ongkir/post', [OngkirController::class, 'store'])->name('ongkir.store');
+        Route::get('/ongkir/edit/{id}', [OngkirController::class, 'edit'])->name('ongkir.edit');
+        Route::put('/ongkir/update/{id}', [OngkirController::class, 'update'])->name('ongkir.update');
+        Route::delete('/ongkir/delete/{id}', [OngkirController::class, 'destroy'])->name('ongkir.delete');
+
 
         // Rute untuk laporan
         Route::get('laporan', [BerandaManagerController::class, 'laporan'])->name('manager.laporan');
@@ -124,22 +131,22 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         //Route::get('peternak', [KerbauController::class, 'index'])->name('peternak.kerbau.blade');
         // Route::get('peternak', [SusuPeternakController::class, 'index'])->name('peternak.susu.blade');
         Route::resource('kerbau', KerbauController::class);
-        
+
         Route::resource('susu', SusuController::class);
 
         Route::get('/akun-peternak/{id}/edit', [AdminAkunSettingController::class, 'edit'])->name('akun-peternak.edit');
         Route::put('/akun-peternak/{id}', [AdminAkunSettingController::class, 'update'])->name('akun-peternak.update');
-    
-    
-       //TAKS
-       Route::get('/task', [TaskKaryawanController::class, 'index'])->name('task.peternak');
-       
-       Route::get('/task/create', [TaskKaryawanController::class, 'create'])->name('task.create');
-       Route::post('/task/post', [TaskKaryawanController::class, 'store'])->name('task.store');
-       
 
-       Route::get('/task/{id}', [TaskKaryawanController::class, 'show'])->name('task.show');  
-       Route::post('/task/{id} ', [TaskKaryawanController::class, 'updateStatus'])->name('index.selesai');
+
+        //TAKS
+        Route::get('/task', [TaskKaryawanController::class, 'index'])->name('task.peternak');
+
+        Route::get('/task/create', [TaskKaryawanController::class, 'create'])->name('task.create');
+        Route::post('/task/post', [TaskKaryawanController::class, 'store'])->name('task.store');
+
+
+        Route::get('/task/{id}', [TaskKaryawanController::class, 'show'])->name('task.show');
+        Route::post('/task/{id} ', [TaskKaryawanController::class, 'updateStatus'])->name('index.selesai');
     });
 
 
